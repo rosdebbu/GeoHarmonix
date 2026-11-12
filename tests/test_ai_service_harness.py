@@ -355,7 +355,7 @@ class TestFlareChronosDualSystemHarness(unittest.TestCase):
         self,
     ) -> None:
         cfg = load_harness_config()
-        with tempfile.TemporaryDirectory() as tmp:
+        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
             env_file = Path(tmp) / ".env"
             env_file.write_text(
                 "SYSTEM2_ENDPOINT=https://from-dotenv.example/v1\n"
@@ -825,7 +825,7 @@ class TestFlareChronosDualSystemHarness(unittest.TestCase):
         from ai_service.harness import build_sqlite_checkpointer
         from langgraph.types import Command
 
-        with tempfile.TemporaryDirectory() as tmp:
+        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
             checkpoint_path = Path(tmp) / "checkpoints.sqlite"
             thread_id = "durable-sign-off"
 

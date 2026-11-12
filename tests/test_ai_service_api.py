@@ -40,7 +40,7 @@ class ApiCase(unittest.TestCase):
     run_timeout_s = 60.0
 
     def setUp(self) -> None:
-        self.tmp = tempfile.TemporaryDirectory()
+        self.tmp = tempfile.TemporaryDirectory(ignore_cleanup_errors=True)
         self.db = Path(self.tmp.name) / "service.sqlite"
         self.store = RunStore(self.db)
         self.app = create_app(
@@ -52,6 +52,8 @@ class ApiCase(unittest.TestCase):
         self.client = TestClient(self.app)
 
     def tearDown(self) -> None:
+        self.client.close()
+        self.store.close()
         self.tmp.cleanup()
 
     def start_signoff_run(self, who: str, thread_id: str | None = None) -> str:
@@ -229,7 +231,7 @@ class TestProductionLifespan(unittest.TestCase):
     """The deployed app builds its own harness on a durable async checkpointer."""
 
     def test_a_paused_run_streams_fully_and_resumes_on_the_async_saver(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
+        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
             app = create_app(
                 store=RunStore(Path(tmp) / "service.sqlite"),
                 auth=AuthConfig(key=TEST_SIGNING_KEY, algorithms=("HS256",)),
@@ -261,7 +263,7 @@ class TestDemoBinding(unittest.TestCase):
 
 class TestRestartSafety(unittest.TestCase):
     def test_ownership_and_audit_survive_a_restart(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
+        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
             db = Path(tmp) / "service.sqlite"
             first = RunStore(db)
             first.claim("t1", "ana")

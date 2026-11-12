@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
@@ -17,9 +17,9 @@ resolution-markers = [
 members = [
     "benchmark-cli",
     "firms-ingestion",
-    "flare-chronos-ai-service",
     "flare-chronos-core",
-    "flare-chronos-workspace",
+    "geoharmonix-ai-service",
+    "geoharmonix-workspace",
 ]
 
 [[package]]
@@ -302,7 +302,25 @@ requires-dist = [
 ]
 
 [[package]]
-name = "flare-chronos-ai-service"
+name = "flare-chronos-core"
+version = "2.0.4"
+source = { editable = "packages/harmonization-core" }
+dependencies = [
+    { name = "h3" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "pandas" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "h3", specifier = ">=4.0.0" },
+    { name = "numpy", specifier = ">=2.0.0" },
+    { name = "pandas", specifier = ">=2.2.0" },
+]
+
+[[package]]
+name = "geoharmonix-ai-service"
 version = "2.0.4"
 source = { editable = "apps/ai-service" }
 dependencies = [
@@ -336,25 +354,7 @@ requires-dist = [
 ]
 
 [[package]]
-name = "flare-chronos-core"
-version = "2.0.4"
-source = { editable = "packages/harmonization-core" }
-dependencies = [
-    { name = "h3" },
-    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
-    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
-    { name = "pandas" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "h3", specifier = ">=4.0.0" },
-    { name = "numpy", specifier = ">=2.0.0" },
-    { name = "pandas", specifier = ">=2.2.0" },
-]
-
-[[package]]
-name = "flare-chronos-workspace"
+name = "geoharmonix-workspace"
 version = "2.0.4"
 source = { virtual = "." }
 dependencies = [

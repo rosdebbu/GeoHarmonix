@@ -16,7 +16,7 @@ def checksums(raw_dir: Path) -> str:
     """The SHA256SUMS text for every CSV in ``raw_dir``, sorted by name."""
     lines = [
         f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.name}"
-        for p in sorted(raw_dir.glob("*.csv"))
+        for p in sorted(raw_dir.glob("*.csv"), key=lambda p: p.name)
     ]
     return "\n".join(lines) + "\n"
 

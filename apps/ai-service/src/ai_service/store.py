@@ -64,6 +64,11 @@ class RunStore:
                     "ALTER TABLE audit ADD COLUMN reason_code TEXT NOT NULL DEFAULT ''"
                 )
 
+    def close(self) -> None:
+        """Close the SQLite database handle."""
+        with self._lock:
+            self._db.close()
+
     def claim(self, thread_id: str, owner: str) -> bool:
         """Bind a new thread to ``owner``; True if the caller owns it afterwards."""
         with self._lock, self._db:

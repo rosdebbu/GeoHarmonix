@@ -214,6 +214,7 @@ class TestReviewSurvivesRestart(ApiCase):
         self.assertEqual(reopened.runs()[0]["thread_id"], thread)
         self.assertEqual(reopened.decisions(thread)[0]["reason_code"], "evidence")
         self.assertIn("sign_off_required", [e["type"] for e in reopened.events(thread)])
+        reopened.close()
 
     def test_the_event_log_refuses_updates_and_deletes(self) -> None:
         self.start_signoff_run("ana")
@@ -245,6 +246,7 @@ class TestReviewSurvivesRestart(ApiCase):
 
         rows = store.decisions("t")
         self.assertEqual([r["reason_code"] for r in rows], ["", "stale"])
+        store.close()
         with sqlite3.connect(old) as raw, self.assertRaises(sqlite3.DatabaseError):
             raw.execute("DELETE FROM audit")
 
