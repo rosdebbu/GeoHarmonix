@@ -80,4 +80,15 @@ export const REGION_DEFS = {
       { id: 'S-03', lon: -56.09, lat: -9.88 },
     ],
   },
-} as const satisfies Record<'mekong' | 'amazon', RegionDef>;
+  india: {
+    bbox: [68.0, 6.5, 97.5, 37.5],
+    queryBox: [68.0, 8.0, 97.5, 35.5],
+    anchor: [78.9, 20.5],
+    focus: ['356'],
+    staticSources: [
+      { id: 'S-01', lon: 77.2, lat: 28.6 },
+      { id: 'S-02', lon: 75.8, lat: 30.9 },
+      { id: 'S-03', lon: 76.9, lat: 29.9 },
+    ],
+  },
+} as const satisfies Record<'mekong' | 'amazon' | 'india', RegionDef>;

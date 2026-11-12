@@ -202,7 +202,7 @@ GeoHarmonix/
 ### Install
 
 ```bash
-git clone https://github.com/debbjitttt__/GeoHarmonix.git
+git clone https://github.com/rosdebbu/GeoHarmonix.git
 cd GeoHarmonix
 uv sync --group dev
 ```
@@ -231,6 +231,17 @@ uv run python -m pytest
 ```bash
 uv run python -m benchmark_cli.run_experiments
 ```
+
+### Harmonize and map India active fire sample (Punjab / Haryana crop burning)
+
+```bash
+uv run python scripts/map_india_sample.py
+```
+
+Outputs:
+- **Interactive Leaflet HTML Map**: `data/processed/india_fire_map.html`
+- **Harmonized GeoJSON & H3 Clusters**: `data/processed/india_harmonized_episodes.geojson`
+- **Tabular Episodes CSV**: `data/processed/india_harmonized_episodes.csv`
 
 ### Fetch real FIRMS data
 

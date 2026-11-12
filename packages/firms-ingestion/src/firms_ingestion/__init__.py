@@ -2,6 +2,8 @@
 
 from .firms_client import (
     BBOX_AMAZON,
+    BBOX_INDIA,
+    BBOX_INDIA_NORTH,
     BBOX_MEKONG,
     FIRMSClient,
     FIRMSQuerySpec,
@@ -10,6 +12,8 @@ from .firms_client import (
 
 __all__ = [
     "BBOX_AMAZON",
+    "BBOX_INDIA",
+    "BBOX_INDIA_NORTH",
     "BBOX_MEKONG",
     "FIRMSClient",
     "FIRMSQuerySpec",
