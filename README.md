@@ -377,7 +377,7 @@ Branches are auto-deleted after merge.
 
 ## Acknowledgments & Credits
 
-Special thanks to **Xiro The Dev (Lê Thành Trung)** for the initial foundational research, concept, and groundwork of the original project.
+Special thanks to **Anshumaan Das** for the initial foundational research, concept, and groundwork of the original project.
 
 ## License
 

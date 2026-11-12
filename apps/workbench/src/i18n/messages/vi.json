@@ -1,9 +1,9 @@
 {
   "Meta": {
-    "title": "Flare Chronos — Không gian phân tích",
+    "title": "GeoHarmonix — Không gian phân tích",
     "description": "Hoạt động cháy qua 26 năm, theo từng kỳ 5 ngày.",
-    "homeTitle": "Flare Chronos — Địa cầu khu vực",
-    "reviewTitle": "Flare Chronos — Xem xét"
+    "homeTitle": "GeoHarmonix — Địa cầu khu vực",
+    "reviewTitle": "GeoHarmonix — Xem xét"
   },
   "Brand": {
     "product": "Không gian phân tích"
@@ -687,9 +687,9 @@
     "text": "Điểm nóng thô {from}→{to}: {raw}% · xu hướng đã chuẩn hóa {trend}%/năm · khoảng cách KS {ksBefore} → {ksAfter} · {measured}/{total} năm quan trắc thực"
   },
   "About": {
-    "title": "Về Flare Chronos",
+    "title": "Về GeoHarmonix",
     "subtitle": "Đồng bộ hoá đa cảm biến cho bản ghi cháy chủ động từ vệ tinh",
-    "intro": "Flare Chronos đồng bộ hoá 26 năm dữ liệu cháy chủ động từ NASA FIRMS (MODIS trên Terra/Aqua, VIIRS trên Suomi-NPP, NOAA-20 và NOAA-21) cho khu vực Mekong & Việt Nam và Amazon. Ứng dụng xoá bỏ các xu hướng nhân tạo xuất hiện khi có cảm biến mới tham gia vào bản ghi, để một thay đổi trong chuỗi số liệu nghĩa là thay đổi về cháy, chứ không phải thay đổi về thiết bị.",
+    "intro": "GeoHarmonix đồng bộ hoá 26 năm dữ liệu cháy chủ động từ NASA FIRMS (MODIS trên Terra/Aqua, VIIRS trên Suomi-NPP, NOAA-20 và NOAA-21) cho khu vực Mekong & Việt Nam và Amazon. Ứng dụng xoá bỏ các xu hướng nhân tạo xuất hiện khi có cảm biến mới tham gia vào bản ghi, để một thay đổi trong chuỗi số liệu nghĩa là thay đổi về cháy, chứ không phải thay đổi về thiết bị.",
     "problemTitle": "Vấn đề",
     "problem": "Số lượng phát hiện thô tăng gấp nhiều lần ở cả hai khu vực giữa các Epochs Đo lường năm 2005 và 2024. Cháy thì không. Mỗi cảm biến mới (Suomi-NPP năm 2012, NOAA-20 năm 2019, NOAA-21 năm 2024) thêm phát hiện vì điểm ảnh nhỏ hơn và dải quét rộng hơn, chứ không phải vì diện tích cháy lớn hơn.",
     "methodTitle": "Cách đồng bộ hoá hoạt động",
@@ -739,11 +739,11 @@
     "cta": "Khám phá không gian phân tích"
   },
   "Faq": {
-    "title": "Câu hỏi thường gặp · Flare Chronos",
-    "subtitle": "Flare Chronos — đồng bộ hoá đa cảm biến cho cháy chủ động từ vệ tinh",
+    "title": "Câu hỏi thường gặp · GeoHarmonix",
+    "subtitle": "GeoHarmonix — đồng bộ hoá đa cảm biến cho cháy chủ động từ vệ tinh",
     "items": [
       {
-        "q": "Flare Chronos là gì?",
+        "q": "GeoHarmonix là gì?",
         "a": "Một không gian phân tích cho đồng bộ hoá đa cảm biến của bản ghi cháy chủ động từ vệ tinh. Ứng dụng biến các phát hiện MODIS và VIIRS rời rạc thành một chuỗi có thể so sánh cho khu vực Mekong & Việt Nam và Amazon, 2000–2026."
       },
       {

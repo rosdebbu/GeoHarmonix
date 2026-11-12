@@ -73,7 +73,7 @@ export function ReviewAudit() {
         .map(csvCell)
         .join(','),
     );
-    download('flare-chronos-audit.csv', [header.join(','), ...body].join('\n'), 'text/csv');
+    download('geoharmonix-audit.csv', [header.join(','), ...body].join('\n'), 'text/csv');
   }, [rows, download]);
 
   const exportJson = useCallback(() => {
@@ -86,7 +86,7 @@ export function ReviewAudit() {
       note: row.reason,
       audit_id: row.id,
     }));
-    download('flare-chronos-audit.json', JSON.stringify(data, null, 2), 'application/json');
+    download('geoharmonix-audit.json', JSON.stringify(data, null, 2), 'application/json');
   }, [rows, download]);
 
   return (

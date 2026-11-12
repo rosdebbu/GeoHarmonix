@@ -2,7 +2,7 @@
 
 > Cross-sensor harmonization of satellite active-fire records (MODIS + VIIRS) for the Mekong & Vietnam and Amazon regions, 2000–2026. Removes artificial trends caused by adding sensors so a change in the series means a change in fire, not a change in instrumentation.
 
-Flare Chronos is an interactive workbench and evidence set for the 2026 NASA Space Apps Challenge. It reconstructs each detection's scan-angle footprint, screens by solar zenith and the South Atlantic Anomaly, de-duplicates coincident overpasses, allocates fractionally to Uber H3 cells, aligns VIIRS fire radiative power to a MODIS-equivalent reference via quantile mapping, and scores anomalies with SFAI.
+GeoHarmonix is an interactive workbench and evidence set for the 2026 NASA Space Apps Challenge. It reconstructs each detection's scan-angle footprint, screens by solar zenith and the South Atlantic Anomaly, de-duplicates coincident overpasses, allocates fractionally to Uber H3 cells, aligns VIIRS fire radiative power to a MODIS-equivalent reference via quantile mapping, and scores anomalies with SFAI.
 
 ## Pages
 

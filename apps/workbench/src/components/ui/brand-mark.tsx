@@ -30,8 +30,8 @@ export function BrandMark({ large = false, subtitle }: { large?: boolean; subtit
       <BrandGlyph large={large} />
       <span className={`${large ? 'flex' : 'tablet:flex hidden'} flex-col leading-none`}>
         <span className={`${large ? 'text-display' : 'text-title'} font-bold tracking-tight`}>
-          <span className="text-fire">Flare</span>
-          <span className="text-brand">Chronos</span>
+          <span className="text-fire">Geo</span>
+          <span className="text-brand">Harmonix</span>
         </span>
         <span
           className={`text-micro text-ink-subtle mt-1 font-mono tracking-widest uppercase ${

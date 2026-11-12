@@ -28,7 +28,7 @@ export default async function AboutPage() {
     name: t('title'),
     description: t('subtitle'),
     url: '/about',
-    isPartOf: { '@type': 'WebSite', name: 'Flare Chronos', url: '/' },
+    isPartOf: { '@type': 'WebSite', name: 'GeoHarmonix', url: '/' },
   };
 
   return (

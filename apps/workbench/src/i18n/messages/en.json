@@ -1,9 +1,9 @@
 {
   "Meta": {
-    "title": "Flare Chronos — Workbench",
+    "title": "GeoHarmonix — Workbench",
     "description": "Burning activity across 26 years of five-day pentads.",
-    "homeTitle": "Flare Chronos — Region Globe",
-    "reviewTitle": "Flare Chronos — Review"
+    "homeTitle": "GeoHarmonix — Region Globe",
+    "reviewTitle": "GeoHarmonix — Review"
   },
   "Brand": {
     "product": "Workbench"
@@ -661,9 +661,9 @@
     "text": "Raw detections {from}→{to}: {raw}% · harmonized trend {trend}%/yr · KS distance {ksBefore} → {ksAfter} · {measured} of {total} years measured"
   },
   "About": {
-    "title": "About Flare Chronos",
+    "title": "About GeoHarmonix",
     "subtitle": "Cross-sensor harmonization of satellite active-fire records",
-    "intro": "Flare Chronos harmonizes 26 years of NASA FIRMS active-fire detections (MODIS on Terra/Aqua, VIIRS on Suomi-NPP, NOAA-20 and NOAA-21) for the Mekong & Vietnam and Amazon regions. It removes the artificial trends that appear when new sensors join the record, so that a change in the series means a change in fire, not a change in instrumentation.",
+    "intro": "GeoHarmonix harmonizes 26 years of NASA FIRMS active-fire detections (MODIS on Terra/Aqua, VIIRS on Suomi-NPP, NOAA-20 and NOAA-21) for the Mekong & Vietnam and Amazon regions. It removes the artificial trends that appear when new sensors join the record, so that a change in the series means a change in fire, not a change in instrumentation.",
     "problemTitle": "The problem",
     "problem": "Raw detections rose several-fold in both regions between the 2005 and 2024 Measured Epochs. The fires did not. Each new sensor (Suomi-NPP in 2012, NOAA-20 in 2019, NOAA-21 in 2024) adds detections because its pixels are smaller and its swath is wider, not because more area burned.",
     "methodTitle": "How harmonization works",
@@ -713,11 +713,11 @@
     "cta": "Explore the workbench"
   },
   "Faq": {
-    "title": "Frequently asked questions · Flare Chronos",
-    "subtitle": "Flare Chronos — cross-sensor harmonization of satellite active fire",
+    "title": "Frequently asked questions · GeoHarmonix",
+    "subtitle": "GeoHarmonix — cross-sensor harmonization of satellite active fire",
     "items": [
       {
-        "q": "What is Flare Chronos?",
+        "q": "What is GeoHarmonix?",
         "a": "An interactive workbench for cross-sensor harmonization of satellite active-fire records. It turns fragmented MODIS and VIIRS detections into one comparable series for the Mekong & Vietnam and Amazon regions, 2000-2026."
       },
       {

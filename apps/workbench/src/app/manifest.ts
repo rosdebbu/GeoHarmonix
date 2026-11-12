@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Flare Chronos — Workbench',
-    short_name: 'Flare Chronos',
+    name: 'GeoHarmonix — Workbench',
+    short_name: 'GeoHarmonix',
     description:
       'Cross-sensor harmonization of satellite active-fire records (MODIS + VIIRS) for the Mekong and Amazon regions, 2000–2026.',
     start_url: '/',
