@@ -1,21 +1,21 @@
 <p align="center">
-  <img src="docs/figures/flare-chronos-logo.png" alt="Flare-Chronos Official Logo" width="220" />
+  <img src="docs/figures/geoharmonix-logo.png" alt="GeoHarmonix Official Logo" width="220" />
 </p>
 
-# Flare-Chronos
+# GeoHarmonix
 
-**Full name (abbreviation note):** *Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System*
+**Full name (abbreviation note):** _Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System_
 
 Cross-sensor harmonization of multi-decadal satellite active fire observations (MODIS and VIIRS) into a unified, physics-calibrated Burning Activity Calendar.
 
 ## Name & Acronym Meaning
 
-- **FLARE** — evokes the image of a flame: the fire signal the system detects, harmonizes, and tracks.
-- **CHRONOS** — emphasizes the core deliverable, the *Burning Activity Calendar*, spanning more than 25 years of active-fire history (2000–2026+).
+- **FLARE / GEO** — evokes the image of earth observation and active thermal detection: the fire signal the system detects, harmonizes, and tracks.
+- **HARMONIX** — emphasizes the cross-sensor harmonization and the _Burning Activity Calendar_, spanning more than 25 years of active-fire history (2000–2026+).
 - The system connects and harmonizes data from the **NASA FIRMS** (Fire Information for Resource Management System) archive and near-real-time streams into one sensor-invariant, physics-calibrated record.
 
 > Reusable one-liner for reports, presentations, and proposals:
-> "Flare-Chronos — Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System: a 26-year, cross-sensor (MODIS + VIIRS) harmonized Burning Activity Calendar built on NASA FIRMS data."
+> "GeoHarmonix — Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System: a 26-year, cross-sensor (MODIS + VIIRS) harmonized Burning Activity Calendar built on NASA FIRMS data."
 
 ## Language
 
@@ -130,7 +130,7 @@ A cell of the Burning Activity Calendar whose value comes from a Measured Epoch'
 _Avoid_: Real cell, measured pentad, hard cell
 
 **Severe Anomaly Outline**:
-The cyan frame drawn on a Burning Activity Calendar cell whose Standardized Fire Anomaly Index reaches the display threshold of $+2.2\sigma$. It is a rendering convention for a *display* threshold, deliberately below the CRISIS Anomaly Tier so the calendar highlights severe anomalies before a crisis alarm is raised.
+The cyan frame drawn on a Burning Activity Calendar cell whose Standardized Fire Anomaly Index reaches the display threshold of $+2.2\sigma$. It is a rendering convention for a _display_ threshold, deliberately below the CRISIS Anomaly Tier so the calendar highlights severe anomalies before a crisis alarm is raised.
 _Avoid_: Crisis anomaly, crisis outline, alarm outline, threshold
 
 ### Visual Communication Artifacts
@@ -144,7 +144,7 @@ A hand-authored visual — motion graphic, 3D scene, title card or map animation
 _Avoid_: Figure, chart, data viz, screenshot, mock-up
 
 **Workbench**:
-The Flare-Chronos interactive analysis surface (`apps/workbench`) — a Next.js 16 + React 19 application that renders the harmonization engine's output on a Three.js 3D Region Globe, a pre-projected `d3-geo` equal-area SVG map (`1000×730` with `1–64×` pan/zoom and H3 screen-space hexagonal binning), the Burning Activity Calendar (`26 years × 73 Pentads`), the methodology surface (`/methodology`), the live AI briefing rail, the human-in-the-loop review surface (`/review`), and the cognitive benchmark matrix (`/benchmark`). It has a single mode: it reads the exported harmonization data and the live `apps/ai-service` FastAPI backend (`:5901`), and never shows replayed or placeholder results.
+The GeoHarmonix interactive analysis surface (`apps/workbench`) — a Next.js 16 + React 19 application that renders the harmonization engine's output on a Three.js 3D Region Globe, a pre-projected `d3-geo` equal-area SVG map (`1000×730` with `1–64×` pan/zoom and H3 screen-space hexagonal binning), the Burning Activity Calendar (`26 years × 73 Pentads`), the methodology surface (`/methodology`), the live AI briefing rail, the human-in-the-loop review surface (`/review`), and the cognitive benchmark matrix (`/benchmark`). It has a single mode: it reads the exported harmonization data and the live `apps/ai-service` FastAPI backend (`:5901`), and never shows replayed or placeholder results.
 _Avoid_: Dashboard, UI, app, interactive demo, live visualization, preview site
 
 **Demo Walkthrough**:

@@ -1,10 +1,10 @@
 # Region Globe, Workbench and Review
 
 <p align="center">
-  <img src="public/og.png" alt="Flare-Chronos Region Globe &amp; 26-Year Harmonized Burning Activity Calendar Preview" width="100%" />
+  <img src="public/og.png" alt="GeoHarmonix Region Globe &amp; 26-Year Harmonized Burning Activity Calendar Preview" width="100%" />
 </p>
 
-Flare Chronos has three surfaces:
+GeoHarmonix has three surfaces:
 
 - `/` — the Region Globe landing: a rotating 3D Earth with the two measured
   regions, the real 2005→2024 growth headline, and entry into either region. The

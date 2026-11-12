@@ -1,4 +1,4 @@
-# Flare-Chronos AI Service Context
+# GeoHarmonix AI Service Context
 
 Dual-process cognitive decision-support and autonomous scientific reasoning context orchestrating fast situational triage (System 1) and multi-step hypothesis verification (System 2) over deterministic cross-sensor fire harmonization tools.
 

@@ -1,5 +1,5 @@
 ::: {.front-matter}
-# FLARE-CHRONOS
+# GEOHARMONIX
 
 **NASA Space Apps Challenge 2026 — Engineering and Model Report**
 
@@ -14,7 +14,7 @@ Challenge: Harmonization of MODIS and VIIRS Hot Spots
 
 ## 1. Summary
 
-FLARE-CHRONOS is a Python and TypeScript monorepo. A pure physics core computes all harmonization steps without network or disk access. An ingestion adapter reads NASA FIRMS CSV slices. A benchmark application runs the empirical pipeline and renders the figures. A FastAPI service hosts the dual-system cognitive harness. A Next.js workbench presents the results.
+GeoHarmonix is a Python and TypeScript monorepo. A pure physics core computes all harmonization steps without network or disk access. An ingestion adapter reads NASA FIRMS CSV slices. A benchmark application runs the empirical pipeline and renders the figures. A FastAPI service hosts the dual-system cognitive harness. A Next.js workbench presents the results.
 
 The repository commits 134 non-empty NASA FIRMS CSV slices with 1,609,182 detections, pinned by SHA-256 digests and a fetch manifest. The five-day peak windows used for the case studies contain 451,488 detections. The full pipeline and the test suite run offline after a clone.
 

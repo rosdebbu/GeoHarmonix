@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://flare-chronos.resonance.io.vn/">
-    <img src="docs/figures/flare-chronos-logo.png" alt="GeoHarmonix Official Logo — 26-Year Harmonized Burning Activity Calendar" width="320" />
+    <img src="docs/figures/geoharmonix-logo.png" alt="GeoHarmonix Official Logo — 26-Year Harmonized Burning Activity Calendar" width="320" />
   </a>
 </p>
 
@@ -13,7 +13,7 @@
 > A 26-year, cross-sensor (MODIS + VIIRS) harmonized Burning Activity Calendar & Dual-System Cognitive AI Harness built on NASA FIRMS data — turning 25+ years of heterogeneous satellite active-fire observations into a single, physics-calibrated, sensor-invariant record.
 
 <p align="center">
-  <a href="https://github.com/rosdebbu/nasa/actions/workflows/ci.yml"><img src="https://github.com/rosdebbu/nasa/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/debbjitttt__/GeoHarmonix/actions/workflows/ci.yml"><img src="https://github.com/debbjitttt__/GeoHarmonix/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.11%2B-blue" alt="Python" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License" /></a>
   <a href="exports/PROPOSAL.pdf"><img src="https://img.shields.io/badge/PDF-PROPOSAL-ea580c" alt="Proposal PDF" /></a>
@@ -42,13 +42,14 @@
 - [CI / CD](#ci--cd)
 - [Domain Glossary & ADRs](#domain-glossary--adrs)
 - [Contributing](#contributing)
+- [Acknowledgments & Credits](#acknowledgments--credits)
 - [License](#license)
 
 ---
 
 ## Overview
 
-**GeoHarmonix** addresses the *Harmonization of MODIS and VIIRS Hot Spots* challenge (2026 NASA Space Apps Challenge). Satellite active-fire records spanning 2000–2026+ are fragmented across multiple sensors (MODIS on Terra/Aqua, VIIRS on Suomi-NPP/NOAA-20/NOAA-21) with incompatible spatial footprints, radiometric calibration, scan geometry, and orbital coverage. Naively summing detections creates artificial trends (e.g. the +SNPP step in 2012, +NOAA-20/21 steps in 2020/2024).
+**GeoHarmonix** addresses the _Harmonization of MODIS and VIIRS Hot Spots_ challenge (2026 NASA Space Apps Challenge). Satellite active-fire records spanning 2000–2026+ are fragmented across multiple sensors (MODIS on Terra/Aqua, VIIRS on Suomi-NPP/NOAA-20/NOAA-21) with incompatible spatial footprints, radiometric calibration, scan geometry, and orbital coverage. Naively summing detections creates artificial trends (e.g. the +SNPP step in 2012, +NOAA-20/21 steps in 2020/2024).
 
 GeoHarmonix resolves this by:
 
@@ -68,16 +69,16 @@ All five scientific benchmark charts below are deterministically rendered by `uv
 
 ### 1. Eliminating the Artificial `+1,311.2%` Multi-Sensor Step Jump & Building the 26-Year Calendar
 
-| Figure 4 — Multi-Sensor Regime Shift Elimination (`2001–2026`) | Figure 5 — 26-Year Harmonized Burning Activity Calendar (`26 × 73 Pentads`) |
-| :---: | :---: |
-| ![Figure 4 - Regime Shift Elimination](docs/figures/fig4_regime_shift_elimination.png) | ![Figure 5 - Harmonized Burning Activity Calendar](docs/figures/fig5_harmonized_burning_calendar.png) |
+|                                                                                         Figure 4 — Multi-Sensor Regime Shift Elimination (`2001–2026`)                                                                                          |                                                            Figure 5 — 26-Year Harmonized Burning Activity Calendar (`26 × 73 Pentads`)                                                            |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                             ![Figure 4 - Regime Shift Elimination](docs/figures/fig4_regime_shift_elimination.png)                                                                              |                                               ![Figure 5 - Harmonized Burning Activity Calendar](docs/figures/fig5_harmonized_burning_calendar.png)                                               |
 | Removes the artificial **+1,311.2%** step-jump in the Mekong (`2024` raw index `1,411.2` → harmonized **`90.5`**, `-9.5%` vs. `2005 = 100.0`) and **+714.3%** in the Amazon (`814.3` → **`37.7`**) while preserving real El Niño drought peaks. | Continuous `2001–2026` matrix (`25` Measured Epochs `2001–2025` + `1` Interpolated Year `2026`) with SFAI severe anomaly outlines on observed cells (`Mekong 2007: +3.7σ`, `Amazon 2002: +3.8σ`). |
 
 ### 2. Scan-Angle Footprint Physics, Overpass Deduplication & Co-Incident FRP Calibration
 
-| Figure 1 — Spherical Scan-Angle Footprint Physics (`74.23×`) | Figure 2 — Multi-Satellite Overpass Deduplication & Effort $\Omega(y, \phi)$ | Figure 3 — Two-Stage FRP Cross-Calibration ($N = 20,786$ Pairs) |
-| :---: | :---: | :---: |
-| ![Figure 1 - Scan Angle Footprint Physics](docs/figures/fig1_scan_angle_footprint_physics.png) | ![Figure 2 - Overpass Deduplication](docs/figures/fig2_overpass_deduplication_sza.png) | ![Figure 3 - Cross-Sensor FRP Calibration](docs/figures/fig3_cross_sensor_frp_quantile_mapping.png) |
+|                                              Figure 1 — Spherical Scan-Angle Footprint Physics (`74.23×`)                                               |                                      Figure 2 — Multi-Satellite Overpass Deduplication & Effort $\Omega(y, \phi)$                                       |                                     Figure 3 — Two-Stage FRP Cross-Calibration ($N = 20,786$ Pairs)                                      |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: |
+|                             ![Figure 1 - Scan Angle Footprint Physics](docs/figures/fig1_scan_angle_footprint_physics.png)                              |                                 ![Figure 2 - Overpass Deduplication](docs/figures/fig2_overpass_deduplication_sza.png)                                  |                   ![Figure 3 - Cross-Sensor FRP Calibration](docs/figures/fig3_cross_sensor_frp_quantile_mapping.png)                    |
 | MODIS edge footprint (`9.69 km²`) is **74.23×** larger than VIIRS nadir (`0.1305 km²`); empirical FIRMS mean **2.17 km²** vs. **0.22 km²** (**9.86×**). | Deduplicates afternoon constellation overpasses ($\tau = 60\text{ min}$), compressing Amazon `2024` detections **5.75×** (`112,405 → 19,542` episodes). | Reduces Kolmogorov-Smirnov distance $D_{\text{KS}}$ by **69.4%** (`0.1153 → 0.0353`) and raises log-FRP $R^2$ from `0.7839` to `0.8048`. |
 
 ---
@@ -85,7 +86,7 @@ All five scientific benchmark charts below are deterministically rendered by `uv
 ## Name & Acronym Meaning
 
 - **FLARE** — evokes the image of a flame: the fire signal the system detects, harmonizes, and tracks.
-- **CHRONOS** — emphasizes the core deliverable, the *Burning Activity Calendar*, spanning more than 25 years of active-fire history (2000–2026+).
+- **CHRONOS** — emphasizes the core deliverable, the _Burning Activity Calendar_, spanning more than 25 years of active-fire history (2000–2026+).
 - The system connects and harmonizes data from the **NASA FIRMS** (Fire Information for Resource Management System) archive and near-real-time streams into one sensor-invariant, physics-calibrated record.
 
 See [`docs/00_Project_Name_and_Acronym.md`](docs/00_Project_Name_and_Acronym.md) and [`GLOSSARY.md`](GLOSSARY.md).
@@ -165,7 +166,7 @@ The two endpoints the architecture document specifies are implemented here:
 ## Repository Layout
 
 ```
-flare-chronos/
+GeoHarmonix/
 ├── GLOSSARY.md / GLOSSARY-MAP.md      # Domain ubiquitous language (multi-context)
 ├── DESIGN.md                          # Workbench visual design system, tokens & EN/VI vocabulary
 ├── AGENTS.md                          # Agent skills config
@@ -201,8 +202,8 @@ flare-chronos/
 ### Install
 
 ```bash
-git clone https://github.com/rosdebbu/nasa.git
-cd nasa
+git clone https://github.com/debbjitttt__/GeoHarmonix.git
+cd GeoHarmonix
 uv sync --group dev
 ```
 
@@ -350,7 +351,7 @@ Continuous Integration (`.github/workflows/ci.yml`), path-filtered and cancelled
 - `workbench` — Bun: typecheck → lint → format check → test → `next build`.
 
 Continuous Deployment (`.github/workflows/cd.yml`) runs on a `v*.*.*` tag: builds and pushes
-`flare-chronos-api` and `flare-chronos-workbench` to GHCR, then SSH-deploys to the VPS and
+`geoharmonix-api` and `geoharmonix-workbench` to GHCR, then SSH-deploys to the VPS and
 smoke-tests `/health` and `/`. See [`docs/CD.md`](docs/CD.md).
 
 Branches are auto-deleted after merge.

@@ -1,4 +1,4 @@
-# flare-chronos
+# GeoHarmonix
 
 ## 2.0.4
 

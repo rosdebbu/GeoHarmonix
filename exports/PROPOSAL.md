@@ -1,5 +1,5 @@
 ::: {.front-matter}
-# FLARE-CHRONOS
+# GEOHARMONIX
 
 **NASA Space Apps Challenge 2026 — Technical Proposal**
 
@@ -22,7 +22,7 @@ MODIS and VIIRS have monitored active fire for more than two decades. MODIS flie
 
 The error is large and it is easy to mistake for a climate trend. In the Mekong subregion, the raw hotspot count rises from 3,914 in 2005 to 55,235 in 2024. That is a raw index of 1,411.2 against a 2005 baseline of 100.0, an increase of 1,311.2 percent. The MODIS reference count in the same window falls by 8.3 percent. Three VIIRS satellites entered the afternoon constellation in that period. The raw series records their arrival as a fire surge.
 
-FLARE-CHRONOS removes the sensor artifacts and keeps the physical signal. The engine reconstructs each sensor's elliptical ground footprint from the scan angle, allocates radiative energy onto H3 hexagons, unifies the day and night boundary with the solar zenith angle, filters South Atlantic Anomaly noise, calibrates fire radiative power against 20,786 co-incident Aqua and Suomi-NPP cells, clusters overpasses into fire episodes, and normalizes by observation effort. The result is a homogeneous VIIRS-equivalent record from 2000 to 2026.
+GeoHarmonix removes the sensor artifacts and keeps the physical signal. The engine reconstructs each sensor's elliptical ground footprint from the scan angle, allocates radiative energy onto H3 hexagons, unifies the day and night boundary with the solar zenith angle, filters South Atlantic Anomaly noise, calibrates fire radiative power against 20,786 co-incident Aqua and Suomi-NPP cells, clusters overpasses into fire episodes, and normalizes by observation effort. The result is a homogeneous VIIRS-equivalent record from 2000 to 2026.
 
 The project validates the method on 1,609,182 real NASA FIRMS detections across 134 cached CSV slices. The calibration reduces the Kolmogorov-Smirnov distance from 0.1153 to 0.0353, a 69.4 percent reduction, and raises the log-FRP coefficient of determination from 0.7839 to 0.8048. The harmonized Mekong index for 2024 is 90.5, which is 9.5 percent below 2005. The true El Niño peaks of 2007, 2010 and 2016 remain.
 
@@ -34,7 +34,7 @@ The deliverables are the harmonization engine, a 26-year burning activity calend
 
 | Field | Response |
 | :--- | :--- |
-| Project Name | FLARE-CHRONOS — Fire Radiative Power Longitudinal Alignment, Radiometric Equalization and Cross-Sensor Harmonization for Multi-Decadal Observations |
+| Project Name | GeoHarmonix — Fire Radiative Power Longitudinal Alignment, Radiometric Equalization and Cross-Sensor Harmonization for Multi-Decadal Observations |
 | Challenge Addressed | Harmonization of MODIS and VIIRS Hot Spots (NASA Earth Science Division / LANCE FIRMS) |
 | High-Level Project Summary — What did you develop? | A physics-guided cross-sensor harmonization engine, a 26-year burning activity calendar, a dual-system LangGraph harness with 15 use cases and 18 deterministic tools, and an interactive Next.js workbench. |
 | High-Level Project Summary — How does it address the challenge? | It resolves the five physical discontinuities between MODIS and VIIRS: scan-angle footprint growth, detection-limit divergence, afternoon overpass redundancy, day and night flag drift, and South Atlantic Anomaly noise. It produces a homogeneous VIIRS-equivalent fire record from 2000 to 2026. |

@@ -1,4 +1,4 @@
-# DESIGN.md — Flare Chronos UI/UX specification
+# DESIGN.md — GeoHarmonix UI/UX specification
 
 The single source of truth for aesthetic direction, tokens, shared primitives, icon
 vocabulary, layout rules, and user-facing copy. Domain terms live in `GLOSSARY.md`;
@@ -144,7 +144,7 @@ Location `apps/workbench/src/components/ui`. One concern per file, flat.
 |---|---|
 | `icon.tsx` | `ICON` concept registry and `Icon`. Renders `lucide-react`; sets `aria-hidden` and `focusable="false"`; `size` is `xs \| sm \| md \| lg \| xl`. |
 | `segmented-control.tsx` | `role="group"`, `aria-pressed` buttons, mono labels, 2 px inset track. |
-| `brand-mark.tsx` | CSS crop of `/logo.png` plus the `FLARE CHRONOS` wordmark; decorative image, `alt=""`. |
+| `brand-mark.tsx` | CSS crop of `/logo.png` plus the `GEOHARMONIX` wordmark; decorative image, `alt=""`. |
 | `theme-toggle.tsx` | Icon button; flips the theme cookie and `data-theme` without a reload. |
 | `locale-toggle.tsx` | Two-state EN/VI control; flips the locale cookie and refreshes server copy. |
 
