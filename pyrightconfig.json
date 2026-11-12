@@ -1,0 +1,17 @@
+{
+  "include": ["src", "packages", "apps", "tests"],
+  "venvPath": ".",
+  "venv": ".venv",
+  "extraPaths": [
+    "src",
+    "packages/harmonization-core/src",
+    "packages/firms-ingestion/src",
+    "apps/benchmark-cli/src",
+    "apps/ai-service/src"
+  ],
+  "pythonVersion": "3.11",
+  "typeCheckingMode": "basic",
+  "reportArgumentType": false,
+  "reportGeneralTypeIssues": false,
+  "reportCallIssue": false
+}

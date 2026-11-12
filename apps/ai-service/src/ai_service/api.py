@@ -1,0 +1,410 @@
+"""The web-facing analysis API (ADR-0011).
+
+FastAPI app with bearer-token identity, identity-bound sign-off, SSE with event
+ids, a per-run time budget and CORS. The Sign-off Principal comes from validated
+token claims and never from the request body.
+
+Known limit: the run time budget cancels the stream, but harness nodes are
+synchronous and keep running in a worker thread until they return, so a timed-out
+run can overlap the next one. Hard cancellation needs the nodes to be async.
+
+Scope note: events carry ids, but a dropped connection is not replayed; a client
+that reconnects with Last-Event-ID starts a fresh read of the checkpointed
+thread. Persisting per-thread events is a separate, larger change.
+"""
+
+from __future__ import annotations
+
+import asyncio
+import json
+import os
+import re
+import tempfile
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Annotated, Any, Literal
+from uuid import uuid4
+
+import jwt
+from fastapi import Depends, FastAPI, HTTPException, Query, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from pydantic import BaseModel, Field
+
+from ai_service.events import HarnessEvent
+from ai_service.harness import DEFAULT_CHECKPOINT_PATH, FlareChronosDualSystemHarness
+from ai_service.review import audit_rows, project_run, review_queue
+from ai_service.schemas import UseCaseId
+from ai_service.store import RunStore
+
+DEFAULT_STORE_PATH = DEFAULT_CHECKPOINT_PATH.with_name("service.sqlite")
+DEFAULT_RUN_TIMEOUT_S = 120.0
+APPROVER_ROLE = "approver"
+
+
+@dataclass(frozen=True)
+class AuthConfig:
+    """How bearer tokens are validated. ``disabled`` is for the local demo only."""
+
+    key: str | None = None
+    algorithms: tuple[str, ...] = ("HS256",)
+    issuer: str | None = None
+    audience: str | None = None
+    disabled: bool = False
+
+    @classmethod
+    def from_env(cls) -> AuthConfig:
+        if os.environ.get("AI_SERVICE_AUTH") == "disabled":
+            return cls(disabled=True)
+        return cls(
+            key=os.environ.get("AI_SERVICE_JWT_KEY"),
+            algorithms=tuple(
+                os.environ.get("AI_SERVICE_JWT_ALGORITHMS", "HS256").split(",")
+            ),
+            issuer=os.environ.get("AI_SERVICE_JWT_ISSUER"),
+            audience=os.environ.get("AI_SERVICE_JWT_AUDIENCE"),
+        )
+
+
+@dataclass(frozen=True)
+class Principal:
+    """The authenticated identity behind a request."""
+
+    sub: str
+    roles: frozenset[str] = field(default_factory=frozenset)
+
+
+ReasonCode = Literal[
+    "evidence", "stale", "duplicate", "conflict", "authority", "degraded", "other"
+]
+
+
+class ResumeRequest(BaseModel):
+    thread_id: str = Field(min_length=1)
+    approved: bool
+    reason: str = ""
+    reason_code: ReasonCode | None = None
+
+
+def _unauthorized(detail: str) -> HTTPException:
+    return HTTPException(401, detail, headers={"WWW-Authenticate": "Bearer"})
+
+
+_bearer = HTTPBearer(auto_error=False)
+# `fc-dev-<jwt>` / `fc-examiner-<jwt>`: the prefix tells a human whose token it is. It is
+# stripped before validation and never read as a claim, so it cannot grant anything.
+_TOKEN_LABEL = re.compile(r"^fc-(?:dev|examiner)-")
+
+
+def authenticate(
+    request: Request,
+    credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer)],
+) -> Principal:
+    cfg: AuthConfig = request.app.state.auth
+    if cfg.disabled:
+        return Principal("demo", frozenset({APPROVER_ROLE}))
+    if credentials is None or not credentials.credentials or not cfg.key:
+        raise _unauthorized("a bearer token is required")
+    bearer = _TOKEN_LABEL.sub("", credentials.credentials, count=1)
+    try:
+        claims = jwt.decode(
+            bearer,
+            cfg.key,
+            algorithms=list(cfg.algorithms),
+            issuer=cfg.issuer,
+            audience=cfg.audience,
+            options={"require": ["sub", "exp"]},
+        )
+    except jwt.PyJWTError as exc:
+        raise _unauthorized(f"invalid token: {exc}") from exc
+    return Principal(str(claims["sub"]), frozenset(claims.get("roles") or ()))
+
+
+def _frames(
+    events: AsyncIterator[HarnessEvent],
+    budget_s: float,
+    store: RunStore | None = None,
+    thread_id: str | None = None,
+) -> AsyncIterator[bytes]:
+    async def run() -> AsyncIterator[bytes]:
+        n = 0
+        try:
+            async with asyncio.timeout(budget_s):
+                async for event in events:
+                    n += 1
+                    yield f"id: {n}\n".encode() + event.to_sse()
+        except TimeoutError:
+            failed = HarnessEvent(
+                "run_failed",
+                {"error": f"run exceeded its time budget of {budget_s:g}s"},
+            )
+            if store is not None and thread_id is not None:
+                store.append_event(thread_id, failed.type, failed.data)
+            yield f"id: {n + 1}\n".encode() + failed.to_sse()
+
+    return run()
+
+
+def create_app(
+    *,
+    harness: FlareChronosDualSystemHarness | None = None,
+    store: RunStore | None = None,
+    auth: AuthConfig | None = None,
+    run_timeout_s: float | None = None,
+    mode: str = "deterministic",
+    checkpoint_path: Path | None = None,
+) -> FastAPI:
+    @asynccontextmanager
+    async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+        if app.state.harness is not None:
+            yield
+            return
+        from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
+
+        ckpt = checkpoint_path or DEFAULT_CHECKPOINT_PATH
+        ckpt.parent.mkdir(parents=True, exist_ok=True)
+        async with AsyncSqliteSaver.from_conn_string(str(ckpt)) as saver:
+            app.state.harness = FlareChronosDualSystemHarness(
+                mode=mode,  # type: ignore[arg-type]
+                enable_cache=True,
+                enable_sign_off=True,
+                checkpointer=saver,
+            )
+            yield
+
+    app = FastAPI(
+        title="Flare-Chronos analysis API", version="1.0.0", lifespan=lifespan
+    )
+    app.state.harness = harness
+    app.state.store = store or RunStore(DEFAULT_STORE_PATH)
+    app.state.auth = auth or AuthConfig.from_env()
+    app.state.run_timeout_s = (
+        run_timeout_s
+        if run_timeout_s is not None
+        else float(os.environ.get("AI_SERVICE_RUN_TIMEOUT_S", DEFAULT_RUN_TIMEOUT_S))
+    )
+    # ponytail: one run at a time; the graph is not proven safe to interleave.
+    # Per-thread locks if concurrent users become real.
+    app.state.run_lock = asyncio.Lock()
+
+    origins = [o for o in os.environ.get("AI_SERVICE_CORS_ORIGINS", "").split(",") if o]
+    # Local demo (auth disabled, loopback-only) ships a default Workbench origin so
+    # the browser can reach the service without extra configuration.
+    if not origins and getattr(app.state.auth, "disabled", False):
+        origins = [
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+            "http://localhost:5900",
+            "http://127.0.0.1:5900",
+        ]
+    if origins:
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=origins,
+            allow_methods=["GET", "POST"],
+            allow_headers=["Authorization", "Content-Type", "Last-Event-ID"],
+        )
+
+    # No caching: every retry after a reload must hit the service, not a stale
+    # browser/CDN response (otherwise connect() can read a cached 401/200).
+    @app.middleware("http")
+    async def _no_cache(request: Request, call_next: Any) -> Any:
+        response = await call_next(request)
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+        return response
+
+    def recorded(
+        store: RunStore, thread_id: str, events: AsyncIterator[HarnessEvent]
+    ) -> AsyncIterator[HarnessEvent]:
+        async def run() -> AsyncIterator[HarnessEvent]:
+            async for event in events:
+                store.append_event(thread_id, event.type, event.data)
+                yield event
+
+        return run()
+
+    def stream_response(
+        request: Request, events: AsyncIterator[HarnessEvent], thread_id: str
+    ) -> StreamingResponse:
+        events = recorded(request.app.state.store, thread_id, events)
+
+        async def locked() -> AsyncIterator[bytes]:
+            async with request.app.state.run_lock:
+                async for frame in _frames(
+                    events,
+                    request.app.state.run_timeout_s,
+                    request.app.state.store,
+                    thread_id,
+                ):
+                    yield frame
+
+        return StreamingResponse(
+            locked(),
+            media_type="text/event-stream",
+            headers={"Cache-Control": "no-cache"},
+        )
+
+    @app.get("/api/v1/analysis/use-cases")
+    def use_cases(_: Annotated[Principal, Depends(authenticate)]) -> dict[str, Any]:
+        return {"use_cases": [{"id": u.value, "label": u.value} for u in UseCaseId]}
+
+    @app.get(
+        "/api/v1/analysis/stream",
+        response_class=StreamingResponse,
+        responses={
+            200: {
+                "description": "Server-Sent Events",
+                "content": {"text/event-stream": {}},
+            },
+            400: {"description": "query is required"},
+            401: {"description": "missing or invalid bearer token"},
+            403: {"description": "the thread belongs to another principal"},
+        },
+    )
+    def stream(
+        request: Request,
+        principal: Annotated[Principal, Depends(authenticate)],
+        query: Annotated[str, Query(max_length=4000)] = "",
+        use_case_id: Annotated[
+            str | None, Query(max_length=64, pattern=r"^[A-Za-z0-9._-]+$")
+        ] = None,
+        thread_id: Annotated[
+            str | None, Query(max_length=128, pattern=r"^[A-Za-z0-9._-]+$")
+        ] = None,
+    ) -> StreamingResponse:
+        query = query.strip()
+        if not query:
+            raise HTTPException(400, "query is required")
+        thread = thread_id or f"run-{uuid4().hex}"
+        if not request.app.state.store.claim(thread, principal.sub):
+            raise HTTPException(404, "no such run")
+        return stream_response(
+            request,
+            request.app.state.harness.astream_use_case(
+                user_query=query, use_case_id=use_case_id or None, thread_id=thread
+            ),
+            thread,
+        )
+
+    @app.post(
+        "/api/v1/analysis/resume",
+        response_class=StreamingResponse,
+        responses={
+            200: {
+                "description": "Server-Sent Events",
+                "content": {"text/event-stream": {}},
+            },
+            401: {"description": "missing or invalid bearer token"},
+            403: {"description": "only the owner or an approver may decide"},
+            404: {"description": "no such run"},
+            409: {"description": "the run has no sign-off request waiting"},
+        },
+    )
+    async def resume(
+        request: Request,
+        body: ResumeRequest,
+        principal: Annotated[Principal, Depends(authenticate)],
+    ) -> StreamingResponse:
+        store: RunStore = request.app.state.store
+        owner = store.owner_of(body.thread_id)
+        if owner is None:
+            raise HTTPException(404, "no such run")
+        if principal.sub != owner and APPROVER_ROLE not in principal.roles:
+            raise HTTPException(404, "no such run")
+        pending = await request.app.state.harness.apending_requests(body.thread_id)
+        if not any(p.get("kind") == "sign_off" for p in pending):
+            raise HTTPException(409, "this run has no sign-off request waiting")
+        store.record_decision(
+            body.thread_id,
+            principal.sub,
+            body.approved,
+            body.reason,
+            body.reason_code or "",
+        )
+        answer = {
+            "approved": body.approved,
+            "reason": body.reason,
+            "decided_by": principal.sub,
+        }
+        return stream_response(
+            request,
+            request.app.state.harness.astream_resume(body.thread_id, answer),
+            body.thread_id,
+        )
+
+    @app.get("/api/v1/review/runs")
+    def review_runs(
+        request: Request,
+        principal: Annotated[Principal, Depends(authenticate)],
+    ) -> dict[str, Any]:
+        runs = review_queue(
+            request.app.state.store,
+            principal.sub,
+            is_approver=APPROVER_ROLE in principal.roles,
+        )
+        return {"runs": runs}
+
+    def visible_run(request: Request, principal: Principal, run_id: str) -> str:
+        """The run's owner, or 404 / 403 when it is missing or not the caller's."""
+        owner = request.app.state.store.owner_of(run_id)
+        if owner is None or (
+            principal.sub != owner and APPROVER_ROLE not in principal.roles
+        ):
+            raise HTTPException(404, "no such run")
+        return owner
+
+    @app.get("/api/v1/review/runs/{run_id}")
+    def review_run(
+        run_id: str,
+        request: Request,
+        principal: Annotated[Principal, Depends(authenticate)],
+    ) -> dict[str, Any]:
+        owner = visible_run(request, principal, run_id)
+        store: RunStore = request.app.state.store
+        run = project_run(run_id, owner, store.events(run_id), store.decisions(run_id))
+        if run is None:
+            raise HTTPException(404, "this run never asked for a sign-off")
+        return run
+
+    @app.get("/api/v1/review/runs/{run_id}/audit")
+    def review_audit(
+        run_id: str,
+        request: Request,
+        principal: Annotated[Principal, Depends(authenticate)],
+    ) -> dict[str, Any]:
+        visible_run(request, principal, run_id)
+        return {"audit": audit_rows(request.app.state.store.decisions(run_id))}
+
+    @app.get("/health")
+    def health() -> dict[str, str]:
+        """Liveness probe for containers and load balancers (no auth)."""
+        return {"status": "ok"}
+
+    return app
+
+
+def export_openapi(path: Path) -> None:
+    """Write the OpenAPI schema the frontend generates its types from."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory() as tmp:
+        app = create_app(
+            harness=FlareChronosDualSystemHarness(mode="deterministic"),
+            store=RunStore(Path(tmp) / "unused.sqlite"),
+            auth=AuthConfig(disabled=True),
+        )
+        schema = app.openapi()
+    path.write_text(
+        json.dumps(schema, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+
+
+if __name__ == "__main__":
+    # Regenerate the committed contract: python -m ai_service.api
+    export_openapi(
+        Path(__file__).resolve().parents[4] / "docs" / "openapi" / "ai-service.json"
+    )

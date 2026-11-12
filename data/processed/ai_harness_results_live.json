@@ -1,0 +1,520 @@
+{
+  "harness_framework": "LangGraph StateGraph + ToolNode + MemorySaver + Pydantic v2",
+  "models": {
+    "system1_reflexive": {
+      "protocol": "typed_questions",
+      "model_id": "clef-flash",
+      "endpoint": "http://127.0.0.1:11434/v1/systemone"
+    },
+    "system2_deliberative": {
+      "protocol": "native_chat",
+      "model_id": "beam",
+      "endpoint": "https://ollama.com/api/chat",
+      "thinking_level": "xhigh"
+    }
+  },
+  "mode": "live",
+  "total_use_cases_executed": 15,
+  "system1_use_cases_count": 5,
+  "system2_use_cases_count": 10,
+  "deterministic_tools_registered": 18,
+  "all_verifications_passed": true,
+  "triage_fallbacks": [
+    "UC-S1.1",
+    "UC-S1.2",
+    "UC-S1.3",
+    "UC-S1.4",
+    "UC-S1.5",
+    "UC-1.1",
+    "UC-1.2",
+    "UC-1.3",
+    "UC-2.1",
+    "UC-2.2",
+    "UC-2.3",
+    "UC-3.1",
+    "UC-3.3",
+    "UC-4.1",
+    "UC-4.2"
+  ],
+  "triage_confidence_sources": [
+    "self_reported"
+  ],
+  "zero_unverified_numbers_in_final_outputs": true,
+  "total_duration_sec": 89.87,
+  "slowest_use_cases": [
+    [
+      "UC-3.3",
+      11.07
+    ],
+    [
+      "UC-4.1",
+      10.49
+    ],
+    [
+      "UC-4.2",
+      9.37
+    ],
+    [
+      "UC-1.3",
+      9.24
+    ],
+    [
+      "UC-2.1",
+      7.91
+    ]
+  ],
+  "symbiosis_benchmarks": {
+    "s1_to_s2_dynamic_escalation": {
+      "initial_use_case": "UC-S1.3",
+      "resulting_cognitive_path": "escalated_s1_to_s2",
+      "escalated_from_system1": true,
+      "escalation_reason": "Physical divergence 1320.7% (>= 200.0%) or SAA anomalies (0) detected in tool_lookup_single_epoch_metrics.",
+      "escalated_tools": [
+        "tool_lookup_single_epoch_metrics",
+        "tool_uc1_1_regime_shift_attribution",
+        "tool_deduplicate_overpass_episodes"
+      ],
+      "verification_passed": true,
+      "error": ""
+    },
+    "numeric_verifier_self_correction_loop": {
+      "injected_unverified_number": 98765.4321,
+      "self_correction_retries_triggered": 1,
+      "final_verification_passed": true,
+      "final_unverified_numbers": [],
+      "error": ""
+    },
+    "s2_to_s1_verified_pattern_cache": {
+      "use_case_id": "UC-1.1",
+      "cognitive_path": "distilled_cache_hit",
+      "distilled_cache_hit": true,
+      "cached_patterns_total": 15,
+      "error": ""
+    }
+  },
+  "use_case_runs": [
+    {
+      "use_case_id": "UC-S1.1",
+      "cognitive_path": "system1_fast_lookup",
+      "pruned_tool_names": [
+        "tool_lookup_single_epoch_metrics"
+      ],
+      "verified_facts_ingested": 31,
+      "verification_passed": true,
+      "checked_numbers_count": 10,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0
+      },
+      "has_system2_reasoning_trace": false,
+      "synthesis_mode": "deterministic",
+      "duration_sec": 0.84,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system1_fast_lookup | System 1: clef-flash | System 2: beam | Synthesis: deterministic]\n### Verified Analysis Report (UC-S1.1)\n- **Tool Executed (`tool_lookup_single_epoch_metrics`)**:\n  - `use_case_id`: UC-S1.3\n  - `region`: mekong\n  - `year`: **2024**\n  - `total_raw_detections`: **55235**\n  - `modis_reference_detections`: **3588**\n  - `deduplicated_fire_episodes`: **24902**\n  - `effective_observation_effort_omega`: **2.0645**\n  - `harmonized_viirs_eq_episodes`: **8150.0**\n  - `raw_index_2005_eq_100`: **1411.2**\n  - `harmonized_index_2005_eq_100`: **90.5**\n  - `raw_vs_harmonized_index_divergence_pct`: **1320.7**\n  - `saa_rejected_count`: **0**"
+    },
+    {
+      "use_case_id": "UC-S1.2",
+      "cognitive_path": "system1_fast_lookup",
+      "pruned_tool_names": [
+        "tool_lookup_single_epoch_metrics"
+      ],
+      "verified_facts_ingested": 31,
+      "verification_passed": true,
+      "checked_numbers_count": 10,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0
+      },
+      "has_system2_reasoning_trace": false,
+      "synthesis_mode": "deterministic",
+      "duration_sec": 0.82,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system1_fast_lookup | System 1: clef-flash | System 2: beam | Synthesis: deterministic]\n### Verified Analysis Report (UC-S1.2)\n- **Tool Executed (`tool_lookup_single_epoch_metrics`)**:\n  - `use_case_id`: UC-S1.3\n  - `region`: amazon\n  - `year`: **2024**\n  - `total_raw_detections`: **112405**\n  - `modis_reference_detections`: **8151**\n  - `deduplicated_fire_episodes`: **19542**\n  - `effective_observation_effort_omega`: **2.6716**\n  - `harmonized_viirs_eq_episodes`: **4942.4**\n  - `raw_index_2005_eq_100`: **814.3**\n  - `harmonized_index_2005_eq_100`: **37.7**\n  - `raw_vs_harmonized_index_divergence_pct`: **776.6**\n  - `saa_rejected_count`: **15434**"
+    },
+    {
+      "use_case_id": "UC-S1.3",
+      "cognitive_path": "system1_fast_lookup",
+      "pruned_tool_names": [
+        "tool_lookup_single_epoch_metrics"
+      ],
+      "verified_facts_ingested": 31,
+      "verification_passed": true,
+      "checked_numbers_count": 10,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0
+      },
+      "has_system2_reasoning_trace": false,
+      "synthesis_mode": "deterministic",
+      "duration_sec": 1.61,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system1_fast_lookup | System 1: clef-flash | System 2: beam | Synthesis: deterministic]\n### Verified Analysis Report (UC-S1.3)\n- **Tool Executed (`tool_lookup_single_epoch_metrics`)**:\n  - `use_case_id`: UC-S1.3\n  - `region`: mekong\n  - `year`: **2024**\n  - `total_raw_detections`: **55235**\n  - `modis_reference_detections`: **3588**\n  - `deduplicated_fire_episodes`: **24902**\n  - `effective_observation_effort_omega`: **2.0645**\n  - `harmonized_viirs_eq_episodes`: **8150.0**\n  - `raw_index_2005_eq_100`: **1411.2**\n  - `harmonized_index_2005_eq_100`: **90.5**\n  - `raw_vs_harmonized_index_divergence_pct`: **1320.7**\n  - `saa_rejected_count`: **0**"
+    },
+    {
+      "use_case_id": "UC-S1.4",
+      "cognitive_path": "system1_flash_alert",
+      "pruned_tool_names": [
+        "tool_emit_flash_nrt_alert"
+      ],
+      "verified_facts_ingested": 22,
+      "verification_passed": true,
+      "checked_numbers_count": 7,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0
+      },
+      "has_system2_reasoning_trace": false,
+      "synthesis_mode": "deterministic",
+      "duration_sec": 1.73,
+      "final_briefing_preview": "[FIELD_RANGER BRIEFING | Cognitive Path: system1_flash_alert | System 1: clef-flash | System 2: beam | Synthesis: deterministic]\n### Verified Analysis Report (UC-S1.4)\n- **Tool Executed (`tool_emit_flash_nrt_alert`)**:\n  - `use_case_id`: UC-S1.4\n  - `region`: amazon\n  - `modis_nrt_count`: **965**\n  - `viirs_snpp_nrt_count`: **4061**\n  - `viirs_noaa20_nrt_count`: **4898**\n  - `viirs_noaa21_nrt_count`: **4045**\n  - `total_live_nrt_detections`: **13969**\n  - `estimated_unique_fire_episodes`: **2805**\n  - `effective_observation_effort_omega`: **2.0847**\n  - `flash_alert_tier`: TIER_1_ACTIVE_MONITORING"
+    },
+    {
+      "use_case_id": "UC-S1.5",
+      "cognitive_path": "system1_fast_lookup",
+      "pruned_tool_names": [
+        "tool_assemble_stakeholder_briefing_card"
+      ],
+      "verified_facts_ingested": 31,
+      "verification_passed": true,
+      "checked_numbers_count": 10,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0
+      },
+      "has_system2_reasoning_trace": false,
+      "synthesis_mode": "deterministic",
+      "duration_sec": 0.89,
+      "final_briefing_preview": "[FORESTRY_EXECUTIVE BRIEFING | Cognitive Path: system1_fast_lookup | System 1: clef-flash | System 2: beam | Synthesis: deterministic]\n### Verified Analysis Report (UC-S1.5)\n- **Tool Executed (`tool_assemble_stakeholder_briefing_card`)**:\n  - `use_case_id`: UC-S1.5\n  - `region`: mekong\n  - `year`: **2024**\n  - `total_raw_detections`: **55235**\n  - `deduplicated_fire_episodes`: **24902**\n  - `harmonized_viirs_eq_episodes`: **8150.0**\n  - `raw_index_2005_eq_100`: **1411.2**\n  - `harmonized_index_2005_eq_100`: **90.5**\n  - `effective_observation_effort_omega`: **2.0645**\n  - `saa_rejected_count`: **0**\n  - `modis_mean_footprint_area_km2`: **2.17**\n  - `viirs_mean_footprint_area_km2`: **0.22**"
+    },
+    {
+      "use_case_id": "UC-1.1",
+      "cognitive_path": "system2_deliberative",
+      "pruned_tool_names": [
+        "tool_uc1_1_regime_shift_attribution",
+        "tool_deduplicate_overpass_episodes"
+      ],
+      "verified_facts_ingested": 52,
+      "verification_passed": true,
+      "checked_numbers_count": 23,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 5609,
+        "completion_tokens": 621
+      },
+      "has_system2_reasoning_trace": true,
+      "synthesis_mode": "llm",
+      "duration_sec": 7.53,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system2_deliberative | System 1: clef-flash | System 2: beam | Synthesis: llm]\n## UC-1.1 Regime-Shift Attribution: Mekong 2005 \u2192 2024\n\n**Physical interpretation.** The apparent explosion in Mekong fire activity between 2005 and 2024 is almost entirely an artifact of sensor multiplicity and sub-pixel sensitivity growth, not a physical increase in burning. Once the constellation step-jump and deduplication are removed, the harmonized record shows a modest physical decline.\n\n**Evidence.**\n\n- Raw detections rose from 3914 to 55235, an apparent step-jump of 1311.2%. This is the Constellation Step-Jump Illusion: the constellation grew, so raw counts are not comparable across years.\n- The MODIS reference count (a stable single-sensor benchmark) moved from 3914 to 3588, a change of -8.3%. This is the physical signal stripped of sensor multiplicity.\n- Effective observation effort \u03a9 rose from 0.9145 to 2.0645, reflecting the growing constellation. Raw counts scale with \u03a9, so they cannot be read as fire change.\n- Deduplication compressed 55235 raw detections into 24902 episodes (compression ratio 2.218), removing overpass repeats.\n- After effort n"
+    },
+    {
+      "use_case_id": "UC-1.2",
+      "cognitive_path": "system2_deliberative",
+      "pruned_tool_names": [
+        "tool_uc1_2_cross_sensor_discrepancy_forensics",
+        "tool_compute_footprint_and_h3_allocation"
+      ],
+      "verified_facts_ingested": 22,
+      "verification_passed": true,
+      "checked_numbers_count": 12,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 5354,
+        "completion_tokens": 936
+      },
+      "has_system2_reasoning_trace": true,
+      "synthesis_mode": "llm",
+      "duration_sec": 7.11,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system2_deliberative | System 1: clef-flash | System 2: beam | Synthesis: llm]\n## UC-1.2 Cross-Sensor Discrepancy Forensics \u2014 Mekong, 2024\n\n**Physical interpretation.** The representative co-incident detection analysed here is a VIIRS active-fire cluster that Aqua-MODIS missed. The forensics point to a **scan-angle / footprint asymmetry** rather than a South Atlantic Anomaly (SAA) artefact or a true absence of fire: MODIS was viewing the cluster far off-nadir, inflating its ground footprint and raising its FRP detection floor above the cluster's actual radiative output, while VIIRS retained a compact footprint and a low detection floor.\n\n**Evidence (all quantities from the UC-1.2 forensics tool, defaults applied: MODIS scan angle 52\u00b0, VIIRS cluster FRP 18.5 MW, default latitude/longitude/day-night):**\n\n- MODIS scan angle: 52\u00b0, yielding a footprint area of 6.7515 km\u00b2.\n- VIIRS footprint area: 0.3273 km\u00b2.\n- Footprint area asymmetry ratio (MODIS / VIIRS): 20.63 \u2014 the Point-Buffer Illusion in action: a single MODIS detection integrates over an area roughly twenty times larger than VIIRS's, diluting sub-pixel fire signal.\n- MODIS FRP detectio"
+    },
+    {
+      "use_case_id": "UC-1.3",
+      "cognitive_path": "system2_deliberative",
+      "pruned_tool_names": [
+        "tool_uc1_3_thermal_source_origin_classification",
+        "tool_evaluate_detection_probability_and_saa"
+      ],
+      "verified_facts_ingested": 25,
+      "verification_passed": true,
+      "checked_numbers_count": 17,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 5369,
+        "completion_tokens": 1281
+      },
+      "has_system2_reasoning_trace": true,
+      "synthesis_mode": "llm",
+      "duration_sec": 9.24,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system2_deliberative | System 1: clef-flash | System 2: beam | Synthesis: llm]\n## UC-1.3 Thermal Source Origin Classification \u2014 Mekong\n\n**Physical interpretation.** The classification separates three thermally distinct source populations that coexist in the Mekong basin: (i) small, short-lived agricultural residue burns that are sub-pixel for MODIS but resolved by VIIRS; (ii) larger deforestation slash-and-burn fronts; and (iii) persistent static industrial flares. Each population leaves a different signature in the harmonized record, and the multipliers below quantify how sensor sensitivity reshapes the apparent source mix.\n\n**Evidence and quantities.**\n\n- **Agricultural residue burning (small sub-pixel fires).** In Mekong, the agricultural small-fire sub-pixel multiplier is 3.4134, meaning VIIRS resolves roughly 3.4\u00d7 more of these small burns than MODIS can see. This is the dominant source of the \"extra\" detections that the Constellation Step-Jump Illusion would otherwise misattribute to increased fire activity. These fires are numerous, low-FRP, and spatially dispersed across cropland.\n\n- **Deforestation slash-and-burn (larger fronts"
+    },
+    {
+      "use_case_id": "UC-2.1",
+      "cognitive_path": "system2_deliberative",
+      "pruned_tool_names": [
+        "tool_uc2_1_phenological_phase_shift_detection",
+        "tool_query_seasonal_phenology_12m"
+      ],
+      "verified_facts_ingested": 40,
+      "verification_passed": true,
+      "checked_numbers_count": 29,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 5491,
+        "completion_tokens": 821
+      },
+      "has_system2_reasoning_trace": true,
+      "synthesis_mode": "llm",
+      "duration_sec": 7.91,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system2_deliberative | System 1: clef-flash | System 2: beam | Synthesis: llm]\n## UC-2.1 \u2014 Early-Onset Burning Phenological Phase-Shift Detection: Mekong\n\n### Physical Interpretation\n\nThe Mekong fire season normally peaks within pentads 11\u201322. During El Ni\u00f1o / severe drought years, the burning phase shifts earlier by 3 pentads (15 days), with onset detected at pentad 8. This advance is consistent with drought-driven fuel desiccation and earlier agricultural residue burning, compressing the pre-monsoon fire window.\n\n### Evidence\n\n- **Phase shift magnitude:** 3 pentads = 15 days advance relative to the climatological peak window (pentads 11\u201322).\n- **El Ni\u00f1o 2010 early onset:** MODIS detections on Feb 05 = 3175.\n- **2024 (SNPP) Feb 05 detections:** 10471 \u2014 note this is a different sensor (VIIRS SNPP) and not directly comparable to MODIS counts without harmonization; the constellation step-jump illusion applies.\n- **Severe drought 2007 (Mar 15):** MODIS detections = 11296 vs. 2005 baseline (Mar 15) = 3580.\n- **Peak standardized fire anomaly:** Mekong SFAI Z-score = 3.666 \u03c3 in 2007; Amazon peak = 3.793 \u03c3 in 2002.\n\n### Limits & Assumptions\n\n-"
+    },
+    {
+      "use_case_id": "UC-2.2",
+      "cognitive_path": "system2_deliberative",
+      "pruned_tool_names": [
+        "tool_uc2_2_uncertainty_aware_tactical_dispatch",
+        "tool_compute_footprint_and_h3_allocation"
+      ],
+      "verified_facts_ingested": 31,
+      "verification_passed": true,
+      "checked_numbers_count": 14,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 5332,
+        "completion_tokens": 626
+      },
+      "has_system2_reasoning_trace": true,
+      "synthesis_mode": "llm",
+      "duration_sec": 6.88,
+      "final_briefing_preview": "[FIELD_RANGER BRIEFING | Cognitive Path: system2_deliberative | System 1: clef-flash | System 2: beam | Synthesis: llm]\n**UC-2.2 \u2014 Uncertainty-Aware Tactical Ranger Dispatch**\n\n**Operational implication:** A MODIS edge-of-scan detection defines a large elliptical search zone; dispatching on that footprint alone risks a wide-area sweep. Refining with VIIRS collapses the search area by a factor of 19.58, so the recommended tactic is a two-stage dispatch: coarse MODIS ellipse first, then VIIRS refinement before committing ground crews.\n\n**Footprint uncertainty (MODIS edge-of-scan):**\n- Ellipse area: 9.6875 km\u00b2\n- Scan dimension: 4.8299 km\n- Track dimension: 2.0057 km\n- Track azimuth: 351.54\u00b0\n- H3 Res-8 search cells to cover: 10\n\n**VIIRS refinement:**\n- Refined search area: 0.4947 km\u00b2\n- H3 Res-8 search cells to cover: 1\n\n**Revisit & clustering schedule:**\n- Afternoon VIIRS constellation revisit interval: 25 minutes\n- Episode clustering window: 95 minutes\n\n**Ranger guidance:** Treat the MODIS ellipse as the initial containment boundary and hold ground deployment until the VIIRS refinement pass (0.4947 km\u00b2, 1 cell) confirms the fire location. Revisit cadence of 25 minutes supports rapid r"
+    },
+    {
+      "use_case_id": "UC-2.3",
+      "cognitive_path": "system2_deliberative",
+      "pruned_tool_names": [
+        "tool_assemble_stakeholder_briefing_card"
+      ],
+      "verified_facts_ingested": 31,
+      "verification_passed": true,
+      "checked_numbers_count": 19,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 5378,
+        "completion_tokens": 1129
+      },
+      "has_system2_reasoning_trace": true,
+      "synthesis_mode": "llm",
+      "duration_sec": 7.08,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system2_deliberative | System 1: clef-flash | System 2: beam | Synthesis: llm]\n## UC-2.3 Cross-Verified Multi-Stakeholder Briefing \u2014 Mekong, 2024\n\n**Physical interpretation.** The 2024 Mekong fire record illustrates both dominant illusions the harmonization system exists to remove. Raw detections are inflated by constellation growth (effective observation effort \u03c9 = 2.0645), so the raw index against the 2005 baseline reads 1411.2 \u2014 an apparent fourteen-fold increase that is largely a sensing-capacity artifact. After effort normalization and cross-sensor harmonization, the harmonized index is 90.5, i.e. fire activity sits slightly below the 2005 reference level. The harmonized VIIRS-equivalent episode count is 8150, versus 24902 deduplicated physical episodes and 55235 raw thermal detections \u2014 a compression that reflects both overpass deduplication and the removal of sensor-multiplicity inflation.\n\n**Point-Buffer Illusion.** A single detection is an area, not a point. Mean footprint area is 2.17 km\u00b2 for MODIS versus 0.22 km\u00b2 for VIIRS, so MODIS footprints are roughly an order of magnitude larger; any point-based buffer analysis would mis"
+    },
+    {
+      "use_case_id": "UC-3.1",
+      "cognitive_path": "system2_deliberative",
+      "pruned_tool_names": [
+        "tool_uc3_1_constellation_retirement_simulation"
+      ],
+      "verified_facts_ingested": 28,
+      "verification_passed": true,
+      "checked_numbers_count": 23,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 5392,
+        "completion_tokens": 841
+      },
+      "has_system2_reasoning_trace": true,
+      "synthesis_mode": "llm",
+      "duration_sec": 7.3,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system2_deliberative | System 1: clef-flash | System 2: beam | Synthesis: llm]\n## UC-3.1 \u2014 Post-2026 Constellation Retirement Simulation (Mekong, 2024)\n\n### Physical interpretation\n\nRetiring Terra, Aqua (MODIS), and Suomi-NPP leaves only the JPSS pair (NOAA-20 + NOAA-21) in orbit. The raw detection count falls sharply \u2014 from 55235 to 34152 (16965 from NOAA-20 and 17187 from NOAA-21) \u2014 a 38.2% drop. This is the **Constellation Step-Jump Illusion** in reverse: fewer satellites means fewer raw counts, but not necessarily less fire.\n\nThe harmonized record tells a different story. Full 5-satellite harmonized episodes are 8150; JPSS-only harmonized episodes are 7798.7. The post-retirement continuity drift is only 4.31%. The effort-normalization (omega) absorbs the loss of sensing capacity, so the physical fire signal \u2014 not the satellite count \u2014 drives the harmonized episode count.\n\n### Key evidence\n\n- **Raw detections (5-sat):** 55235\n- **Raw detections (JPSS-only):** 34152 (NOAA-20: 16965, NOAA-21: 17187)\n- **Raw count drop:** 38.2%\n- **Harmonized episodes (5-sat):** 8150\n- **Harmonized episodes (JPSS-only):** 7798.7\n- **Post-retirement cont"
+    },
+    {
+      "use_case_id": "UC-3.3",
+      "cognitive_path": "system2_deliberative",
+      "pruned_tool_names": [
+        "tool_uc3_3_autonomous_biome_recalibration",
+        "tool_calibrate_cross_sensor_frp"
+      ],
+      "verified_facts_ingested": 34,
+      "verification_passed": true,
+      "checked_numbers_count": 20,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 1,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [
+        {
+          "attempt": 1,
+          "unverified_numbers": [
+            11553.0,
+            11553.0
+          ],
+          "unresolved_citations": [],
+          "feedback": "VIOLATION OF DETERMINISTIC TOOL GATE: the draft contains the numbers [11553.0] that no deterministic tool produced. Remove each of them, or replace it with a cited fact. Re-synthesize using only numbers from the Tool outputs, and do not repeat this draft.",
+          "rejected_draft": "## UC-3.3 Audit \u2014 Aqua-SNPP Co-Incident Calibration Transfer Function\n\n**Scope note:** The request referenced N = 11553 co-incident cell pairs, but the published artifact audit returned 20786 co-incident Aqua-SNPP cell pairs. The narrative below is grounded in the tool output; the discrepancy between the requested N and the audited N is flagged for reconciliation.\n\n### Transfer function (Two-Stage Observation Operator + Empirical Quantile Mapping)\n\nThe fitted cross-sensor transfer function is a power-law observation operator with scan-tail correction:\n\n- Power-law exponent (\u03b1): 1.7397\n- Power-law coefficient (\u03b2): 0.9221\n- Scan-tail \u03ba: 0.1\n\nThese parameters were fitted across the 20786 co-incident Aqua-SNPP cell pairs in the published artifact. The operator first applies a scan-angle-depend"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 8981,
+        "completion_tokens": 1420
+      },
+      "has_system2_reasoning_trace": true,
+      "synthesis_mode": "llm",
+      "duration_sec": 11.07,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system2_deliberative | System 1: clef-flash | System 2: beam | Synthesis: llm]\n## UC-3.3 Audit \u2014 Aqua-SNPP Co-Incident Calibration Transfer Function\n\n### Transfer function (Two-Stage Observation Operator + Empirical Quantile Mapping)\n\nThe fitted cross-sensor transfer function is a power-law observation operator with scan-tail correction:\n\n- Power-law exponent (\u03b1): 1.7397\n- Power-law coefficient (\u03b2): 0.9221\n- Scan-tail \u03ba: 0.1\n\nThese parameters were fitted across the 20786 co-incident Aqua-SNPP cell pairs in the published artifact. The operator first applies a scan-angle-dependent observation operator to MODIS FRP, then an empirical quantile mapping (EQM) to align the Aqua and SNPP distributions.\n\n### Goodness-of-fit (raw vs. harmonized)\n\n| Metric | Raw (pre-harmonization) | Harmonized (post-EQM) |\n|---|---|---|\n| R\u00b2 | 0.7839 | 0.8048 |\n| RMSE (MW) | 141.087 | 134.077 |\n\nHarmonization lifts R\u00b2 from 0.7839 to 0.8048 and reduces RMSE from 141.087 MW to 134.077 MW, indicating the two-stage operator removes a measurable fraction of cross-sensor bias.\n\n### KS distance reduction (distributional alignment)\n\n- KS distance before harmonization: 0."
+    },
+    {
+      "use_case_id": "UC-4.1",
+      "cognitive_path": "system2_deliberative",
+      "pruned_tool_names": [
+        "tool_uc4_1_orbital_drift_and_sza_audit",
+        "tool_compute_solar_sza_and_daynight"
+      ],
+      "verified_facts_ingested": 34,
+      "verification_passed": true,
+      "checked_numbers_count": 39,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 5470,
+        "completion_tokens": 1511
+      },
+      "has_system2_reasoning_trace": true,
+      "synthesis_mode": "llm",
+      "duration_sec": 10.49,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system2_deliberative | System 1: clef-flash | System 2: beam | Synthesis: llm]\n## UC-4.1 Audit: Terra/Aqua Orbital Drift and MODIS Reference Count Stability (2001\u20132026)\n\n**Scope.** This audit examines the stability of the MODIS reference count across the 2001\u20132026 record for the Amazon area of interest (with Mekong shown for cross-regional context), using the stored effort-normalized constellation parameters and raw MODIS detection counts.\n\n### Constellation effort baseline (omega)\n\n- Terra-only 2001 effort: 0.52\n- Dual-MODIS 2005 reference effort: 1\n- Five-satellite 2026 effort: 2.08\n\nThe effective observation effort rises monotonically across the record, reflecting constellation growth. Under the Constellation Step-Jump Illusion, raw counts would be expected to rise with omega; the MODIS-only counts below do not.\n\n### MODIS reference counts \u2014 Amazon (area of interest)\n\n- 2001 (Terra only): 3364\n- 2005 (dual-MODIS baseline): 13804\n- 2024: 8151\n- 2026: 3555\n\n### MODIS reference counts \u2014 Mekong (cross-regional context)\n\n- 2001 (Terra only): 238\n- 2005 (dual-MODIS baseline): 3914\n- 2024: 3588\n- 2026: 2016\n\n### Interpretation\n\n1. **Orbital"
+    },
+    {
+      "use_case_id": "UC-4.2",
+      "cognitive_path": "system2_deliberative",
+      "pruned_tool_names": [
+        "tool_uc4_2_nrt_vs_sp_fidelity_audit"
+      ],
+      "verified_facts_ingested": 28,
+      "verification_passed": true,
+      "checked_numbers_count": 21,
+      "unverified_numbers_count": 0,
+      "self_correction_retries": 0,
+      "clarification_requests": 0,
+      "triage_fallback": "SystemOneChatModel_unavailable: Cannot reach http://127.0.0.1:11434/v1/systemone: [Errno 61] Connection refused",
+      "triage_confidence_source": "self_reported",
+      "thinking_level_supported": true,
+      "clarification_questions": [],
+      "tool_rounds": 1,
+      "verification_rejections": [],
+      "usage": {
+        "prompt_tokens": 5385,
+        "completion_tokens": 1023
+      },
+      "has_system2_reasoning_trace": true,
+      "synthesis_mode": "llm",
+      "duration_sec": 9.37,
+      "final_briefing_preview": "[CLIMATE_SCIENTIST BRIEFING | Cognitive Path: system2_deliberative | System 1: clef-flash | System 2: beam | Synthesis: llm]\n## UC-4.2 \u2014 NRT vs Standard Processing Fidelity and SAA Nighttime False-Alarm Filtering\n\n**Scope.** This audit examines 7-day open Near-Real-Time (NRT) feeds for South Atlantic Anomaly (SAA) nighttime false-alarm rejection, comparing two VIIRS sensors (SNPP and NOAA-20) over South America (the SAA-affected domain) and Southeast Asia (an SAA-free control domain).\n\n### SAA filtering by sensor and region\n\n- **South America \u2014 SNPP:** 57713 7-day rows; 2674 rejected as SAA nighttime proton-spike false alarms (4.633%).\n- **South America \u2014 NOAA-20:** 60052 7-day rows; 2130 rejected (3.547%).\n- **Southeast Asia \u2014 SNPP:** 73555 7-day rows; 0 SAA rejections (control region outside the SAA footprint).\n\n### Aggregate\n\n- **Total SAA false alarms rejected across the 7-day window:** 4804.\n\n### Interpretation\n\nThe SAA is a geomagnetic noise region that produces spurious night-time detections; detections falling within it must be rejected before harmonization. The audit shows a clear geographic signature: South America, which lies under the SAA, exhibits substantial SAA-filte"
+    }
+  ]
+}

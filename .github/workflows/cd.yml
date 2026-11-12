@@ -1,0 +1,107 @@
+name: CD
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+concurrency:
+  group: cd-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: api
+            context: .
+            dockerfile: apps/ai-service/Dockerfile
+            image: ghcr.io/debbjitttt__/geoharmonix-api
+          - name: workbench
+            context: .
+            dockerfile: apps/workbench/Dockerfile
+            image: ghcr.io/debbjitttt__/geoharmonix-workbench
+    steps:
+      - name: Check out
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+      - name: Log in to GHCR
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
+        with:
+          images: ${{ matrix.image }}
+          tags: |
+            type=ref,event=tag
+            type=sha,prefix=,format=short
+            type=raw,value=latest
+      - name: Build and push
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            ${{ matrix.name == 'workbench' && format('NEXT_PUBLIC_AI_SERVICE_URL={0}', vars.NEXT_PUBLIC_AI_SERVICE_URL || '') || '' }}
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Check out
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Copy compose file to VPS
+        uses: appleboy/scp-action@917f8b81dfc1ccd331fef9e2d61bdc6c8be94634 # v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "deploy/docker-compose.yml"
+          target: "/opt/geoharmonix/"
+      - name: Deploy and smoke test
+        uses: appleboy/ssh-action@7eaf76671a0d7eec5d98ee897acda4f968735a17 # v1.2.0
+        env:
+          TAG: ${{ github.ref_name }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          envs: TAG
+          script: |
+            set -euo pipefail
+            cd /opt/geoharmonix
+            export TAG="${TAG}"
+            docker compose pull
+            docker compose up -d
+            for i in $(seq 1 30); do
+              if python3 -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5901/health')" 2>/dev/null; then
+                break
+              fi
+              sleep 2
+            done
+            python3 -c "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:5901/health').read().decode())"
+            for i in $(seq 1 30); do
+              if curl -fsS -o /dev/null http://127.0.0.1:5900/; then
+                break
+              fi
+              sleep 2
+            done
+            curl -fsS -o /dev/null http://127.0.0.1:5900/
+            echo "Deploy ${TAG} complete."

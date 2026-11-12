@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    # Pinned: verify the pandoc/weasyprint/font toolchain before moving to
+    # ubuntu-26 (ubuntu-latest migrates 2026-10-19 per runner-images#14748).
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Install tools (pandoc, weasyprint, poppler, fonts)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq pandoc poppler-utils weasyprint fonts-liberation fonts-noto-core
+          weasyprint --version
+          pandoc --version | head -1
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        with:
+          bun-version: latest
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          python-version: "3.13"
+          enable-cache: true
+      - name: Install dependencies
+        run: |
+          bun install --frozen-lockfile
+          uv sync --group dev
+      - name: Preflight checks (entry format + version match)
+        run: python3 scripts/check-docs.py --scan --require-tools
+      - name: Create release PR or tag the release
+        id: changesets
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+        with:
+          github-token: ${{ secrets.RELEASE_TOKEN }}
+          version-script: bun run doc:version
+          publish-script: bun run release
+          commit-message: "chore(release): version packages"
+      - name: Attach the exported PDFs to the GitHub release
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # The release package lives at the repo root, so `changeset publish`
+          # tags it v<version> (not <name>@<version> like nested packages).
+          echo '${{ steps.changesets.outputs.published-packages }}' \
+            | jq -r '.[] | "v\(.version)"' \
+            | while read -r tag; do
+                gh release upload "$tag" exports/PROPOSAL.pdf exports/PROPOSAL.md exports/REPORT.pdf exports/REPORT.md --clobber
+              done

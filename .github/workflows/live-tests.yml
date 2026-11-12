@@ -1,0 +1,53 @@
+name: Live Model Tests
+
+# The default CI workflow never calls a hosted language model. This one does,
+# weekly and on demand, so provider credit is spent only here.
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+    inputs:
+      pytest_args:
+        description: 'Extra pytest arguments, e.g. "-k slice_3" to run a subset'
+        required: false
+        default: ""
+
+concurrency:
+  group: live-model-tests
+  cancel-in-progress: false
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v5
+
+      - name: Sync dependencies
+        run: uv sync --group dev
+
+      - name: Run live model tests
+        run: uv run python -m pytest -m live -v
+        env:
+          PYTEST_ADDOPTS: ${{ inputs.pytest_args }}
+          # The Reflexive Layer prefers a decision endpoint that runs on the
+          # project's own inference node. A hosted runner cannot reach that
+          # private network, so the classifier chain steps down to its chat
+          # fallback, which uses SYSTEM1_API_KEY. Set both secrets to the
+          # credential of the chat provider; no private host or tunnel is
+          # involved here.
+          SYSTEM1_API_KEY: ${{ secrets.SYSTEM1_API_KEY }}
+          SYSTEM2_API_KEY: ${{ secrets.SYSTEM2_API_KEY }}
+
+      - name: Report provider usage
+        if: always()
+        run: |
+          echo "Live model tests finished. Check the provider usage dashboard for the spend of this run."

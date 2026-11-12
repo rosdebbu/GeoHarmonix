@@ -1,0 +1,25 @@
+{
+  "name": "geoharmonix",
+  "version": "2.0.4",
+  "private": true,
+  "author": "debbjitttt__ <rossdebb452@gmail.com>",
+  "description": "GeoHarmonix — changelog and release automation for the exported proposal documents",
+  "packageManager": "bun@1.4.4",
+  "scripts": {
+    "doc:version": "changeset version && bun scripts/apply-version.mjs && uv run python exports/export_pdf.py",
+    "release": "changeset publish",
+    "credentials": "uv run python scripts/mint_credentials.py",
+    "check-docs": "python3 scripts/check-docs.py --scan",
+    "format": "bun fmt apps/workbench",
+    "format:check": "bun fmt --check apps/workbench",
+    "lint-workbench": "bun run --cwd apps/workbench lint",
+    "typecheck": "bun run --cwd apps/workbench typecheck",
+    "test:workbench": "bun run --cwd apps/workbench test"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
