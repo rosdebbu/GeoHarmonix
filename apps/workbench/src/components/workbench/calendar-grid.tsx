@@ -129,8 +129,10 @@ export function CalendarGrid({
         event.clientY,
         region.years.length,
       );
-      if (!sameRef(hover, next)) onHover(next);
-      onTip?.(event.clientX, event.clientY);
+      if (!sameRef(hover, next)) {
+        onHover(next);
+        onTip?.(event.clientX, event.clientY);
+      }
     },
     [hover, onHover, onTip, region.years.length],
   );
