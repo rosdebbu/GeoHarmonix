@@ -15,20 +15,27 @@ function failure(status: number): { ok: false; reason: FailureReason } {
   return { ok: false, reason: REASONS[status] ?? 'unavailable' };
 }
 
-/** The one place a bearer token meets a request. A network error is `unavailable`. */
+const DEFAULT_FETCH_TIMEOUT_MS = 15_000;
+
+/** The one place a bearer token meets a request. A network error or timeout is `unavailable`. */
 async function authedFetch(
   fetcher: typeof fetch,
   token: string,
   path: string,
   init: RequestInit,
 ): Promise<Response | null> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), DEFAULT_FETCH_TIMEOUT_MS);
   try {
     return await fetcher(`${SERVICE_URL}${path}`, {
       ...init,
+      signal: init.signal ?? controller.signal,
       headers: { ...init.headers, authorization: `Bearer ${token}` },
     });
   } catch {
     return null;
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 
