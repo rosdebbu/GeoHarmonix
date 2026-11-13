@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useService } from '@/components/service/service-provider';
 import { useReviewRuns } from '@/lib/review/hooks';
@@ -42,6 +42,8 @@ export function AppHeader({
   const { data: reviewRows = [] } = useReviewRuns();
   const needsDecision = reviewRows.filter((row) => row.status === 'needs').length;
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const connected = reviewStore.connection === 'connected';
   const down = reviewStore.connection === 'unavailable';
   const serviceLabel = down
@@ -61,6 +63,28 @@ export function AppHeader({
   );
   const toggleMenu = useCallback(() => setMenuOpen((value) => !value), []);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  // Close menu on outside click or Escape key
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const handleClick = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    document.addEventListener('mousedown', handleClick);
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, [menuOpen]);
   const handleServiceMenu = useCallback(() => {
     setMenuOpen(false);
     onService();
@@ -195,8 +219,9 @@ export function AppHeader({
         <LocaleToggle />
         <ThemeToggle />
 
-        <div className="relative xl:hidden">
+        <div className="relative xl:hidden" ref={menuRef}>
           <button
+            ref={menuButtonRef}
             type="button"
             onClick={toggleMenu}
             aria-label={t('menu')}
@@ -206,9 +231,14 @@ export function AppHeader({
             <Icon icon={ICON.menu} size="sm" />
           </button>
           {menuOpen && (
-            <div className="border-line bg-panel absolute top-full right-0 z-50 mt-1 flex w-44 flex-col rounded-md border p-1">
+            <div
+              role="menu"
+              aria-label={t('menu')}
+              className="border-line bg-panel absolute top-full right-0 z-50 mt-1 flex w-44 flex-col rounded-md border p-1 shadow-lg"
+            >
               <button
                 type="button"
+                role="menuitem"
                 onClick={handleServiceMenu}
                 className="text-body text-ink hover:bg-chip rounded-sm px-2 py-1.5 text-left"
               >
@@ -216,6 +246,7 @@ export function AppHeader({
               </button>
               <button
                 type="button"
+                role="menuitem"
                 onClick={handleTourMenu}
                 className="text-body text-ink hover:bg-chip rounded-sm px-2 py-1.5 text-left"
               >
@@ -223,6 +254,7 @@ export function AppHeader({
               </button>
               <button
                 type="button"
+                role="menuitem"
                 onClick={handleEvidenceMenu}
                 className="text-body text-ink hover:bg-chip rounded-sm px-2 py-1.5 text-left"
               >
@@ -230,6 +262,7 @@ export function AppHeader({
               </button>
               <button
                 type="button"
+                role="menuitem"
                 onClick={handleBriefingMenu}
                 className="text-body text-ink hover:bg-chip rounded-sm px-2 py-1.5 text-left"
               >
@@ -237,6 +270,7 @@ export function AppHeader({
               </button>
               <Link
                 href="/review"
+                role="menuitem"
                 onClick={closeMenu}
                 className="text-body text-ink hover:bg-chip flex items-center justify-between rounded-sm px-2 py-1.5 text-left"
               >
@@ -249,6 +283,7 @@ export function AppHeader({
               </Link>
               <Link
                 href="/"
+                role="menuitem"
                 onClick={closeMenu}
                 className="text-body text-ink hover:bg-chip rounded-sm px-2 py-1.5 text-left"
               >
