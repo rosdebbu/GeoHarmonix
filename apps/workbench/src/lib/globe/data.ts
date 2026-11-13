@@ -3,7 +3,7 @@ import type { GlobeData } from './types';
 
 const DEG = Math.PI / 180;
 
-export const GLOBE_DATA = raw as GlobeData;
+export const GLOBE_DATA = raw as unknown as GlobeData;
 
 /** Spherical position for a lon/lat pair at radius `r`, matching the texture UV. */
 export function lonLatToVec(lon: number, lat: number, r = 1): [x: number, y: number, z: number] {
