@@ -69,7 +69,7 @@ export function PhysicsFilters({
           </button>
         ))}
       </div>
-      <p className="font-mono">
+      <p className="font-mono" role="status" aria-live="polite">
         {off.length
           ? t('off', { filters: off.join(', ') })
           : t('removed', {

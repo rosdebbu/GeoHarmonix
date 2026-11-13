@@ -15,7 +15,14 @@ import { BurningCalendar } from './burning-calendar';
 import { ClockPane } from './clock-pane';
 import dynamic from 'next/dynamic';
 const ComparatorPane = dynamic(() => import('./comparator-pane').then((m) => m.ComparatorPane), {
-  loading: () => <div className="bg-chip h-64 animate-pulse rounded-md" />,
+  loading: () => (
+    <div
+      role="status"
+      aria-busy="true"
+      aria-label="Loading comparison data"
+      className="bg-chip h-64 animate-pulse rounded-md"
+    />
+  ),
 });
 import { EvidenceDrawer } from './evidence-drawer';
 import { EvidenceQuickLook } from './evidence-quick-look';
@@ -233,22 +240,24 @@ export function WorkbenchShell({
 
       <nav
         aria-label={tTabs('label')}
+        role="tablist"
         className="border-line bg-surface tablet:hidden fixed inset-x-0 bottom-0 z-40 flex h-14 border-t"
       >
         {TABS.map((item) => (
           <button
             key={item}
             type="button"
-            aria-pressed={tab === item}
+            role="tab"
+            aria-selected={tab === item}
             value={item}
             onClick={handleTabClick}
-            className={`text-meta relative flex flex-1 flex-col items-center justify-center gap-0.5 font-medium ${
-              tab === item ? 'text-ink' : 'text-ink-subtle'
+            className={`text-meta relative flex flex-1 flex-col items-center justify-center gap-0.5 font-medium transition-colors ${
+              tab === item ? 'text-ink' : 'text-ink-subtle hover:text-ink'
             }`}
           >
             <span
               aria-hidden="true"
-              className={`absolute top-0 h-0.5 w-8 rounded-b ${
+              className={`absolute top-0 h-0.5 w-8 rounded-b transition-colors ${
                 tab === item ? 'bg-ink' : 'bg-transparent'
               }`}
             />

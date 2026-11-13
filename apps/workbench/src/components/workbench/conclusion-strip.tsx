@@ -20,7 +20,7 @@ export function ConclusionStrip({
 
   return (
     <p
-      className="border-line bg-panel text-meta text-ink-muted max-tablet:hidden mb-2.5 rounded-md border px-3 py-1.5 font-mono"
+      className="border-line bg-panel text-meta text-ink-muted mb-2.5 rounded-md border px-3 py-1.5 font-mono"
       data-testid="conclusion-strip"
     >
       <span className="text-ink-subtle uppercase">{t('label')}</span>{' '}

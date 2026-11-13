@@ -21,11 +21,15 @@ function Arrow({ label }: { label: string }) {
   return (
     <div
       aria-hidden="true"
-      className="text-ink-subtle tablet:flex hidden flex-col items-center justify-center gap-0.5 px-1"
+      className="text-ink-subtle flex items-center justify-center gap-1 py-1 tablet:flex-col tablet:gap-0.5 tablet:px-1 tablet:py-0"
     >
-      <svg width={28} height={10} viewBox="0 0 28 10">
+      <svg width={28} height={10} viewBox="0 0 28 10" className="hidden tablet:block">
         <line x1={1} y1={5} x2={24} y2={5} stroke="currentColor" strokeWidth={1.2} />
         <path d="M21 1.5 L26 5 L21 8.5" fill="none" stroke="currentColor" strokeWidth={1.2} />
+      </svg>
+      <svg width={10} height={16} viewBox="0 0 10 16" className="tablet:hidden">
+        <line x1={5} y1={1} x2={5} y2={12} stroke="currentColor" strokeWidth={1.2} />
+        <path d="M1.5 9 L5 13.5 L8.5 9" fill="none" stroke="currentColor" strokeWidth={1.2} />
       </svg>
       <span className="text-micro font-mono">{label}</span>
     </div>
