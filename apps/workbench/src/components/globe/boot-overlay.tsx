@@ -61,8 +61,8 @@ export function BootOverlay({ steps = BOOT_STEPS, done, onDone }: BootOverlayPro
             </span>
           </span>
           <span className="text-metric font-bold tracking-tight">
-            <span className="text-fire">Flare</span>
-            <span className="text-brand">Chronos</span>
+            <span className="text-fire">Geo</span>
+            <span className="text-brand">Harmonix</span>
           </span>
         </div>
 
