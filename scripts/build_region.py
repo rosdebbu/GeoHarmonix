@@ -1,10 +1,13 @@
-"""Build the South Asia region (id ``india``: India, Bangladesh, Myanmar) from real FIRMS slices.
+"""Build an extra region from real FIRMS slices and merge it into the processed artifacts.
 
-Runs the same harmonization as Mekong and Amazon on ``data/raw/india__*`` and merges the
-result into ``empirical_results.json`` and ``burning_calendar.json``. The Mekong and Amazon
-entries are left as they are. Requires the slices from ``benchmark_cli.fetch_real_firms``.
+Regions: ``india`` (India, Bangladesh, Myanmar) and ``maritime`` (Indonesia, Malaysia,
+Singapore, Brunei, Philippines, Timor-Leste). Runs the same harmonization as Mekong and
+Amazon on ``data/raw/<region>__*`` and merges the result into ``empirical_results.json``
+and ``burning_calendar.json``; other regions are left as they are. Requires the slices from
+``benchmark_cli.fetch_real_firms``. Run it after ``run_experiments`` (which rewrites both files).
 
-    uv run python scripts/build_south_asia.py
+    uv run python scripts/build_region.py india
+    uv run python scripts/build_region.py maritime
 """
 
 from __future__ import annotations
@@ -26,7 +29,9 @@ from benchmark_cli.sensitivity import (  # noqa: E402
     fit_omission_factor,
 )
 
-REGION = "india"
+REGION = sys.argv[1] if len(sys.argv) > 1 else "india"
+if REGION not in rx.EXTRA_REGION_WINDOWS:
+    raise SystemExit(f"unknown region {REGION!r}; choose from {sorted(rx.EXTRA_REGION_WINDOWS)}")
 RESULTS = ROOT / "data" / "processed" / "empirical_results.json"
 CALENDAR = ROOT / "data" / "processed" / "burning_calendar.json"
 
@@ -71,10 +76,10 @@ def main() -> None:
 
     results = json.loads(RESULTS.read_text(encoding="utf-8"))
     series, cal = rx.build_26yr_calendars_and_series(
-        results["mekong_empirical_epochs"], results["amazon_empirical_epochs"], epochs
+        results["mekong_empirical_epochs"], results["amazon_empirical_epochs"], {REGION: epochs}
     )
 
-    results["india_empirical_epochs"] = epochs
+    results[f"{REGION}_empirical_epochs"] = epochs
     results["omission_factor_fit"][REGION] = fit
     results["regime_shift_series"][REGION] = series[REGION]
     RESULTS.write_text(json.dumps(results, indent=2), encoding="utf-8")

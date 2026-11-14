@@ -6,7 +6,7 @@ We orchestrate all 20 AI decision-support and scientific reasoning use cases (5 
 
 ## Context & Trade-Offs
 
- Satellite active-fire harmonization requires exact spherical scan-angle geometry ($\Delta S(\theta)\times\Delta T(\theta)$), astronomical solar zenith angle ($\text{SZA} < 85^\circ$), two-stage radiative power calibration (`EQM`), and $O(N)$ spatio-temporal episode clustering across $2,750,620$ real NASA FIRMS detections. Allowing an LLM to estimate or calculate these quantities via next-token prediction introduces arithmetic hallucinations and violates radiometric conservation ($\sum_h w_{p,h} = 1.0$). Conversely, running a deep reasoning model on every trivial single-metric lookup or flash alert introduces unnecessary latency.
+ Satellite active-fire harmonization requires exact spherical scan-angle geometry ($\Delta S(\theta)\times\Delta T(\theta)$), astronomical solar zenith angle ($\text{SZA} < 85^\circ$), two-stage radiative power calibration (`EQM`), and $O(N)$ spatio-temporal episode clustering across $3,338,960$ real NASA FIRMS detections. Allowing an LLM to estimate or calculate these quantities via next-token prediction introduces arithmetic hallucinations and violates radiometric conservation ($\sum_h w_{p,h} = 1.0$). Conversely, running a deep reasoning model on every trivial single-metric lookup or flash alert introduces unnecessary latency.
 
 ## Decision
 

@@ -1,4 +1,4 @@
-export const REGION_IDS = ['mekong', 'amazon', 'india'] as const;
+export const REGION_IDS = ['mekong', 'amazon', 'india', 'maritime'] as const;
 
 export type RegionId = (typeof REGION_IDS)[number];
 

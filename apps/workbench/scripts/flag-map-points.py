@@ -225,7 +225,7 @@ def main() -> None:
     empirical = json.loads(EMPIRICAL.read_text())
     output: dict = {"regions": {}}
 
-    for region in ("mekong", "amazon", "india"):
+    for region in ("mekong", "amazon", "india", "maritime"):
         epochs = empirical[f"{region}_empirical_epochs"]
         region_out: dict[str, dict] = {}
         for epoch in epochs:

@@ -121,6 +121,7 @@ export function AppHeader({
           <option value="mekong">{t('regions.mekongLong')}</option>
           <option value="amazon">{t('regions.amazonLong')}</option>
           <option value="india">{t('regions.indiaLong')}</option>
+          <option value="maritime">{t('regions.maritimeLong')}</option>
         </select>
         <Icon
           icon={ICON.chevron}

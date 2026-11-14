@@ -1,7 +1,7 @@
 """Empirical Verification & Publication Figure Pipeline for GeoHarmonix.
 
 
-Processes the 2,750,620 real NASA FIRMS Thermal Detections cached in `data/raw/` to:
+Processes the 3,338,960 real NASA FIRMS Thermal Detections cached in `data/raw/` to:
 1. Validate spherical MODIS and 3-zone VIIRS scan-angle footprint physics against real CSVs.
 2. Quantify astronomical Solar Zenith Angle (SZA < 85 deg) Day/Night reclassification on NRT vs SP.
 3. Quantify South Atlantic Anomaly (SAA) nighttime false-alarm rejection on South America feeds.
@@ -119,6 +119,16 @@ _EL_NINO_PEAK_AMPLITUDE = 1.85
 #: Correction for the single-Terra years 2001-2002, where only one
 #: overpass is available to anchor the annual scale.
 _TERRA_ONLY_CORRECTION = {2001: 1.92, 2002: 1.32}
+
+
+#: Regions whose 2026 window falls after the SP cutover (NRT streams) and whose VIIRS-NOAA20
+#: stream is available from 2018 (their windows are in Aug-Nov).
+_NRT_2026_REGIONS = ("amazon", "india", "maritime")
+#: Extra regions: main window (month-day) and its pentad. Their seasonal envelope is one
+#: VIIRS-SNPP slice per month of 2024 (``<region>_season__*``) plus the main-window slice.
+EXTRA_REGION_WINDOWS = {"india": ("11-05", 62), "maritime": ("09-15", 52)}
+_MONTH_PENTADS = ((1, 3), (2, 10), (3, 15), (4, 21), (5, 27), (6, 34),
+                  (7, 40), (8, 46), (9, 52), (10, 58), (11, 64), (12, 70))  # fmt: skip
 
 
 def _load_csv_safe(filename: str) -> pd.DataFrame:
@@ -507,7 +517,7 @@ def evaluate_epoch_slice(
     # Scale deduplicated episode counts & harmonized FRP by exact sub-sampling ratio
     est_episodes = round(len(episodes) * sample_scale)
     year = int(date_str[:4]) if date_str != "latest" else 2026
-    mean_lat = {"mekong": 17.2, "amazon": -9.0, "india": 21.75}[region]
+    mean_lat = {"mekong": 17.2, "amazon": -9.0, "india": 21.75, "maritime": 4.75}[region]
     n_viirs = sum(1 for s in sources if "VIIRS" in s)
     omega = compute_effective_observation_effort(year, mean_lat, n_viirs)
     omega_before_cloud = omega
@@ -616,7 +626,7 @@ def _load_real_annual_modis_counts(region: str, month_day: str) -> dict[int, int
     """Load real observed MODIS 5-day hotspot counts for all 26 years (2001-2026)."""
     counts: dict[int, int] = {}
     for yr in range(2001, 2027):
-        sfx = "NRT" if (region in ("amazon", "india") and yr == 2026) else "SP"
+        sfx = "NRT" if (region in _NRT_2026_REGIONS and yr == 2026) else "SP"
         df = _load_csv_safe(f"{region}__MODIS_{sfx}__{yr}-{month_day}__5d.csv")
         if not df.empty:
             counts[yr] = len(df)
@@ -633,9 +643,9 @@ def _load_real_annual_raw_totals(
         if yr <= 2011:
             totals[yr] = m_cnt
             continue
-        sfx = "NRT" if (region in ("amazon", "india") and yr == 2026) else "SP"
+        sfx = "NRT" if (region in _NRT_2026_REGIONS and yr == 2026) else "SP"
         streams = [f"MODIS_{sfx}", f"VIIRS_SNPP_{sfx}"]
-        if (region == "mekong" and yr >= 2019) or (region in ("amazon", "india") and yr >= 2018):
+        if (region == "mekong" and yr >= 2019) or (region in _NRT_2026_REGIONS and yr >= 2018):
             streams.append(f"VIIRS_NOAA20_{sfx}")
         if yr >= 2024:
             streams.append("VIIRS_NOAA21_NRT")
@@ -675,22 +685,15 @@ def _load_empirical_seasonal_envelope(region: str) -> np.ndarray:
             (64, "mekong_season__VIIRS_SNPP_SP__2024-11-15__5d.csv"),
             (70, "mekong_season__VIIRS_SNPP_SP__2024-12-15__5d.csv"),
         ]
-    elif region == "india":
-        # Pentad = ceil(day-of-year / 5) of each 2024 slice; Nov 5 is the peak slice.
+    elif region in EXTRA_REGION_WINDOWS:
+        main_md, main_pentad = EXTRA_REGION_WINDOWS[region]
+        main_month = int(main_md[:2])
         anchor_files = [
-            (3, "india_season__VIIRS_SNPP_SP__2024-01-15__5d.csv"),
-            (10, "india_season__VIIRS_SNPP_SP__2024-02-15__5d.csv"),
-            (15, "india_season__VIIRS_SNPP_SP__2024-03-15__5d.csv"),
-            (21, "india_season__VIIRS_SNPP_SP__2024-04-15__5d.csv"),
-            (27, "india_season__VIIRS_SNPP_SP__2024-05-15__5d.csv"),
-            (34, "india_season__VIIRS_SNPP_SP__2024-06-15__5d.csv"),
-            (40, "india_season__VIIRS_SNPP_SP__2024-07-15__5d.csv"),
-            (46, "india_season__VIIRS_SNPP_SP__2024-08-15__5d.csv"),
-            (52, "india_season__VIIRS_SNPP_SP__2024-09-15__5d.csv"),
-            (58, "india_season__VIIRS_SNPP_SP__2024-10-15__5d.csv"),
-            (62, "india__VIIRS_SNPP_SP__2024-11-05__5d.csv"),
-            (70, "india_season__VIIRS_SNPP_SP__2024-12-15__5d.csv"),
-        ]
+            (p, f"{region}_season__VIIRS_SNPP_SP__2024-{m:02d}-15__5d.csv")
+            for m, p in _MONTH_PENTADS
+            if m != main_month
+        ] + [(main_pentad, f"{region}__VIIRS_SNPP_SP__2024-{main_md}__5d.csv")]
+        anchor_files.sort()
     else:
         anchor_files = [
             (3, "amazon_season__VIIRS_SNPP_SP__2024-01-15__5d.csv"),
@@ -732,7 +735,7 @@ def _load_empirical_seasonal_envelope(region: str) -> np.ndarray:
 def build_26yr_calendars_and_series(
     mekong_epochs: list[dict[str, Any]],
     amazon_epochs: list[dict[str, Any]],
-    india_epochs: list[dict[str, Any]] | None = None,
+    extra_epochs: dict[str, list[dict[str, Any]]] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """Construct the 26-year (2001-2026) series and 26x73 Pentad matrices.
 
@@ -769,15 +772,16 @@ def build_26yr_calendars_and_series(
             "Pentads 40-56 (Jul 15 - Oct 07)", "Severe Drought Anomalies",
         ),
     ]  # fmt: skip
-    if india_epochs:
-        ind_map = {e["year"]: e for e in india_epochs if e and e["year"] <= 2026}
-        ind_modis_26 = _load_real_annual_modis_counts("india", "11-05")
-        ind_raw_26 = _load_real_annual_raw_totals("india", "11-05", ind_modis_26)
-        curve = _load_empirical_seasonal_envelope("india")
+    for extra_region, extra_list in (extra_epochs or {}).items():
+        main_md, main_pentad = EXTRA_REGION_WINDOWS[extra_region]
+        ext_map = {e["year"]: e for e in extra_list if e and e["year"] <= 2026}
+        ext_modis = _load_real_annual_modis_counts(extra_region, main_md)
+        ext_raw = _load_real_annual_raw_totals(extra_region, main_md, ext_modis)
+        curve = _load_empirical_seasonal_envelope(extra_region)
         hot = [i + 1 for i, v in enumerate(curve) if v >= 0.6 * float(curve.max())]
         regions_cfg.append(
             (
-                "india", ind_map, ind_modis_26, ind_raw_26, 62,
+                extra_region, ext_map, ext_modis, ext_raw, main_pentad,
                 f"Pentads {hot[0]}-{hot[-1]} (days {5 * hot[0] - 4}-{5 * hot[-1]} of the year)",
                 "Severe Fire Anomalies",
             )

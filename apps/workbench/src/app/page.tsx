@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { getTranslations } from 'next-intl/server';
 import { GlobeLanding } from '@/components/globe/globe-landing';
 import { loadCalendar } from '@/lib/calendar/load';
-import type { RegionId } from '@/lib/calendar/types';
+import { REGION_IDS, type RegionId } from '@/lib/calendar/types';
 import { loadWorkbench } from '@/lib/workbench/series';
 
 const fallback = <div className="bg-canvas h-dvh" />;
@@ -18,11 +18,11 @@ function buildGrowth(workbench: Awaited<ReturnType<typeof loadWorkbench>>) {
     return first > 0 ? Math.round(last / first) : 0;
   }
 
-  return { mekong: growth('mekong'), amazon: growth('amazon'), india: growth('india') };
+  return { mekong: growth('mekong'), amazon: growth('amazon'), india: growth('india'), maritime: growth('maritime') };
 }
 
 function buildRegions(workbench: Awaited<ReturnType<typeof loadWorkbench>>) {
-  return (['mekong', 'amazon', 'india'] as const).map((id) => {
+  return REGION_IDS.map((id) => {
     const epochs = workbench.epochs[id];
 
     return {

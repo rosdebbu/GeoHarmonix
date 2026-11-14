@@ -53,7 +53,7 @@ flare-chronos/
 │       ├── pyproject.toml
 │       └── src/benchmark_cli/
 │           ├── fetch_real_firms.py               # Historical and NRT data download process from NASA FIRMS
-│           ├── run_experiments.py                # Runs quantitative validation on 2,750,620 real hot spots
+│           ├── run_experiments.py                # Runs quantitative validation on 3,338,960 real hot spots
 │           └── figure_renderer.py                # High-resolution scientific graphics rendering engine
 ├── src/
 │   └── harmonization/
@@ -77,7 +77,7 @@ flowchart TB
 
     subgraph INGESTION_SEAM["2. Ingestion & Caching Layer (packages/firms-ingestion)"]
         API_ADAPTER["FIRMSClient Adapter<br/>5,000 tx / 10 min quota management & 0.35s pacing"]
-        RAW_CACHE["Raw Data Archive (data/raw/*.csv & GeoParquet)<br/>2,750,620 verified real records"]
+        RAW_CACHE["Raw Data Archive (data/raw/*.csv & GeoParquet)<br/>3,338,960 verified real records"]
     end
 
     subgraph CORE_ENGINE["3. Cross-Sensor Physical Harmonization Core (packages/harmonization-core)"]

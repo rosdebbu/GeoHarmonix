@@ -29,6 +29,7 @@ BBOX = {
     "mekong": (100.0, 8.5, 109.5, 23.5),
     "amazon": (-62.0, -14.0, -50.0, -4.0),
     "india": (68.0, 8.0, 101.2, 35.5),
+    "maritime": (95.0, -11.5, 141.0, 21.0),
 }
 OVERPASS_LOCAL_HOURS = (1.5, 13.5)
 OVERPASS_HALF_WIDTH_H = 2.0
@@ -89,7 +90,7 @@ def fetch_window(region: str, start: str) -> float:
 
 def main() -> None:
     results = json.loads(RESULTS.read_text())
-    table: dict[str, dict[str, float]] = {"mekong": {}, "amazon": {}, "india": {}}
+    table: dict[str, dict[str, float]] = {"mekong": {}, "amazon": {}, "india": {}, "maritime": {}}
     for region, windows in table.items():
         for epoch in results[f"{region}_empirical_epochs"]:
             window = epoch["date_window"]

@@ -14,9 +14,11 @@
       "mekong": "Mekong",
       "amazon": "Amazon",
       "india": "India · Bangladesh · Myanmar",
+      "maritime": "Maritime SE Asia",
       "mekongLong": "Mekong & Vietnam",
       "amazonLong": "Amazon fire arc",
-      "indiaLong": "India, Bangladesh & Myanmar"
+      "indiaLong": "India, Bangladesh & Myanmar",
+      "maritimeLong": "Maritime Southeast Asia"
     },
     "period": "Period",
     "periodValue": "{start}–{end}",
@@ -68,12 +70,14 @@
     "short": {
       "mekong": "Mekong & Vietnam",
       "amazon": "Amazon fire arc",
-      "india": "India, Bangladesh & Myanmar"
+      "india": "India, Bangladesh & Myanmar",
+      "maritime": "Maritime Southeast Asia"
     },
     "coverage": {
       "mekong": "Mainland VNM · LAO · KHM · THA · FIRMS {box}",
       "amazon": "Amazon mainland · FIRMS {box}",
-      "india": "IND · BGD · MMR · FIRMS {box}"
+      "india": "IND · BGD · MMR · FIRMS {box}",
+      "maritime": "IDN · MYS · PHL · SGP · BRN · TLS · FIRMS {box}"
     },
     "boot": {
       "fonts": "Loading typefaces",

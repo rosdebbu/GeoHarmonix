@@ -14,9 +14,11 @@
       "mekong": "Mê Kông",
       "amazon": "Amazon",
       "india": "Ấn Độ · Bangladesh · Myanmar",
+      "maritime": "Đông Nam Á hải đảo",
       "mekongLong": "Mê Kông & Việt Nam",
       "amazonLong": "Vành đai lửa Amazon",
-      "indiaLong": "Ấn Độ, Bangladesh & Myanmar"
+      "indiaLong": "Ấn Độ, Bangladesh & Myanmar",
+      "maritimeLong": "Đông Nam Á hải đảo"
     },
     "period": "Giai đoạn",
     "periodValue": "{start}–{end}",
@@ -68,12 +70,14 @@
     "short": {
       "mekong": "Mê Kông & Việt Nam",
       "amazon": "Vành đai lửa Amazon",
-      "india": "Ấn Độ, Bangladesh & Myanmar"
+      "india": "Ấn Độ, Bangladesh & Myanmar",
+      "maritime": "Đông Nam Á hải đảo"
     },
     "coverage": {
       "mekong": "Đại lục VNM · LAO · KHM · THA · FIRMS {box}",
       "amazon": "Đại lục Amazon · FIRMS {box}",
-      "india": "IND · BGD · MMR · FIRMS {box}"
+      "india": "IND · BGD · MMR · FIRMS {box}",
+      "maritime": "IDN · MYS · PHL · SGP · BRN · TLS · FIRMS {box}"
     },
     "boot": {
       "fonts": "Đang tải phông chữ",

@@ -24,7 +24,7 @@ The error is large and it is easy to mistake for a climate trend. In the Mekong 
 
 GeoHarmonix removes the sensor artifacts and keeps the physical signal. The engine reconstructs each sensor's elliptical ground footprint from the scan angle, allocates radiative energy onto H3 hexagons, unifies the day and night boundary with the solar zenith angle, filters South Atlantic Anomaly noise, calibrates fire radiative power against 20,786 co-incident Aqua and Suomi-NPP cells, clusters overpasses into fire episodes, and normalizes by observation effort. The result is a homogeneous VIIRS-equivalent record from 2000 to 2026.
 
-The project validates the method on 2,750,620 real NASA FIRMS detections across 210 cached CSV slices. The calibration reduces the Kolmogorov-Smirnov distance from 0.1153 to 0.0353, a 69.4 percent reduction, and raises the log-FRP coefficient of determination from 0.7839 to 0.8048. The harmonized Mekong index for 2024 is 90.5, which is 9.5 percent below 2005. The true El Niño peaks of 2007, 2010 and 2016 remain.
+The project validates the method on 3,338,960 real NASA FIRMS detections across 274 cached CSV slices. The calibration reduces the Kolmogorov-Smirnov distance from 0.1153 to 0.0353, a 69.4 percent reduction, and raises the log-FRP coefficient of determination from 0.7839 to 0.8048. The harmonized Mekong index for 2024 is 90.5, which is 9.5 percent below 2005. The true El Niño peaks of 2007, 2010 and 2016 remain.
 
 The deliverables are the harmonization engine, a 26-year burning activity calendar with 25 measured epochs and one interpolated year, a dual-system LangGraph harness with 15 use cases and 18 deterministic tools, and a Next.js workbench. The harness never computes a physical number with a language model. Every value is injected from a verified facts ledger and audited before release. Operational recommendations pause for human sign-off.
 
@@ -39,7 +39,7 @@ The deliverables are the harmonization engine, a 26-year burning activity calend
 | High-Level Project Summary — What did you develop? | A physics-guided cross-sensor harmonization engine, a 26-year burning activity calendar, a dual-system LangGraph harness with 15 use cases and 18 deterministic tools, and an interactive Next.js workbench. |
 | High-Level Project Summary — How does it address the challenge? | It resolves the five physical discontinuities between MODIS and VIIRS: scan-angle footprint growth, detection-limit divergence, afternoon overpass redundancy, day and night flag drift, and South Atlantic Anomaly noise. It produces a homogeneous VIIRS-equivalent fire record from 2000 to 2026. |
 | High-Level Project Summary — Why is it important? | Without harmonization, the addition of Suomi-NPP, NOAA-20 and NOAA-21 inflates raw hotspot counts by 1,311.2 percent in the Mekong subregion and 714.3 percent in the Amazon. Policymakers can mistake constellation growth for wildfire growth. As Terra, Aqua and Suomi-NPP retire in 2026, the method preserves the continuity of the 26-year fire record. |
-| Space Agency Data & Resources Used | NASA LANCE FIRMS archive, 2,750,620 detections across 210 cached CSV slices: MODIS Collection 6.1 (MCD14ML, MCD14DL), VIIRS Collection 2 (VNP14IMGML, VNP14IMGTDL_NRT, VJ114IMGML, VJ114IMGTDL_NRT, VJ214IMGTDL_NRT). NASA LANCE FIRMS REST API. ERA5 cloud climatology. |
+| Space Agency Data & Resources Used | NASA LANCE FIRMS archive, 3,338,960 detections across 274 cached CSV slices: MODIS Collection 6.1 (MCD14ML, MCD14DL), VIIRS Collection 2 (VNP14IMGML, VNP14IMGTDL_NRT, VJ114IMGML, VJ114IMGTDL_NRT, VJ214IMGTDL_NRT). NASA LANCE FIRMS REST API. ERA5 cloud climatology. |
 | Third-Party Materials & Open-Source Licenses | Scientific literature: Giglio et al. (2016), Schroeder et al. (2014), Wolfe et al. (2013), Wooster et al. (2005), Freeborn et al. (2014), Sofiev and Kouznetsov (2026). Open-source libraries: Python 3.11+, NumPy, SciPy, H3, LangGraph, LangChain Core, FastAPI, Pydantic, WeasyPrint, Next.js 16, React 19, Three.js, d3-geo, Tailwind CSS. Repository under the MIT License. |
 | Use of Artificial Intelligence Disclosure | Runtime AI uses a dual-system LangGraph harness over 18 registered deterministic tools. The live benchmark uses the configured hosted chat model (`beam`). The language model never computes a physical or statistical number. Every value is injected from the VerifiedFactsLedger and audited by the NumericGroundingVerifier. Operational alerts pause at a human sign-off gate. AI coding assistants supported engineering, testing and documentation review; all equations, data pulls and 192 automated tests are verified in the repository. |
 | Project Code, Demo and Media Index | Repository: https://github.com/debbjitttt__/GeoHarmonix. Workbench: https://flare-chronos.resonance.io.vn/. |
@@ -180,7 +180,7 @@ Every tool result enters the VerifiedFactsLedger with its fact identifier, path,
 | :--- | :--- |
 | 1. Impact | Removes the 1,311.2 percent multi-sensor step jump across the 26-year record and preserves the true El Niño and drought peaks. Gives forestry agencies a pentad-level anomaly index for the Mekong and the Amazon. |
 | 2. Creativity | Combines spherical footprint inversion, 13-point H3 quadrature, a two-stage radiometric transfer, a 26 × 73 pentad calendar and a dual-system harness with a verified facts ledger. |
-| 3. Validity | Validated on 2,750,620 real detections across 210 CSV slices and 20,786 co-incident Aqua and Suomi-NPP pairs. D_KS falls from 0.1153 to 0.0353; R^2 rises from 0.7839 to 0.8048. The suite has 186 offline tests and 6 live tests across 23 files. |
+| 3. Validity | Validated on 3,338,960 real detections across 274 CSV slices and 20,786 co-incident Aqua and Suomi-NPP pairs. D_KS falls from 0.1153 to 0.0353; R^2 rises from 0.7839 to 0.8048. The suite has 186 offline tests and 6 live tests across 23 files. |
 | 4. Relevance | Addresses the challenge directly by solving the five cross-sensor discontinuities in both the Standard and near-real-time streams while MODIS and Suomi-NPP retire in 2026. |
 | 5. Presentation | Ships five 300-DPI figures, two English A4 PDFs, and a live bilingual workbench with a 3D globe, an H3 map and a sign-off queue. |
 
@@ -188,7 +188,7 @@ Every tool result enters the VerifiedFactsLedger with its fact identifier, path,
 
 ## 9. Reproducibility and Data Provenance
 
-The repository pins every input slice with SHA-256 digests and a fetch manifest. A clone contains all 210 non-empty CSV slices, so the pipeline and the tests run without network access.
+The repository pins every input slice with SHA-256 digests and a fetch manifest. A clone contains all 274 non-empty CSV slices, so the pipeline and the tests run without network access.
 
 ```bash
 # Offline test suite: 186 tests across 23 files, no network calls

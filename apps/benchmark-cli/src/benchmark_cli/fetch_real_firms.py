@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "packages" / "firms-ingestion" / "src"))
 
-from firms_ingestion import BBOX_AMAZON, BBOX_INDIA, BBOX_MEKONG, FIRMSClient, FIRMSQuerySpec
+from firms_ingestion import BBOX_AMAZON, BBOX_INDIA, BBOX_MARITIME, BBOX_MEKONG, FIRMSClient, FIRMSQuerySpec
 
 
 def get_mekong_march_sources(year: int) -> list[str]:
@@ -96,6 +96,32 @@ def build_epoch_query_plan() -> list[FIRMSQuerySpec]:
                     start_date=f"{yr}-11-05",
                 )
             )
+
+    # 2c. Maritime SE Asia: Indonesian peat/haze burn window (Sep 15-19), same sensor logic as the Amazon.
+    for yr in range(2001, 2027):
+        for src in get_amazon_august_sources(yr):
+            specs.append(
+                FIRMSQuerySpec(
+                    region_tag="maritime",
+                    source=src,
+                    bbox=BBOX_MARITIME,
+                    day_range=5,
+                    start_date=f"{yr}-09-15",
+                )
+            )
+    for d_str in [
+        "2024-01-15", "2024-02-15", "2024-03-15", "2024-04-15", "2024-05-15", "2024-06-15",
+        "2024-07-15", "2024-08-15", "2024-10-15", "2024-11-15", "2024-12-15",
+    ]:  # fmt: skip
+        specs.append(
+            FIRMSQuerySpec(
+                region_tag="maritime_season",
+                source="VIIRS_SNPP_SP",
+                bbox=BBOX_MARITIME,
+                day_range=5,
+                start_date=d_str,
+            )
+        )
 
     # 3. Intra-Annual Seasonal Phenology Slices (12 Months across the year + early Feb El Nino onset)
     mekong_seasonal_dates = [

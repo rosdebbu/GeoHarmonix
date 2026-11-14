@@ -16,7 +16,7 @@ Challenge: Harmonization of MODIS and VIIRS Hot Spots
 
 GeoHarmonix is a Python and TypeScript monorepo. A pure physics core computes all harmonization steps without network or disk access. An ingestion adapter reads NASA FIRMS CSV slices. A benchmark application runs the empirical pipeline and renders the figures. A FastAPI service hosts the dual-system cognitive harness. A Next.js workbench presents the results.
 
-The repository commits 134 non-empty NASA FIRMS CSV slices with 2,750,620 detections, pinned by SHA-256 digests and a fetch manifest. The five-day peak windows used for the case studies contain 451,488 detections. The full pipeline and the test suite run offline after a clone.
+The repository commits 134 non-empty NASA FIRMS CSV slices with 3,338,960 detections, pinned by SHA-256 digests and a fetch manifest. The five-day peak windows used for the case studies contain 451,488 detections. The full pipeline and the test suite run offline after a clone.
 
 The empirical result is stable. The calibration reduces the Kolmogorov-Smirnov distance from 0.1153 to 0.0353, a 69.4 percent reduction, and raises the log-FRP coefficient of determination from 0.7839 to 0.8048. The harmonized Mekong index for 2024 is 90.5 against a 2005 baseline of 100.0, so the artificial 1,311.2 percent step jump is removed while the El Niño peaks remain.
 
@@ -41,7 +41,7 @@ The monorepo has five parts. The dependency rule is one way: applications depend
 | Component | Responsibility | Evidence |
 | :--- | :--- | :--- |
 | `packages/harmonization-core` | Pure physics and statistics: schemas, solar angle, confidence, geometry, radiometry, deduplication, calendar. | Zero network and disk imports; 58 core tests. |
-| `packages/firms-ingestion` | Rate-limited NASA LANCE FIRMS client and schema-normalizing CSV loader. | SHA-256 archive guard; 210 slices verified. |
+| `packages/firms-ingestion` | Rate-limited NASA LANCE FIRMS client and schema-normalizing CSV loader. | SHA-256 archive guard; 274 slices verified. |
 | `apps/benchmark-cli` | Empirical runner, sensitivity analysis and 300-DPI figure renderer. | Produces `empirical_results.json`, `burning_calendar.json` and figures 1 to 5. |
 | `apps/ai-service` | FastAPI service, 8-node LangGraph harness, verified facts ledger, review store. | 15 use cases, 18 registered tools, JWT sign-off. |
 | `apps/workbench` | Next.js 16 analyst surface: globe, equal-area map, H3 bins, calendar, review queue. | Routes `/`, `/workbench/[zone]`, `/review`, `/review/audit`, `/about`, `/faq`. |
@@ -215,7 +215,7 @@ The workbench reads the analysis service at port 5901. It never shows replayed o
 | Category | Files | Tests | Scope |
 | :--- | :---: | :---: | :--- |
 | Physics and harmonization core | 12 | 58 | Scan geometry, H3 energy conservation, solar angle, SAA filter, calibration, clustering, SFAI |
-| Archive, calendar and claims | 5 | 38 | SHA-256 of 210 slices, measured epoch provenance, figure parity, document claims |
+| Archive, calendar and claims | 5 | 38 | SHA-256 of 274 slices, measured epoch provenance, figure parity, document claims |
 | AI harness and classifiers | 3 | 50 | 8-node routing, 15 use cases, 18 tools, ledger, verifier, fallback chain |
 | API, JWT and review store | 2 | 40 | Bearer auth, sign-off, audit triggers, SSE framing, review projection |
 | Live vertical slices | 1 | 6 | Live classification, multi-tool deliberation, escalation, CSV harmonization |

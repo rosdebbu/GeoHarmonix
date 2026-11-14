@@ -93,4 +93,13 @@ export const REGION_DEFS = {
       { id: 'S-04', lon: 90.4, lat: 23.8 },
     ],
   },
-} as const satisfies Record<'mekong' | 'amazon' | 'india', RegionDef>;
+  // Maritime Southeast Asia: Indonesia (360), Malaysia (458), Singapore (702), Brunei (096),
+  // Philippines (608) and Timor-Leste (626). The box also holds some mainland-edge fires.
+  maritime: {
+    bbox: [94.5, -11.5, 141.5, 21.0],
+    queryBox: [95.0, -11.5, 141.0, 21.0],
+    anchor: [114.0, 0.5],
+    focus: ['360', '458', '702', '096', '608', '626'],
+    staticSources: [],
+  },
+} as const satisfies Record<'mekong' | 'amazon' | 'india' | 'maritime', RegionDef>;
