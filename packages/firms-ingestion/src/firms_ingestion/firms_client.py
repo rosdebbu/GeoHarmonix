@@ -18,7 +18,7 @@ import requests
 # Canonical Case Study Bounding Boxes (west,south,east,north)
 BBOX_MEKONG = "100.0,8.5,109.5,23.5"  # Vietnam incl. the Mekong Delta, Laos, Cambodia, E. Thailand
 BBOX_AMAZON = "-62.0,-14.0,-50.0,-4.0"  # Southern Amazon Arc of Deforestation (Mato Grosso / Para)
-BBOX_INDIA = "68.0,8.0,97.5,35.5"  # Indian Subcontinent incl. Indo-Gangetic Plain, Central & S. India
+BBOX_INDIA = "68.0,8.0,101.2,35.5"  # South Asia: India, Bangladesh and Myanmar (Indo-Gangetic Plain to the Irrawaddy)
 BBOX_INDIA_NORTH = "73.0,28.0,80.0,32.5"  # North-Western India (Punjab, Haryana, NCR Agricultural Burning Belt)
 
 FIRMS_API_BASE = "https://firms.modaps.eosdis.nasa.gov/api"

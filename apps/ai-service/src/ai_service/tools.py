@@ -1,4 +1,4 @@
-"""Deterministic Tool Registry for Flare-Chronos Dual-System LangGraph Harness.
+"""Deterministic Tool Registry for GeoHarmonix Dual-System LangGraph Harness.
 
 Implements 18 strict `@tool` functions (9 Atomic + 9 Domain Diagnostic)
 backed by `flare_chronos_core`, `data/processed/empirical_results.json`, and `data/raw/`.

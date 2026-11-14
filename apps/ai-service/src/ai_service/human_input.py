@@ -1,4 +1,4 @@
-"""Human interaction tools for the FLARE-CHRONOS Dual-System harness.
+"""Human interaction tools for the GEOHARMONIX Dual-System harness.
 
 These tools are not part of the deterministic tool registry. They exist so a
 run can pause for a human: the model asks a clarifying question, or a briefing

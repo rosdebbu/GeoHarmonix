@@ -1,5 +1,5 @@
 # ==============================================================================
-# FLARE-CHRONOS DUAL-SYSTEM (SYSTEM 1 <-> SYSTEM 2) LANGGRAPH HARNESS CONFIG
+# GEOHARMONIX DUAL-SYSTEM (SYSTEM 1 <-> SYSTEM 2) LANGGRAPH HARNESS CONFIG
 # ==============================================================================
 # Governed by ADR-0005 (Deterministic Tool Gate) and ADR-0006 (Explicit
 # Endpoint Profile). Every value below is resolved with the precedence

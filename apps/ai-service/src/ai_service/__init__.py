@@ -1,4 +1,4 @@
-"""FLARE-CHRONOS Dual-System Cognitive Harness (`apps/ai-service`).
+"""GEOHARMONIX Dual-System Cognitive Harness (`apps/ai-service`).
 
 Exports the LangGraph `StateGraph` builder, schemas, endpoint profiles, model
 adapters, prompts, human-input tools, event stream, and the 18 deterministic

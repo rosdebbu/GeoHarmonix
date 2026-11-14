@@ -176,7 +176,7 @@ def create_app(
             yield
 
     app = FastAPI(
-        title="Flare-Chronos analysis API", version="1.0.0", lifespan=lifespan
+        title="GeoHarmonix analysis API", version="1.0.0", lifespan=lifespan
     )
     app.state.harness = harness
     app.state.store = store or RunStore(DEFAULT_STORE_PATH)

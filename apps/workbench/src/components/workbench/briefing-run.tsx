@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Icon, ICON } from '@/components/ui/icon';
 import { Markdown } from '@/components/ui/markdown';
 import { useLabels } from '@/components/review/use-labels';
+import type { RegionId } from '@/lib/calendar/types';
 import type { RunView } from '@/lib/service/run';
 import { PrincipalRow } from './service-panel';
 
@@ -22,7 +23,7 @@ export function BriefingRun({
   onStart,
 }: {
   run: RunView;
-  region: 'mekong' | 'amazon';
+  region: RegionId;
   onStart: (preset: Preset) => void;
 }) {
   const t = useTranslations('Briefing.run');

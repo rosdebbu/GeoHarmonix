@@ -1,4 +1,4 @@
-"""Flare-Chronos Core Harmonization Deep Module Interface."""
+"""GeoHarmonix Core Harmonization Deep Module Interface."""
 
 from __future__ import annotations
 

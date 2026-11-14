@@ -80,15 +80,17 @@ export const REGION_DEFS = {
       { id: 'S-03', lon: -56.09, lat: -9.88 },
     ],
   },
+  // South Asia view: India, Bangladesh (050) and Myanmar (104) are the focus countries.
   india: {
-    bbox: [68.0, 6.5, 97.5, 37.5],
-    queryBox: [68.0, 8.0, 97.5, 35.5],
-    anchor: [78.9, 20.5],
-    focus: ['356'],
+    bbox: [68.0, 6.5, 102.0, 37.5],
+    queryBox: [68.0, 8.0, 101.2, 35.5],
+    anchor: [83.0, 21.5],
+    focus: ['356', '050', '104'],
     staticSources: [
       { id: 'S-01', lon: 77.2, lat: 28.6 },
       { id: 'S-02', lon: 75.8, lat: 30.9 },
       { id: 'S-03', lon: 76.9, lat: 29.9 },
+      { id: 'S-04', lon: 90.4, lat: 23.8 },
     ],
   },
 } as const satisfies Record<'mekong' | 'amazon' | 'india', RegionDef>;

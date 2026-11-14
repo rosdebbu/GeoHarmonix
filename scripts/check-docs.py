@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the Flare-Chronos release document system.
+"""Validate the GeoHarmonix release document system.
 
 Checks
   1. Every entry line in CHANGELOG.md matches the entry format:

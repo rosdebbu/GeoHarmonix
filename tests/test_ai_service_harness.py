@@ -1,4 +1,4 @@
-"""Integration & unit tests for the FLARE-CHRONOS Dual-System LangGraph Harness (`apps/ai-service`)."""
+"""Integration & unit tests for the GEOHARMONIX Dual-System LangGraph Harness (`apps/ai-service`)."""
 
 from __future__ import annotations
 

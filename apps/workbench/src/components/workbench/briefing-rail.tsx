@@ -6,13 +6,14 @@ import { useTranslations } from 'next-intl';
 import { useService } from '@/components/service/service-provider';
 import { Icon, ICON } from '@/components/ui/icon';
 import { IDLE_RUN, reduceRun, type RunView } from '@/lib/service/run';
+import type { RegionId } from '@/lib/calendar/types';
 import { BriefingRun, type Preset } from './briefing-run';
 import { ConnectPanel, RailStatusChip, ServiceDown } from './service-panel';
 
 export type RailState = 'auto' | 'open' | 'closed';
 
 type BriefingRailProps = {
-  region: 'mekong' | 'amazon';
+  region: RegionId;
   state: RailState;
   onToggle: () => void;
 };

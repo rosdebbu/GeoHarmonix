@@ -1,6 +1,6 @@
 # Claude Design → Production: Conversion Context
 
-**Audience:** an agent or engineer who must turn the Flare-Chronos Claude Design export into production Next.js code.
+**Audience:** an agent or engineer who must turn the GeoHarmonix Claude Design export into production Next.js code.
 **Status:** context only. The experiment protocol is in [`claude-design-to-prod-experiment.md`](./claude-design-to-prod-experiment.md).
 **Rule:** this file describes what exists. It does not approve a design change. Read the source files before you edit code.
 
@@ -26,10 +26,10 @@ Archive used for this context: `./downloads/FlareChronos.zip` (SHA-256 `07018cad
 
 | File | Size | Lines | Role | Ships to production? |
 |---|---:|---:|---|---|
-| `Flare-Chronos Workbench.dc.html` | 189,292 B | 1,339 | Globe landing, Workbench, briefing/sign-off, connect, unavailable, tour, evidence drawer | Yes, converted |
-| `Flare-Chronos Review.dc.html` | 140,239 B | 674 | Reviewer queue, run, audit, plus design-only state sheets | Partly. Queue/run/audit only |
-| `Flare-Chronos Components.dc.html` | 24,845 B | 173 | Component and motion sheet | No. Reference only |
-| `Flare-Chronos Screens.dc.html` | 6,045 B | 79 | Canvas of iframes for every screen | No. Reference only |
+| `GeoHarmonix Workbench.dc.html` | 189,292 B | 1,339 | Globe landing, Workbench, briefing/sign-off, connect, unavailable, tour, evidence drawer | Yes, converted |
+| `GeoHarmonix Review.dc.html` | 140,239 B | 674 | Reviewer queue, run, audit, plus design-only state sheets | Partly. Queue/run/audit only |
+| `GeoHarmonix Components.dc.html` | 24,845 B | 173 | Component and motion sheet | No. Reference only |
+| `GeoHarmonix Screens.dc.html` | 6,045 B | 79 | Canvas of iframes for every screen | No. Reference only |
 | `globe.html` | 25,238 B | 336 | Three.js region globe | No. Replace |
 | `map.html` | 27,168 B | 364 | D3 equal-area map pane | No. Replace |
 | `support.js` | 69,150 B | — | Generated DC runtime (`dc-runtime`) | No |
@@ -104,7 +104,7 @@ Reviewer surfaces:
 
 ### 3.2 Do not ship
 
-- `Flare-Chronos Components.dc.html` and `Flare-Chronos Screens.dc.html`.
+- `GeoHarmonix Components.dc.html` and `GeoHarmonix Screens.dc.html`.
 - Review `view=states`, `view=sheet`, `view=notes`, `view=devices`. These are design documentation.
 - `DEMO · SIMULATE SERVICE`, the demo token `fc_demo_…`, and the service-state simulator.
 - `apps/ai-service/src/ai_service/demo/index.html` and the `GET /` `FileResponse` route. The Workbench is the web client.
@@ -171,7 +171,7 @@ The design currently has **two approval paths**: a compact card in the Workbench
 
 ### 5.1 Design mock — do not port
 
-`Flare-Chronos Workbench.dc.html` defines `REGIONS` (Mekong, Amazon) with `peak`, `width`, `amp`, `base`, `frp`, `seed`, `epochs`, `anom`, `over`. `getData()` expands that into 26 years × 73 pentads of synthetic `z`, `hfd`, `hrf`, observation flags, and KPI numbers.
+`GeoHarmonix Workbench.dc.html` defines `REGIONS` (Mekong, Amazon) with `peak`, `width`, `amp`, `base`, `frp`, `seed`, `epochs`, `anom`, `over`. `getData()` expands that into 26 years × 73 pentads of synthetic `z`, `hfd`, `hrf`, observation flags, and KPI numbers.
 
 The mock exists to hold a visual ratio (for example `+1,324%`). It is not measured data. The real 2024 Mekong raw count is **50,988**, not **319,549**. Do not copy the generator or its constants.
 

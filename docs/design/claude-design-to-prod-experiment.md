@@ -1,7 +1,7 @@
 # Claude Design → Production: Conversion Experiment
 
 **Companion:** [`claude-design-to-prod-context.md`](./claude-design-to-prod-context.md). Read it first.
-**Generic method:** `workflows/claude-design-to-nextjs.md` in `The-Resonance-Team/skills` (zip intake and the conversion method check). This file is the Flare-Chronos instantiation.
+**Generic method:** `workflows/claude-design-to-nextjs.md` in `The-Resonance-Team/skills` (zip intake and the conversion method check). This file is the GeoHarmonix instantiation.
 **Status:** ready to run once decisions D1–D3 in the context are accepted. No web app exists yet; Stage 0 creates the shared scaffold.
 **Decision this experiment informs:** which conversion method agents must use for the rest of the Workbench and Review port, and which gates prove a slice is production-ready.
 
@@ -343,7 +343,7 @@ If the RMSE difference between arms exceeds **0.015**, parity wins over process 
 
 ## 10. Agent prompt
 
-For the Flare-Chronos instance with the paths already filled, use [`claude-design-zip-to-apps-prompt.md`](./claude-design-zip-to-apps-prompt.md). The block below is the generic form.
+For the GeoHarmonix instance with the paths already filled, use [`claude-design-zip-to-apps-prompt.md`](./claude-design-zip-to-apps-prompt.md). The block below is the generic form.
 
 Copy this prompt into each arm. Replace `{{ARM}}` with `A` or `B`, and `{{METHOD}}` with the paragraph below.
 

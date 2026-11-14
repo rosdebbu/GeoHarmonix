@@ -1,4 +1,4 @@
-"""Domain types for Flare-Chronos cross-sensor active fire harmonization.
+"""Domain types for GeoHarmonix cross-sensor active fire harmonization.
 
 Vocabulary strictly follows root GLOSSARY.md.
 """

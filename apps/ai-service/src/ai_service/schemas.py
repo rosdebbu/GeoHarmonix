@@ -1,4 +1,4 @@
-"""Domain Schemas, Verified Facts Ledger, and LangGraph State for Flare-Chronos AI Service."""
+"""Domain Schemas, Verified Facts Ledger, and LangGraph State for GeoHarmonix AI Service."""
 
 from __future__ import annotations
 

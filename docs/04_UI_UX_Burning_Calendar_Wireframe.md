@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="figures/flare-chronos-logo.png" alt="Flare-Chronos Official Logo" width="220" />
+  <img src="figures/flare-chronos-logo.png" alt="GeoHarmonix Official Logo" width="220" />
 </p>
 
 # 04. UI/UX & Burning Activity Calendar Wireframe Specification
 
-**Project:** **Flare-Chronos** — *26-Year Cross-Sensor Harmonized Active Fire Intelligence & Phenology Calendar*  
+**Project:** **GeoHarmonix** — *26-Year Cross-Sensor Harmonized Active Fire Intelligence & Phenology Calendar*  
 **Challenge:** 2026 NASA Space Apps Challenge — *Harmonization of MODIS and VIIRS Hot Spots*  
 **Related documents:** [GLOSSARY.md](../GLOSSARY.md) | [02_Cross_Sensor_Harmonization_Spec.md](02_Cross_Sensor_Harmonization_Spec.md) | [03_System_Architecture_and_Data_Pipeline.md](03_System_Architecture_and_Data_Pipeline.md)
 
@@ -16,7 +16,7 @@ Wildfire managers, emergency responders and ecologists face two major visualizat
 1. **Point-Buffer Illusion**: Conventional map portals draw every hotspot as a fixed-size circular dot. This hides the physical fact that a MODIS pixel at the edge of the scan swath ($\theta = 55^\circ$) has a ground elliptical footprint of up to **$9.69\text{ km}^2$** ($4.83 \times 2.01\text{ km}$), which is **$\sim 70\text{ times}$** the area of a VIIRS pixel at the swath center ($0.138\text{ km}^2$).
 2. **Constellation Step-Jump Illusion**: In a raw time series from 2000 to 2026, adding Suomi-NPP in 2012, NOAA-20 in 2018/2020 and NOAA-21 in 2024 makes the fire count jump by $4\text{–}14\text{ times}$. The user cannot tell a truly extreme fire season (such as the 2016 or 2024 El Niño drought) from a sensor-density effect.
 
-The **Flare-Chronos Workbench** resolves both illusions through a **Synchronized Four-Pane Analytical Workspace**.
+The **GeoHarmonix Workbench** resolves both illusions through a **Synchronized Four-Pane Analytical Workspace**.
 
 ---
 
@@ -24,7 +24,7 @@ The **Flare-Chronos Workbench** resolves both illusions through a **Synchronized
 
 ### 2.1. Live Interface Screenshot (`apps/workbench`) & Empirical Harmonization Charts
 
-![Flare-Chronos Interactive 3D Region Globe & Workbench Preview](../apps/workbench/public/og.png)
+![GeoHarmonix Interactive 3D Region Globe & Workbench Preview](../apps/workbench/public/og.png)
 
 | 26-Year Burning Activity Calendar Matrix (`26 Years × 73 Pentads`) | Elimination of the Artificial Multi-Sensor Step Jump (`2001–2026`) |
 | :---: | :---: |
@@ -34,7 +34,7 @@ The **Flare-Chronos Workbench** resolves both illusions through a **Synchronized
 
 ```text
 +----------------------------------------------------------------------------------------------------------------------+
-| [🔥 FLARE-CHRONOS]  AOI: [ Mekong Subregion & Vietnam v ]   Period: [2000 - 2026]   Grid: [H3 Res 7 (5km)]            |
+| [🔥 GEOHARMONIX]  AOI: [ Mekong Subregion & Vietnam v ]   Period: [2000 - 2026]   Grid: [H3 Res 7 (5km)]            |
 | Physical Filters: [x] SZA < 85° Normalization  [x] Night SAA Noise Filter  [x] Static Heat Source Split  [x] Dedup (60m) |
 +-------------------------------------------------------+--------------------------------------------------------------+
 |                                                       |  [BEFORE / AFTER HARMONIZATION CONTROL PANEL]                |
@@ -69,11 +69,11 @@ The **Flare-Chronos Workbench** resolves both illusions through a **Synchronized
 | 2024* | ░░░░░░░░░░░░ | ▒▒▓▓██████▓▓ | ████████████ | ▓▓████▒▒░░░░ | ░░░░░░░░░░░░░░░░ | ░░░░░░░░░░░░░░░░ | ░░░░░░░░░░ |
 | 2026  | ░░░░░░░░░░░░ | ░░▒▒▓▓██████ | ▓▓████████▓▓ | ▒▒▓▓▒▒░░░░░░ | ░░░░░░░░░░░░░░░░ | ░░░░░░░░░░░░░░░░ | [NRT LIVE] |
 +----------------------------------------------------------------------------------------------------------------------+
-| [2000-2026 TIME-SERIES COMPARISON: RAW UNHARMONIZED SUM (Brick-Red Line - Artificial Step) vs. FLARE-CHRONOS (Leaf Green)] |
+| [2000-2026 TIME-SERIES COMPARISON: RAW UNHARMONIZED SUM (Brick-Red Line - Artificial Step) vs. GEOHARMONIX (Leaf Green)] |
 |   Index ^                                                                           .--- Raw Unharmonized (+1311.2%) |
 |   1200  |                                                                   .--------'                               |
 |    400  |                                         .------------------------'                                         |
-|    100  |================*================*=======*========*========*========*========*=== Flare-Chronos Physical    |
+|    100  |================*================*=======*========*========*========*========*=== GeoHarmonix Physical    |
 |         +--------+-------+--------+-------+-------+--------+--------+--------+--------+---> Year                     |
 |        2000    2005    2010     2012    2016    2020     2022     2024     2025     2026                             |
 +----------------------------------------------------------------------------------------------------------------------+
@@ -114,7 +114,7 @@ The **Flare-Chronos Workbench** resolves both illusions through a **Synchronized
 ### 3.4. Before/After Harmonization Comparator
 * Shows side by side in one chart frame:
   - **Orange-Red Line (Raw Unharmonized Sum)**: the raw hotspot total when MODIS + S-NPP + NOAA-20 + NOAA-21 are summed (with artificial step jumps in 2012, 2020 and 2024).
-  - **Teal Line (Flare-Chronos Harmonized Series)**: the physical trend after the H3 geometric calibrator, the scan-angle observation operator, 60-minute overpass deduplication and observation effort normalization $\Omega(y, \phi)$.
+  - **Teal Line (GeoHarmonix Harmonized Series)**: the physical trend after the H3 geometric calibrator, the scan-angle observation operator, 60-minute overpass deduplication and observation effort normalization $\Omega(y, \phi)$.
 
 ### 3.5. Grounded Briefing & Human Sign-off Panel
 * The briefing panel is the **fifth component** and connects directly to the cognitive tier event stream (`GET /api/v1/analysis/stream`). The panel has **three states**, not one completed timeline:

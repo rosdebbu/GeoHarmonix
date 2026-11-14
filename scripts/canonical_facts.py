@@ -1,4 +1,4 @@
-"""Centralized single-source-of-truth (SSOT) facts & claims registry for FLARE-CHRONOS.
+"""Centralized single-source-of-truth (SSOT) facts & claims registry for GEOHARMONIX.
 
 Computes every headline metric directly from the committed empirical artifacts
 (`data/processed/empirical_results.json`, `data/processed/burning_calendar.json`,

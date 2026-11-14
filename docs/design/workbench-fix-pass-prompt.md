@@ -1,6 +1,6 @@
-# Prompt for Claude Design — Fix Pass on the Existing Flare-Chronos Design
+# Prompt for Claude Design — Fix Pass on the Existing GeoHarmonix Design
 
-Apply these corrections to the existing Flare-Chronos Workbench and Review design. Do not redesign the product. Keep the layout, palette, typography, logo, sample data and all existing screens. Change only the items below.
+Apply these corrections to the existing GeoHarmonix Workbench and Review design. Do not redesign the product. Keep the layout, palette, typography, logo, sample data and all existing screens. Change only the items below.
 
 Paste this after the original Workbench prompt, or use it as the correction brief for the existing project.
 

@@ -1,4 +1,4 @@
-"""Publication-Grade Scientific Figure Renderer for Flare-Chronos.
+"""Publication-Grade Scientific Figure Renderer for GeoHarmonix.
 
 Renders 5 high-resolution (2200x1350 px, 2x supersampled) analytical figures directly
 into `docs/figures/*.png` from empirical NASA FIRMS harmonization metrics.
@@ -23,7 +23,7 @@ TEXT_MUTED = (90, 102, 122)
 
 COL_MODIS = (213, 94, 0)  # Vermilion / Terra-Aqua Orange-Red
 COL_VIIRS = (0, 114, 178)  # Deep Ocean Blue / Suomi-JPSS
-COL_HARM = (0, 158, 115)  # Bluish Green / Flare-Chronos Harmonized
+COL_HARM = (0, 158, 115)  # Bluish Green / GeoHarmonix Harmonized
 COL_WARN = (230, 159, 0)  # Amber / Threshold
 COL_PURPLE = (148, 82, 165)  # NOAA-20 / 21 Accent
 COL_GRAY = (130, 140, 155)
@@ -320,7 +320,7 @@ def render_fig1_scan_angle_physics(
     )
     c.draw.text(
         (1310, 495),
-        "compensated by Flare-Chronos Stage-1 Scan-Angle Observation Operator",
+        "compensated by GeoHarmonix Stage-1 Scan-Angle Observation Operator",
         fill=TEXT_DARK,
         font=c.f_small,
     )
@@ -493,8 +493,8 @@ def render_fig3_cross_sensor_frp(
 
     p1 = c.draw_panel_box(
         (36, 132, 1110, 1275),
-        "A. Co-Incident H3 Cell Radiative Power: Raw MODIS vs. Calibrated Flare-Chronos",
-        f"R^2 improves from {cal_data['raw_r2']:.3f} (Raw MODIS) to {cal_data['harm_r2']:.3f} (Flare-Chronos); RMSE drops from {cal_data['raw_rmse']:.1f} to {cal_data['harm_rmse']:.1f} MW",
+        "A. Co-Incident H3 Cell Radiative Power: Raw MODIS vs. Calibrated GeoHarmonix",
+        f"R^2 improves from {cal_data['raw_r2']:.3f} (Raw MODIS) to {cal_data['harm_r2']:.3f} (GeoHarmonix); RMSE drops from {cal_data['raw_rmse']:.1f} to {cal_data['harm_rmse']:.1f} MW",
     )
     max_frp = float(cal_data["max_axis_mw"])
     x_lim = (0.0, max_frp)
@@ -541,7 +541,7 @@ def render_fig3_cross_sensor_frp(
     )
     c.draw.text(
         (175, 292),
-        f"Flare-Chronos Calibrated MODIS (Unbiased Parity, R^2 = {cal_data['harm_r2']:.3f})",
+        f"GeoHarmonix Calibrated MODIS (Unbiased Parity, R^2 = {cal_data['harm_r2']:.3f})",
         fill=COL_HARM,
         font=c.f_annot,
     )
@@ -598,7 +598,7 @@ def render_fig3_cross_sensor_frp(
     )
     c.draw.text(
         (1460, 770),
-        "Flare-Chronos Harmonized CDF (Matches Target up to P99)",
+        "GeoHarmonix Harmonized CDF (Matches Target up to P99)",
         fill=COL_HARM,
         font=c.f_annot,
     )
@@ -614,7 +614,7 @@ def render_fig4_regime_shift_elimination(
     c = ScientificCanvas()
     c.draw_header(
         "Figure 4 | Elimination of Artificial Multi-Sensor Step Jumps Across 26 Years (2000 - 2026)",
-        "Demonstrating how raw unharmonized fire counts explode artificially in 2012 (+SNPP) and 2020/2024 (+NOAA-20/21) vs. Flare-Chronos Physical Baseline",
+        "Demonstrating how raw unharmonized fire counts explode artificially in 2012 (+SNPP) and 2020/2024 (+NOAA-20/21) vs. GeoHarmonix Physical Baseline",
     )
 
     for panel_idx, (region_key, box, title_str) in enumerate(
@@ -639,7 +639,7 @@ def render_fig4_regime_shift_elimination(
         p = c.draw_panel_box(
             box,
             title_str,
-            "Indexed to 2005 Baseline = 100 | Contrasting Unharmonized Raw Multi-Sensor Sum vs. Flare-Chronos HFD",
+            "Indexed to 2005 Baseline = 100 | Contrasting Unharmonized Raw Multi-Sensor Sum vs. GeoHarmonix HFD",
         )
         ymax = max(max(raw_idx), max(harm_idx)) * 1.12
         x_lim = (2000.0, 2026.5)
@@ -697,7 +697,7 @@ def render_fig4_regime_shift_elimination(
         )
         c.draw.text(
             (box[0] + 125, 330),
-            "Flare-Chronos Harmonized Fire Density (True Physical & Climatic Signal)",
+            "GeoHarmonix Harmonized Fire Density (True Physical & Climatic Signal)",
             fill=COL_HARM,
             font=c.f_annot,
         )
@@ -759,7 +759,7 @@ def render_fig5_burning_activity_calendar(
     """Render Figure 5: 26-Year Harmonized Burning Activity Calendar (Year x Pentad Heatmap & SFAI)."""
     c = ScientificCanvas()
     c.draw_header(
-        "Figure 5 | Flare-Chronos 26-Year Harmonized Burning Activity Calendar (2001 - 2026 x 73 Pentads)",
+        "Figure 5 | GeoHarmonix 26-Year Harmonized Burning Activity Calendar (2001 - 2026 x 73 Pentads)",
         "Unified MODIS + VIIRS Seasonal Fire Phenology Matrix & Standardized Fire Anomaly Index (SFAI Z-Score) Early-Warning Triggers",
     )
 

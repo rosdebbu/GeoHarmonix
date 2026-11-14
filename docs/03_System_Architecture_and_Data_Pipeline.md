@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="figures/flare-chronos-logo.png" alt="Flare-Chronos Official Logo" width="220" />
+  <img src="figures/flare-chronos-logo.png" alt="GeoHarmonix Official Logo" width="220" />
 </p>
 
 # 03. System Architecture & Spatio-Temporal Data Pipeline
 
-**Project:** **Flare-Chronos** — *Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System* (*26-Year Cross-Sensor Harmonized Active Fire Intelligence & Phenology Calendar*)  
+**Project:** **GeoHarmonix** — *Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System* (*26-Year Cross-Sensor Harmonized Active Fire Intelligence & Phenology Calendar*)  
 **Challenge:** 2026 NASA Space Apps Challenge — *Harmonization of MODIS and VIIRS Hot Spots*  
 **Related documents:** [GLOSSARY.md](../GLOSSARY.md) | [ADR-0001](adr/0001-dual-resolution-h3-fractional-allocation.md) | [ADR-0002](adr/0002-two-stage-physics-guided-frp-harmonization.md) | [ADR-0003](adr/0003-spatio-temporal-episode-deduplication-and-effort-normalization.md) | [ADR-0004](adr/0004-monorepo-deep-module-architecture.md)
 
@@ -12,7 +12,7 @@
 
 ## 1. Design Philosophy: Deep Modules & Monorepo Architecture
 
-The **Flare-Chronos** system is designed on the **Deep Modules** principle (*Ousterhout, 2018; Matt Pocock Codebase Design*): it hides all the complexity of mid-infrared radiative physics ($4\,\mu\text{m}$), spherical scan-swath geometry (*Bow-Tie Distortion*), solar astronomy ($\text{SZA}$), and multi-satellite calibration statistics behind a lean, stable, side-effect-free interface.
+The **GeoHarmonix** system is designed on the **Deep Modules** principle (*Ousterhout, 2018; Matt Pocock Codebase Design*): it hides all the complexity of mid-infrared radiative physics ($4\,\mu\text{m}$), spherical scan-swath geometry (*Bow-Tie Distortion*), solar astronomy ($\text{SZA}$), and multi-satellite calibration statistics behind a lean, stable, side-effect-free interface.
 
 ### 1.1. Standard Monorepo Structure (`packages/*`, `apps/*`, `docs/*`)
 
@@ -53,7 +53,7 @@ flare-chronos/
 │       ├── pyproject.toml
 │       └── src/benchmark_cli/
 │           ├── fetch_real_firms.py               # Historical and NRT data download process from NASA FIRMS
-│           ├── run_experiments.py                # Runs quantitative validation on 1,609,182 real hot spots
+│           ├── run_experiments.py                # Runs quantitative validation on 2,750,620 real hot spots
 │           └── figure_renderer.py                # High-resolution scientific graphics rendering engine
 ├── src/
 │   └── harmonization/
@@ -77,7 +77,7 @@ flowchart TB
 
     subgraph INGESTION_SEAM["2. Ingestion & Caching Layer (packages/firms-ingestion)"]
         API_ADAPTER["FIRMSClient Adapter<br/>5,000 tx / 10 min quota management & 0.35s pacing"]
-        RAW_CACHE["Raw Data Archive (data/raw/*.csv & GeoParquet)<br/>1,609,182 verified real records"]
+        RAW_CACHE["Raw Data Archive (data/raw/*.csv & GeoParquet)<br/>2,750,620 verified real records"]
     end
 
     subgraph CORE_ENGINE["3. Cross-Sensor Physical Harmonization Core (packages/harmonization-core)"]
@@ -175,7 +175,7 @@ sequenceDiagram
 
 ## 4. Spatio-Temporal Database Design (DuckDB / PostGIS + Uber H3 Schema)
 
-To query 26 years of history for any AOI instantly (under `50 ms`) without expensive polygon geometry intersection (`ST_Intersects`) at query time, **Flare-Chronos** moves the entire spatial problem to 64-bit integer key joins (`UINT64 H3 Index`) on **DuckDB / Apache Parquet**.
+To query 26 years of history for any AOI instantly (under `50 ms`) without expensive polygon geometry intersection (`ST_Intersects`) at query time, **GeoHarmonix** moves the entire spatial problem to 64-bit integer key joins (`UINT64 H3 Index`) on **DuckDB / Apache Parquet**.
 
 ### 4.1. Core Table Schema (SQL DDL)
 
@@ -271,7 +271,7 @@ The system connects directly to the official NASA LANCE FIRMS endpoints using `F
    GET https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/{SOURCE}/{west,south,east,north}/{DAY_RANGE}/{YYYY-MM-DD}
    ```
 
-### 5.2. Flare-Chronos Backend Service Endpoint Specification
+### 5.2. GeoHarmonix Backend Service Endpoint Specification
 
 | Method & Path | Function Description | Input Parameters | Response Structure (JSON / GeoParquet) |
 | :--- | :--- | :--- | :--- |

@@ -507,7 +507,7 @@ Playwright: 1440×900, 834×1194 and 390×844 (DPR 2, mobile, touch).
 
 | Interaction | Result |
 |---|---|
-| `/` | Region Globe landing; title `Flare Chronos — Region Globe`; `h1` "Raw fire counts rose up to 14×. The fires did not." |
+| `/` | Region Globe landing; title `GeoHarmonix — Region Globe`; `h1` "Raw fire counts rose up to 14×. The fires did not." |
 | Loader | 4 steps; captured at 3/4 "Loading satellite imagery"; fades after 900 ms + 560 ms; 15 s fallback; `aria-busy` follows. |
 | Landing theme | Dark ↔ light. Photo surface ↔ vector surface, stars, coverage, borders and orbit colours change; `fc-theme` cookie follows. |
 | Landing locale | EN ↔ VI. `h1`, body, cards, labels, loader and meta title change; the globe and camera state survive `router.refresh()`. |

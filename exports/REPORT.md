@@ -16,7 +16,7 @@ Challenge: Harmonization of MODIS and VIIRS Hot Spots
 
 GeoHarmonix is a Python and TypeScript monorepo. A pure physics core computes all harmonization steps without network or disk access. An ingestion adapter reads NASA FIRMS CSV slices. A benchmark application runs the empirical pipeline and renders the figures. A FastAPI service hosts the dual-system cognitive harness. A Next.js workbench presents the results.
 
-The repository commits 134 non-empty NASA FIRMS CSV slices with 1,609,182 detections, pinned by SHA-256 digests and a fetch manifest. The five-day peak windows used for the case studies contain 451,488 detections. The full pipeline and the test suite run offline after a clone.
+The repository commits 134 non-empty NASA FIRMS CSV slices with 2,750,620 detections, pinned by SHA-256 digests and a fetch manifest. The five-day peak windows used for the case studies contain 451,488 detections. The full pipeline and the test suite run offline after a clone.
 
 The empirical result is stable. The calibration reduces the Kolmogorov-Smirnov distance from 0.1153 to 0.0353, a 69.4 percent reduction, and raises the log-FRP coefficient of determination from 0.7839 to 0.8048. The harmonized Mekong index for 2024 is 90.5 against a 2005 baseline of 100.0, so the artificial 1,311.2 percent step jump is removed while the El Niño peaks remain.
 
@@ -41,7 +41,7 @@ The monorepo has five parts. The dependency rule is one way: applications depend
 | Component | Responsibility | Evidence |
 | :--- | :--- | :--- |
 | `packages/harmonization-core` | Pure physics and statistics: schemas, solar angle, confidence, geometry, radiometry, deduplication, calendar. | Zero network and disk imports; 58 core tests. |
-| `packages/firms-ingestion` | Rate-limited NASA LANCE FIRMS client and schema-normalizing CSV loader. | SHA-256 archive guard; 134 slices verified. |
+| `packages/firms-ingestion` | Rate-limited NASA LANCE FIRMS client and schema-normalizing CSV loader. | SHA-256 archive guard; 210 slices verified. |
 | `apps/benchmark-cli` | Empirical runner, sensitivity analysis and 300-DPI figure renderer. | Produces `empirical_results.json`, `burning_calendar.json` and figures 1 to 5. |
 | `apps/ai-service` | FastAPI service, 8-node LangGraph harness, verified facts ledger, review store. | 15 use cases, 18 registered tools, JWT sign-off. |
 | `apps/workbench` | Next.js 16 analyst surface: globe, equal-area map, H3 bins, calendar, review queue. | Routes `/`, `/workbench/[zone]`, `/review`, `/review/audit`, `/about`, `/faq`. |
@@ -215,7 +215,7 @@ The workbench reads the analysis service at port 5901. It never shows replayed o
 | Category | Files | Tests | Scope |
 | :--- | :---: | :---: | :--- |
 | Physics and harmonization core | 12 | 58 | Scan geometry, H3 energy conservation, solar angle, SAA filter, calibration, clustering, SFAI |
-| Archive, calendar and claims | 5 | 38 | SHA-256 of 134 slices, measured epoch provenance, figure parity, document claims |
+| Archive, calendar and claims | 5 | 38 | SHA-256 of 210 slices, measured epoch provenance, figure parity, document claims |
 | AI harness and classifiers | 3 | 50 | 8-node routing, 15 use cases, 18 tools, ledger, verifier, fallback chain |
 | API, JWT and review store | 2 | 40 | Bearer auth, sign-off, audit triggers, SSE framing, review projection |
 | Live vertical slices | 1 | 6 | Live classification, multi-tool deliberation, escalation, CSV harmonization |
@@ -247,4 +247,4 @@ This section lists the NASA resources and the published research used in the stu
 10. **Wolfe, R. E., Lin, G., Nishihama, M., Tewari, K. P., Tilton, J. C., & Isaacman, A. R. (2013).** *Suomi NPP VIIRS prelaunch and on-orbit geometric calibration and characterization.* Journal of Geophysical Research: Atmospheres, 118(20), 11508–11521.
 11. **Freeborn, P. H., Wooster, M. J., Roy, D. P., & Cochrane, M. A. (2014).** *Quantification of MODIS fire radiative power (FRP) measurement uncertainty for use in satellite-based active fire characterization and biomass burning estimation.* Geophysical Research Letters, 41(6), 1988–1994.
 12. **Sofiev, M., & Kouznetsov, R. (2026).** *Analytical observation operators for satellite active fire detection limits and scan-angle FRP modulation across MODIS and VIIRS.* Copernicus / EGU Atmospheric Chemistry and Physics Discussions.
-13. **Flare-Chronos Project Repository (2026).** *Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System: source code, NASA FIRMS archive, processed results and test suite.* GitHub, debbjitttt__/GeoHarmonix. [https://github.com/debbjitttt__/GeoHarmonix](https://github.com/debbjitttt__/GeoHarmonix). MIT License.
+13. **GeoHarmonix Project Repository (2026).** *Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System: source code, NASA FIRMS archive, processed results and test suite.* GitHub, debbjitttt__/GeoHarmonix. [https://github.com/debbjitttt__/GeoHarmonix](https://github.com/debbjitttt__/GeoHarmonix). MIT License.

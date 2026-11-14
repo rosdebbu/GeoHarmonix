@@ -50,11 +50,12 @@ type RawEmpirical = {
   >;
   mekong_empirical_epochs: RawEpoch[];
   amazon_empirical_epochs: RawEpoch[];
+  india_empirical_epochs?: RawEpoch[];
   scan_angle_physics: RawPhysics;
   coincident_calibration: RawCalibration;
 };
 
-const REGIONS: RegionId[] = ['mekong', 'amazon'];
+const REGIONS: RegionId[] = ['mekong', 'amazon', 'india'];
 
 /** The raw-growth headline is read between these two Measured Epochs, as on the landing. */
 const GROWTH_WINDOW = [2005, 2024] as const;
@@ -155,7 +156,11 @@ export const loadWorkbench = cache(async (calendar: CalendarDataset): Promise<Wo
 
     const measured = calendar.regions[region].observedYears;
     const rawEpochs =
-      region === 'mekong' ? empirical.mekong_empirical_epochs : empirical.amazon_empirical_epochs;
+      region === 'mekong'
+        ? empirical.mekong_empirical_epochs
+        : region === 'amazon'
+          ? empirical.amazon_empirical_epochs
+          : (empirical.india_empirical_epochs ?? []);
 
     const regionEpochs = measured.map((year): Epoch => {
       const epoch = rawEpochs.find((item) => item.year === year);

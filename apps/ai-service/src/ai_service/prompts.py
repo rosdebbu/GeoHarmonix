@@ -1,4 +1,4 @@
-"""Prompts and typed questions for the FLARE-CHRONOS Dual-System harness.
+"""Prompts and typed questions for the GEOHARMONIX Dual-System harness.
 
 Two prompt surfaces exist, one per cognitive tier:
 
@@ -21,7 +21,7 @@ from ai_service.schemas import SpatioTemporalQueryEntity
 EPOCH_OPTIONS = {str(year): f"Year {year}" for year in range(2000, 2027)}
 
 _DOMAIN_BRIEF = """\
-FLARE-CHRONOS harmonizes multi-decadal satellite active-fire observations \
+GEOHARMONIX harmonizes multi-decadal satellite active-fire observations \
 (MODIS and VIIRS) into one physics-calibrated, sensor-invariant record.
 
 Key domain objects you will see in tool output:
@@ -175,7 +175,7 @@ def system1_classification_prompt(entity: SpatioTemporalQueryEntity) -> str:
         f"{', '.join(str(y) for y in entity.epoch_years) or 'none'}"
     )
     return (
-        "You are FLARE-CHRONOS System 1, the Reflexive Layer of a "
+        "You are GEOHARMONIX System 1, the Reflexive Layer of a "
         "dual-process fire-intelligence system.\n"
         "\n"
         "Classify the operator's request before any tool runs. Call "
@@ -219,7 +219,7 @@ def system2_system_prompt(
     return "\n".join(
         [
             (
-                "You are FLARE-CHRONOS System 2, the Deliberative Layer of a "
+                "You are GEOHARMONIX System 2, the Deliberative Layer of a "
                 "dual-process fire-intelligence system."
             ),
             "",

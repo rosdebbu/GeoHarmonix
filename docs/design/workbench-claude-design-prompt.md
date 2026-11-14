@@ -1,4 +1,4 @@
-# Prompt for Claude Design — Flare-Chronos Workbench
+# Prompt for Claude Design — GeoHarmonix Workbench
 
 Paste everything below the line into Claude Design. Attach `docs/figures/flare-chronos-logo.png` and, optionally, `docs/04_UI_UX_Burning_Calendar_Wireframe.md`. The reviewer surfaces that follow a finished run are specified in the addendum `docs/design/workbench-reviewer-ui-prompt.md`; paste that addendum after this prompt.
 
@@ -6,7 +6,7 @@ Paste everything below the line into Claude Design. Attach `docs/figures/flare-c
 
 ## Task
 
-Design the **Flare-Chronos Workbench**: a single-mode, data-dense analysis web app that proves a scientific claim to NASA Space Apps judges in 2–3 minutes. Deliver high-fidelity screens for desktop (1440×900) with a tablet and mobile adaptation of the key screens, in dark and light themes, plus a small component sheet.
+Design the **GeoHarmonix Workbench**: a single-mode, data-dense analysis web app that proves a scientific claim to NASA Space Apps judges in 2–3 minutes. Deliver high-fidelity screens for desktop (1440×900) with a tablet and mobile adaptation of the key screens, in dark and light themes, plus a small component sheet.
 
 ## The claim the design must make obvious
 
@@ -20,7 +20,7 @@ Primary: international judges, non-specialists, no setup. Secondary: forest rang
 
 1. **Region Globe (landing).** A full-screen, slowly rotating 3D Earth (see assets below). Two regions are marked: Mekong sub-region and Vietnam (BBOX 100.0–109.5°E, 11.0–23.5°N) and the Amazon fire arc (BBOX 62–50°W, 14–4°S). Hover shows the region name and its number of Measured Epochs (11 of 26 for Mekong, 9 of 26 for Amazon). Click flies the camera in and switches to the flat map. Any satellite-orbit animation on the globe is a **Narrative Asset** and must carry a small "Illustration, not a measurement" label.
 2. **Workbench (main).** Layout from the wireframe:
-   - Header: Flare-Chronos wordmark, region selector, period 2000–2026, grid (H3 Res 7 or 8), physics filter toggles (SZA < 85°, SAA night noise, static heat sources, 60-minute de-duplication), a language toggle (English / Tiếng Việt), a Globe button, and a connection status chip for the analysis service.
+   - Header: GeoHarmonix wordmark, region selector, period 2000–2026, grid (H3 Res 7 or 8), physics filter toggles (SZA < 85°, SAA night noise, static heat sources, 60-minute de-duplication), a language toggle (English / Tiếng Việt), a Globe button, and a connection status chip for the analysis service.
    - Map pane (flat, equal-area-faithful): oriented elliptical footprints for MODIS and VIIRS pixels, H3 hex layer, static and SAA overlay in purple/grey. A year picker lists **Measured Epochs only**, each showing its date window.
    - KPI strip: Raw Detections → Fire Episodes → SFAI.
    - Burning Activity Calendar matrix: 26 years × 73 pentads, three metric modes (HFD, HRF, SFAI). Observed cells and modelled cells are visibly different (for example solid vs hatched). Only Observed cells show SFAI. Cells at or above +2.2σ get a cyan **Severe Anomaly Outline**.

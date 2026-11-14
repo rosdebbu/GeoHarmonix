@@ -13,8 +13,10 @@
     "regions": {
       "mekong": "Mê Kông",
       "amazon": "Amazon",
+      "india": "Ấn Độ · Bangladesh · Myanmar",
       "mekongLong": "Mê Kông & Việt Nam",
-      "amazonLong": "Vành đai lửa Amazon"
+      "amazonLong": "Vành đai lửa Amazon",
+      "indiaLong": "Ấn Độ, Bangladesh & Myanmar"
     },
     "period": "Giai đoạn",
     "periodValue": "{start}–{end}",
@@ -65,11 +67,13 @@
     "fallback": "Địa cầu 3D không khả dụng trong trình duyệt này. Đang hiển thị bản đồ phẳng.",
     "short": {
       "mekong": "Mê Kông & Việt Nam",
-      "amazon": "Vành đai lửa Amazon"
+      "amazon": "Vành đai lửa Amazon",
+      "india": "Ấn Độ, Bangladesh & Myanmar"
     },
     "coverage": {
       "mekong": "Đại lục VNM · LAO · KHM · THA · FIRMS {box}",
-      "amazon": "Đại lục Amazon · FIRMS {box}"
+      "amazon": "Đại lục Amazon · FIRMS {box}",
+      "india": "IND · BGD · MMR · FIRMS {box}"
     },
     "boot": {
       "fonts": "Đang tải phông chữ",

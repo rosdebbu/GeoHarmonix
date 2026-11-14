@@ -1,4 +1,4 @@
-"""Checklist Facade Seam for Flare-Chronos (src/harmonization/firms_harmonizer.py).
+"""Checklist Facade Seam for GeoHarmonix (src/harmonization/firms_harmonizer.py).
 
 Delegates all domain physics, H3 fractional footprint allocation, astronomical SZA
 reclassification, multi-satellite overpass deduplication, and Two-Stage FRP calibration

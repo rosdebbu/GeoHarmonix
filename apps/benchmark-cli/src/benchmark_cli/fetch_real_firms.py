@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "packages" / "firms-ingestion" / "src"))
 
-from firms_ingestion import BBOX_AMAZON, BBOX_MEKONG, FIRMSClient, FIRMSQuerySpec
+from firms_ingestion import BBOX_AMAZON, BBOX_INDIA, BBOX_MEKONG, FIRMSClient, FIRMSQuerySpec
 
 
 def get_mekong_march_sources(year: int) -> list[str]:
@@ -83,6 +83,20 @@ def build_epoch_query_plan() -> list[FIRMSQuerySpec]:
                 )
             )
 
+    # 2b. South Asia (India + Bangladesh + Myanmar): post-monsoon burning window (Nov 5-9).
+    # Sensor availability in November matches the Amazon's August logic.
+    for yr in range(2001, 2027):
+        for src in get_amazon_august_sources(yr):
+            specs.append(
+                FIRMSQuerySpec(
+                    region_tag="india",
+                    source=src,
+                    bbox=BBOX_INDIA,
+                    day_range=5,
+                    start_date=f"{yr}-11-05",
+                )
+            )
+
     # 3. Intra-Annual Seasonal Phenology Slices (12 Months across the year + early Feb El Nino onset)
     mekong_seasonal_dates = [
         "2024-01-15",
@@ -110,6 +124,21 @@ def build_epoch_query_plan() -> list[FIRMSQuerySpec]:
                 region_tag="mekong_season",
                 source=src,
                 bbox=BBOX_MEKONG,
+                day_range=5,
+                start_date=d_str,
+            )
+        )
+
+    # South Asia seasonal phenology: one VIIRS-SNPP slice per month of 2024 (Nov 5 is the peak slice).
+    for d_str in [
+        "2024-01-15", "2024-02-15", "2024-03-15", "2024-04-15", "2024-05-15", "2024-06-15",
+        "2024-07-15", "2024-08-15", "2024-09-15", "2024-10-15", "2024-12-15",
+    ]:  # fmt: skip
+        specs.append(
+            FIRMSQuerySpec(
+                region_tag="india_season",
+                source="VIIRS_SNPP_SP",
+                bbox=BBOX_INDIA,
                 day_range=5,
                 start_date=d_str,
             )

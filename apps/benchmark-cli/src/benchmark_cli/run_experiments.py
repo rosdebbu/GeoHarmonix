@@ -1,7 +1,7 @@
-"""Empirical Verification & Publication Figure Pipeline for Flare-Chronos.
+"""Empirical Verification & Publication Figure Pipeline for GeoHarmonix.
 
 
-Processes the 1,609,182 real NASA FIRMS Thermal Detections cached in `data/raw/` to:
+Processes the 2,750,620 real NASA FIRMS Thermal Detections cached in `data/raw/` to:
 1. Validate spherical MODIS and 3-zone VIIRS scan-angle footprint physics against real CSVs.
 2. Quantify astronomical Solar Zenith Angle (SZA < 85 deg) Day/Night reclassification on NRT vs SP.
 3. Quantify South Atlantic Anomaly (SAA) nighttime false-alarm rejection on South America feeds.
@@ -507,7 +507,7 @@ def evaluate_epoch_slice(
     # Scale deduplicated episode counts & harmonized FRP by exact sub-sampling ratio
     est_episodes = round(len(episodes) * sample_scale)
     year = int(date_str[:4]) if date_str != "latest" else 2026
-    mean_lat = 17.2 if region == "mekong" else -9.0
+    mean_lat = {"mekong": 17.2, "amazon": -9.0, "india": 21.75}[region]
     n_viirs = sum(1 for s in sources if "VIIRS" in s)
     omega = compute_effective_observation_effort(year, mean_lat, n_viirs)
     omega_before_cloud = omega
@@ -616,7 +616,7 @@ def _load_real_annual_modis_counts(region: str, month_day: str) -> dict[int, int
     """Load real observed MODIS 5-day hotspot counts for all 26 years (2001-2026)."""
     counts: dict[int, int] = {}
     for yr in range(2001, 2027):
-        sfx = "NRT" if (region == "amazon" and yr == 2026) else "SP"
+        sfx = "NRT" if (region in ("amazon", "india") and yr == 2026) else "SP"
         df = _load_csv_safe(f"{region}__MODIS_{sfx}__{yr}-{month_day}__5d.csv")
         if not df.empty:
             counts[yr] = len(df)
@@ -633,9 +633,9 @@ def _load_real_annual_raw_totals(
         if yr <= 2011:
             totals[yr] = m_cnt
             continue
-        sfx = "NRT" if (region == "amazon" and yr == 2026) else "SP"
+        sfx = "NRT" if (region in ("amazon", "india") and yr == 2026) else "SP"
         streams = [f"MODIS_{sfx}", f"VIIRS_SNPP_{sfx}"]
-        if (region == "mekong" and yr >= 2019) or (region == "amazon" and yr >= 2018):
+        if (region == "mekong" and yr >= 2019) or (region in ("amazon", "india") and yr >= 2018):
             streams.append(f"VIIRS_NOAA20_{sfx}")
         if yr >= 2024:
             streams.append("VIIRS_NOAA21_NRT")
@@ -674,6 +674,22 @@ def _load_empirical_seasonal_envelope(region: str) -> np.ndarray:
             (58, "mekong_season__VIIRS_SNPP_SP__2024-10-15__5d.csv"),
             (64, "mekong_season__VIIRS_SNPP_SP__2024-11-15__5d.csv"),
             (70, "mekong_season__VIIRS_SNPP_SP__2024-12-15__5d.csv"),
+        ]
+    elif region == "india":
+        # Pentad = ceil(day-of-year / 5) of each 2024 slice; Nov 5 is the peak slice.
+        anchor_files = [
+            (3, "india_season__VIIRS_SNPP_SP__2024-01-15__5d.csv"),
+            (10, "india_season__VIIRS_SNPP_SP__2024-02-15__5d.csv"),
+            (15, "india_season__VIIRS_SNPP_SP__2024-03-15__5d.csv"),
+            (21, "india_season__VIIRS_SNPP_SP__2024-04-15__5d.csv"),
+            (27, "india_season__VIIRS_SNPP_SP__2024-05-15__5d.csv"),
+            (34, "india_season__VIIRS_SNPP_SP__2024-06-15__5d.csv"),
+            (40, "india_season__VIIRS_SNPP_SP__2024-07-15__5d.csv"),
+            (46, "india_season__VIIRS_SNPP_SP__2024-08-15__5d.csv"),
+            (52, "india_season__VIIRS_SNPP_SP__2024-09-15__5d.csv"),
+            (58, "india_season__VIIRS_SNPP_SP__2024-10-15__5d.csv"),
+            (62, "india__VIIRS_SNPP_SP__2024-11-05__5d.csv"),
+            (70, "india_season__VIIRS_SNPP_SP__2024-12-15__5d.csv"),
         ]
     else:
         anchor_files = [
@@ -716,6 +732,7 @@ def _load_empirical_seasonal_envelope(region: str) -> np.ndarray:
 def build_26yr_calendars_and_series(
     mekong_epochs: list[dict[str, Any]],
     amazon_epochs: list[dict[str, Any]],
+    india_epochs: list[dict[str, Any]] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """Construct the 26-year (2001-2026) series and 26x73 Pentad matrices.
 
@@ -742,6 +759,30 @@ def build_26yr_calendars_and_series(
     series_out: dict[str, Any] = {}
     cal_out: dict[str, Any] = {}
 
+    regions_cfg = [
+        (
+            "mekong", mek_map, mek_modis_26, mek_raw_26, 15,
+            "Pentads 11-22 (Feb 20 - Apr 20)", "Severe El Nino Anomalies",
+        ),
+        (
+            "amazon", amz_map, amz_modis_26, amz_raw_26, 47,
+            "Pentads 40-56 (Jul 15 - Oct 07)", "Severe Drought Anomalies",
+        ),
+    ]  # fmt: skip
+    if india_epochs:
+        ind_map = {e["year"]: e for e in india_epochs if e and e["year"] <= 2026}
+        ind_modis_26 = _load_real_annual_modis_counts("india", "11-05")
+        ind_raw_26 = _load_real_annual_raw_totals("india", "11-05", ind_modis_26)
+        curve = _load_empirical_seasonal_envelope("india")
+        hot = [i + 1 for i, v in enumerate(curve) if v >= 0.6 * float(curve.max())]
+        regions_cfg.append(
+            (
+                "india", ind_map, ind_modis_26, ind_raw_26, 62,
+                f"Pentads {hot[0]}-{hot[-1]} (days {5 * hot[0] - 4}-{5 * hot[-1]} of the year)",
+                "Severe Fire Anomalies",
+            )
+        )  # fmt: skip
+
     for (
         region_key,
         emp_map,
@@ -750,33 +791,14 @@ def build_26yr_calendars_and_series(
         peak_pentad,
         peak_window,
         anomaly_label,
-    ) in [
-        (
-            "mekong",
-            mek_map,
-            mek_modis_26,
-            mek_raw_26,
-            15,
-            "Pentads 11-22 (Feb 20 - Apr 20)",
-            "Severe El Nino Anomalies",
-        ),
-        (
-            "amazon",
-            amz_map,
-            amz_modis_26,
-            amz_raw_26,
-            47,
-            "Pentads 40-56 (Jul 15 - Oct 07)",
-            "Severe Drought Anomalies",
-        ),
-    ]:
+    ) in regions_cfg:
         raw_2005 = float(raw_26[2005])
         harm_2005 = float(emp_map[2005]["harmonized_viirs_eq_episodes"])
         modis_2005 = float(modis_26[2005])
         clim_baseline_harm = (
-            harm_2005
-            if region_key == "mekong"
-            else harm_2005 * _AMAZON_CLIMATOLOGY_BASELINE_FRACTION
+            harm_2005 * _AMAZON_CLIMATOLOGY_BASELINE_FRACTION
+            if region_key == "amazon"
+            else harm_2005
         )
         emp_seasonal_curve = _load_empirical_seasonal_envelope(region_key)
 

@@ -474,7 +474,7 @@ Extracted from `GLOSSARY.md` (root). Each term includes its definition and the w
 
 After the audit, the following figures were corrected to match `data/processed/empirical_results.json`:
 
-- Total detections: **1,609,182** (not 1,609,194).
+- Total detections: **2,750,620** (not 1,609,194).
 - Number of CSV slices: **134** (not 138).
 - Test duration: **0.004s** (not 0.003s).
 - `n_pairs`: **11,553**; R²: **0.7330 → 0.7470**; KS: **0.1166 → 0.0237**; count ratio: **3.56×**; FRP ratio: **1.371×**.

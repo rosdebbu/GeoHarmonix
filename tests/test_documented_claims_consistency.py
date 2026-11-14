@@ -9,7 +9,7 @@ calibration parameters). Those numbers are produced by
 Prose drifts from data easily: the documents previously still quoted the
 metrics of an earlier, smaller FIRMS pull (775,531 records / 5,769 co-incident
 pairs / D_KS 0.1180 -> 0.0205) long after the pipeline had moved on to
-1,609,182 records / 11,553 pairs / D_KS 0.1166 -> 0.0237. This module asserts
+2,750,620 records / 11,553 pairs / D_KS 0.1166 -> 0.0237. This module asserts
 that every published claim still agrees with the committed results artifact, so
 a future data refresh fails loudly instead of shipping a stale pitch.
 
@@ -359,7 +359,7 @@ class DocumentedClaimsConsistencyTest(unittest.TestCase):
     def test_only_one_record_count_is_published(self) -> None:
         """Exactly one record count may appear in the published documents.
 
-        The archive holds 1,609,182 detections across 134 cached CSV slices
+        The archive holds 2,750,620 detections across 210 cached CSV slices
         (per ``data/raw/fetch_manifest.json``). An earlier convention counted
         every row in every ``data/raw/*.csv``, which additionally swept in the
         sensor-availability table and three header-only slices, yielding
@@ -377,7 +377,7 @@ class DocumentedClaimsConsistencyTest(unittest.TestCase):
                     self.sources[source],
                     f"{source}: inflated record count ({form!r}) is still embedded.",
                 )
-        inflated_slices = re.compile(rf"(?<![\d.,]){slices + 4}(?![\d.,])")
+        inflated_slices = re.compile(rf"(?<![\w.,]){slices + 4}(?![\d.,])")
         for doc in ("docs/01_NASA_SpaceApps_Proposal.md", "exports/PROPOSAL.md"):
             self.assertIsNone(
                 inflated_slices.search(self.docs[doc]),
@@ -647,8 +647,8 @@ class DocumentedClaimsConsistencyTest(unittest.TestCase):
     def test_canonical_facts_registry_and_no_superseded_claims(self) -> None:
         """Centralized SSOT registry agrees with artifacts and forbids stale claims."""
         facts = load_canonical_facts()
-        self.assertEqual(facts.total_firms_records, 1_609_182)
-        self.assertEqual(facts.cached_csv_slices, 134)
+        self.assertEqual(facts.total_firms_records, 2_750_620)
+        self.assertEqual(facts.cached_csv_slices, 210)
         self.assertEqual(facts.coincident_pairs, 20_786)
         self.assertAlmostEqual(facts.raw_r2, 0.7839, places=4)
         self.assertAlmostEqual(facts.harm_r2, 0.8048, places=4)

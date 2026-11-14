@@ -203,8 +203,12 @@ def sample(rows: list[dict]) -> list[dict]:
         step = max(1, math.ceil(len(sensor_rows) / MAX_PER_SENSOR))
         for row in sensor_rows[::step]:
             picked[(row["file"], row["index"])] = row
+    # One marker per static source cell: a dense region has thousands of static detections
+    # that would otherwise crowd out the fires the map is for.
+    static_cells: set[str] = set()
     for row in rows:
-        if row["flags"] & FLAG_STATIC:
+        if row["flags"] & FLAG_STATIC and row["cell"] not in static_cells:
+            static_cells.add(row["cell"])
             picked[(row["file"], row["index"])] = row
 
     kept = list(picked.values())
@@ -221,7 +225,7 @@ def main() -> None:
     empirical = json.loads(EMPIRICAL.read_text())
     output: dict = {"regions": {}}
 
-    for region in ("mekong", "amazon"):
+    for region in ("mekong", "amazon", "india"):
         epochs = empirical[f"{region}_empirical_epochs"]
         region_out: dict[str, dict] = {}
         for epoch in epochs:

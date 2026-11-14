@@ -28,7 +28,7 @@ def check_bind(host: str, auth: AuthConfig) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Serve the Flare-Chronos analysis API."
+        description="Serve the GeoHarmonix analysis API."
     )
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=5901)

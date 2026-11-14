@@ -1,4 +1,4 @@
-"""Typed event stream and Server-Sent Events encoding for the FLARE-CHRONOS harness.
+"""Typed event stream and Server-Sent Events encoding for the GEOHARMONIX harness.
 
 The harness exposes its run as a stream of typed events. A web client consumes
 them over Server-Sent Events; a script consumes them as plain objects. The

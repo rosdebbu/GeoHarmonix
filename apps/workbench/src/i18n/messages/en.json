@@ -13,8 +13,10 @@
     "regions": {
       "mekong": "Mekong",
       "amazon": "Amazon",
+      "india": "India · Bangladesh · Myanmar",
       "mekongLong": "Mekong & Vietnam",
-      "amazonLong": "Amazon fire arc"
+      "amazonLong": "Amazon fire arc",
+      "indiaLong": "India, Bangladesh & Myanmar"
     },
     "period": "Period",
     "periodValue": "{start}–{end}",
@@ -65,11 +67,13 @@
     "fallback": "The 3D globe is not available in this browser. Showing the flat map instead.",
     "short": {
       "mekong": "Mekong & Vietnam",
-      "amazon": "Amazon fire arc"
+      "amazon": "Amazon fire arc",
+      "india": "India, Bangladesh & Myanmar"
     },
     "coverage": {
       "mekong": "Mainland VNM · LAO · KHM · THA · FIRMS {box}",
-      "amazon": "Amazon mainland · FIRMS {box}"
+      "amazon": "Amazon mainland · FIRMS {box}",
+      "india": "IND · BGD · MMR · FIRMS {box}"
     },
     "boot": {
       "fonts": "Loading typefaces",

@@ -37,7 +37,7 @@ export class CameraFlight {
     const data = GLOBE_DATA.regions[region];
     const { width, height } = this.size();
     const aspect = Math.max(1, height / Math.max(1, width));
-    const base = region === 'mekong' ? 2.15 : 2.4;
+    const base = region === 'mekong' ? 2.15 : region === 'amazon' ? 2.4 : 2.25;
 
     this.flight = {
       id: region,

@@ -24,10 +24,10 @@
 
 | File | Lines | SHA-256 (prefix) | Ships |
 |---|---:|---|---|
-| `Flare-Chronos Workbench.dc.html` | 1,321 | `0b30db16e588f356…` | Converted (pilot: shell + calendar) |
-| `Flare-Chronos Review.dc.html` | 678 | `0ac5f9864d7ca698…` | Ported with the design fixture runs |
-| `Flare-Chronos Screens.dc.html` | 79 | `e1a5420ff8714ee4…` | No |
-| `Flare-Chronos Components.dc.html` | 173 | `e5d5668acf6c44f9…` | No |
+| `GeoHarmonix Workbench.dc.html` | 1,321 | `0b30db16e588f356…` | Converted (pilot: shell + calendar) |
+| `GeoHarmonix Review.dc.html` | 678 | `0ac5f9864d7ca698…` | Ported with the design fixture runs |
+| `GeoHarmonix Screens.dc.html` | 79 | `e1a5420ff8714ee4…` | No |
+| `GeoHarmonix Components.dc.html` | 173 | `e5d5668acf6c44f9…` | No |
 | `globe.html` | 336 | `ef41d70224f79f75…` | Ported to `three.js` (`lib/globe`); no iframe |
 | `map.html` | 364 | `a535f06dc1b1ecb3…` | Pre-projected SVG (`map-pane.tsx`) |
 | `support.js` | — | — | No (DC runtime) |
@@ -52,7 +52,7 @@
 
 ## 3. Screens, query parameters, overlays, states
 
-### 3.1 Workbench (`Flare-Chronos Workbench.dc.html`)
+### 3.1 Workbench (`GeoHarmonix Workbench.dc.html`)
 
 Query: `?screen=`, `&theme=dark|light`, `&lang=en|vi`, `&region=mekong|amazon`, `&bp=desktop|tablet|mobile`, `&tab=map|trend|cal|brief`, `&step=1..6`.
 
@@ -71,7 +71,7 @@ Query: `?screen=`, `&theme=dark|light`, `&lang=en|vi`, `&region=mekong|amazon`, 
 
 **Later states:** run `idle → running → paused → done`, plus the missing `clarification_requested` and `run_failed`; service `up|degraded|down`; connection `none|resolved|connected`; evidence drawer open/closed and figure tab; briefing rail open/collapsed; mobile tab; tour step 1–6.
 
-### 3.2 Review (`Flare-Chronos Review.dc.html`)
+### 3.2 Review (`GeoHarmonix Review.dc.html`)
 
 Query: `?view=`, `&run=A|B|C`, `&overlay=briefing|confirm|citation`, `&theme=`, `&lang=`.
 

@@ -1,4 +1,5 @@
 import raw from '@/data/map-data.json';
+import type { RegionId } from '@/lib/calendar/types';
 
 export type MapPoint = {
   i: number;
@@ -67,10 +68,10 @@ export type MapData = {
   /** How far past the viewBox the base layers and relief are drawn, on each side. */
   pad: { x: number; y: number };
   saa: { lon: number; lat: number; rx: number; ry: number };
-  regions: Record<'mekong' | 'amazon', MapRegion>;
+  regions: Record<RegionId, MapRegion>;
 };
 
-export const MAP_DATA = raw as MapData;
+export const MAP_DATA = raw as unknown as MapData;
 
 export const MAP_FLAGS = {
   sza: 1,

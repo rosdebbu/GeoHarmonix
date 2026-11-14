@@ -18,11 +18,11 @@ function buildGrowth(workbench: Awaited<ReturnType<typeof loadWorkbench>>) {
     return first > 0 ? Math.round(last / first) : 0;
   }
 
-  return { mekong: growth('mekong'), amazon: growth('amazon') };
+  return { mekong: growth('mekong'), amazon: growth('amazon'), india: growth('india') };
 }
 
 function buildRegions(workbench: Awaited<ReturnType<typeof loadWorkbench>>) {
-  return (['mekong', 'amazon'] as const).map((id) => {
+  return (['mekong', 'amazon', 'india'] as const).map((id) => {
     const epochs = workbench.epochs[id];
 
     return {

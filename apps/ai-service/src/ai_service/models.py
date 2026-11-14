@@ -1,4 +1,4 @@
-"""Endpoint profiles and Dual-System chat adapters for the FLARE-CHRONOS harness.
+"""Endpoint profiles and Dual-System chat adapters for the GEOHARMONIX harness.
 
 Each cognitive layer is bound to one LLM service through an `EndpointProfile`:
 protocol, endpoint, model id, API key, and request options. Every value is

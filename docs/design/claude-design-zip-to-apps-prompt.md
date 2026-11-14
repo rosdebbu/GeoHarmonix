@@ -179,7 +179,7 @@ Team rules:
 - Read apps/workbench/AGENTS.md, then delete it before the final commit per the team rule. The versioned docs stay in node_modules/next/dist/docs/.
 - Before done: bun run lint, bunx tsc --noEmit, bun run build. All green.
 
-Hard rules for Flare-Chronos:
+Hard rules for GeoHarmonix:
 - The design calendar covers 2000–2025. The artifact covers 2001–2026. Align by year, not row index.
 - sfai_matrix has 10 non-null values, all at pentad 15. A null SFAI renders as "not scored", never zero.
 - cell_provenance_matrix: 0 and 1 are observed, 2 is modelled. Do not use the design's obs window as the production rule.

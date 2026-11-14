@@ -1,4 +1,4 @@
-"""Compatibility package exposing Flare-Chronos harmonization modules."""
+"""Compatibility package exposing GeoHarmonix harmonization modules."""
 
 from .firms_harmonizer import (
     FIRMSHarmonizer,

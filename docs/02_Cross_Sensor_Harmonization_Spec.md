@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="figures/flare-chronos-logo.png" alt="Flare-Chronos Official Logo" width="220" />
+  <img src="figures/flare-chronos-logo.png" alt="GeoHarmonix Official Logo" width="220" />
 </p>
 
 # 02. MODIS–VIIRS Cross-Sensor Physical & Statistical Harmonization Specification
 
-**Project:** **Flare-Chronos** — *26-Year Cross-Sensor Harmonized Active Fire Intelligence & Phenology Calendar*  
+**Project:** **GeoHarmonix** — *26-Year Cross-Sensor Harmonized Active Fire Intelligence & Phenology Calendar*  
 **Challenge:** 2026 NASA Space Apps Challenge — *Harmonization of MODIS and VIIRS Hot Spots*  
 **Reference implementation:** [`flare_chronos_core`](../packages/harmonization-core/src/flare_chronos_core/__init__.py) | [`firms_harmonizer.py`](../src/harmonization/firms_harmonizer.py)
 
@@ -14,7 +14,7 @@
 
 Hot spot data from **NASA LANCE FIRMS** is structurally fragmented between two sensor generations: **MODIS Collection 6.1** (*Giglio et al., 2016*) and **VIIRS 375m Collection 1/2** (*Schroeder et al., 2014*). The table below defines the normalization mapping to the [`ThermalDetection`](../packages/harmonization-core/src/flare_chronos_core/domain.py) and [`HarmonizedDetection`](../packages/harmonization-core/src/flare_chronos_core/domain.py) entities:
 
-| Harmonized Field (`Flare-Chronos`) | MODIS C6.1 Source Field (`MCD14ML` / `MCD14DL`) | VIIRS 375m C2 Source Field (`VNP14IMG` / `VJ114` / `VJ214`) | Physical Meaning & Harmonization Rule |
+| Harmonized Field (`GeoHarmonix`) | MODIS C6.1 Source Field (`MCD14ML` / `MCD14DL`) | VIIRS 375m C2 Source Field (`VNP14IMG` / `VJ114` / `VJ214`) | Physical Meaning & Harmonization Rule |
 | :--- | :--- | :--- | :--- |
 | `latitude`, `longitude` | `latitude`, `longitude` (WGS-84) | `latitude`, `longitude` (WGS-84) | Geometric center of the sensor pixel at ground level; used as the origin for constructing the [`InstantaneousFootprint`](../packages/harmonization-core/src/flare_chronos_core/domain.py) ellipse. |
 | `bright_t4_k` ($T_4$, Kelvin) | `brightness` (Band 21/22, $\lambda \approx 3.96\,\mu\text{m}$, saturation $\sim 500\text{ K}$ on Ch21) | `bright_ti4` (Band I-4, $\lambda = 3.55\text{–}3.93\,\mu\text{m}$, saturation at $367\text{ K}$ day / $320\text{ K}$ night) | Mid-infrared brightness temperature sensitive to fire thermal radiation according to Wien's law ($\lambda_{\max} \approx \frac{2898}{T_{\text{fire}}}$). |
@@ -97,7 +97,7 @@ The **Aqua (MODIS)** and **Suomi-NPP (VIIRS)** satellites share the same local e
 
 #### Empirical Validation Results on $N = 20.786$ Co-Incident Aqua–SNPP Cell Pairs
 
-| Statistical Validation Metric | Before Harmonization (Raw Aqua-MODIS vs. S-NPP VIIRS) | After Harmonization (`Flare-Chronos` Two-Stage Operator) | Quantitative Improvement |
+| Statistical Validation Metric | Before Harmonization (Raw Aqua-MODIS vs. S-NPP VIIRS) | After Harmonization (`GeoHarmonix` Two-Stage Operator) | Quantitative Improvement |
 | :--- | :---: | :---: | :---: |
 | **Number of co-incident cell pairs ($N_{\text{pairs}}$)** | $20.786\text{ grid cells}$ | $20.786\text{ grid cells}$ | Real NASA FIRMS validation set |
 | **Mean hot spot count ratio ($\bar{N}_{\text{VIIRS}} / \bar{N}_{\text{MODIS}}$)** | $3.673\times$ | $1.000\times$ (normalized to equivalence) | Removes the density bias of $+256.0\%$ |
@@ -140,7 +140,7 @@ $$P_{\text{fire}}(\text{VIIRS}) = \text{clip}\!\left( P_0(\text{class}, \text{Da
 
 with empirical probability anchors $P_0(\text{high}) = 0.94$, $P_0(\text{nominal, D/N}) = 0.78 / 0.84$, and $P_0(\text{low, D/N}) = 0.28 / 0.38$.
 
-* **South Atlantic Anomaly (SAA) filter**: within the bounding box $\phi \in [-55^\circ, +7^\circ], \lambda \in [-110^\circ, +11^\circ]$, high-energy protons strike the nighttime infrared detector ($\text{SZA} \ge 85^\circ$) and produce spurious pulses in the $4\,\mu\text{m}$ channel without background heating in the $11\,\mu\text{m}$ channel ($\Delta T_{45} < 16.5\text{ K}$ and $\text{FRP} < 2.2\text{ MW}$). Validation on the real 7-day South America dataset (`SUOMI_VIIRS_C2_South_America_7d.csv` with $57.713$ records and `J1_VIIRS_C2_South_America_7d.csv` with $60.052$ records) shows that the **Flare-Chronos** filter automatically identifies and removes nighttime SAA noise pulses and weak thermal anomalies, preventing false alarms in the South America region.
+* **South Atlantic Anomaly (SAA) filter**: within the bounding box $\phi \in [-55^\circ, +7^\circ], \lambda \in [-110^\circ, +11^\circ]$, high-energy protons strike the nighttime infrared detector ($\text{SZA} \ge 85^\circ$) and produce spurious pulses in the $4\,\mu\text{m}$ channel without background heating in the $11\,\mu\text{m}$ channel ($\Delta T_{45} < 16.5\text{ K}$ and $\text{FRP} < 2.2\text{ MW}$). Validation on the real 7-day South America dataset (`SUOMI_VIIRS_C2_South_America_7d.csv` with $57.713$ records and `J1_VIIRS_C2_South_America_7d.csv` with $60.052$ records) shows that the **GeoHarmonix** filter automatically identifies and removes nighttime SAA noise pulses and weak thermal anomalies, preventing false alarms in the South America region.
 
 ---
 

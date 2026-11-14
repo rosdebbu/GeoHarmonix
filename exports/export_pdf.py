@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-A4 PDF exporter for the Flare-Chronos submission:
+A4 PDF exporter for the GeoHarmonix submission:
 1. exports/PROPOSAL.md -> exports/PROPOSAL.pdf (technical proposal)
 2. exports/REPORT.md   -> exports/REPORT.pdf   (engineering and model report)
 
@@ -771,13 +771,13 @@ CSS_CONTENT = """
     size: A4 portrait;
     margin: 20mm 17mm 18mm 17mm;
     @top-left {
-        content: "FLARE-CHRONOS — NASA Space Apps Challenge 2026";
+        content: "GEOHARMONIX — NASA Space Apps Challenge 2026";
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 7.5pt;
         color: #666666;
     }
     @bottom-left {
-        content: "FLARE-CHRONOS · NASA Space Apps Challenge 2026";
+        content: "GEOHARMONIX · NASA Space Apps Challenge 2026";
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 7.5pt;
         color: #888888;
@@ -1115,7 +1115,7 @@ def build_pdf(
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>Flare-Chronos — {html.escape(md_path.stem)}</title>
+  <title>GeoHarmonix — {html.escape(md_path.stem)}</title>
   <link rel="stylesheet" href="{temp_css.resolve().as_uri()}"/>
 </head>
 <body>

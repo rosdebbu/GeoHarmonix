@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="figures/flare-chronos-logo.png" alt="Flare-Chronos Official Logo" width="280" />
+  <img src="figures/flare-chronos-logo.png" alt="GeoHarmonix Official Logo" width="280" />
 </p>
 
 # 00. Project Name, Brand Identity & Acronym
 
-**Project:** **Flare-Chronos**
+**Project:** **GeoHarmonix**
 
 **Acronym (full name):** *Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System*
 
@@ -22,4 +22,4 @@
 
 ## Reusable One-Liner (Reports / Presentations / Proposals)
 
-> **Flare-Chronos** — *Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System*: a 26-year, cross-sensor (MODIS + VIIRS) harmonized Burning Activity Calendar built on NASA FIRMS data.
+> **GeoHarmonix** — *Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System*: a 26-year, cross-sensor (MODIS + VIIRS) harmonized Burning Activity Calendar built on NASA FIRMS data.

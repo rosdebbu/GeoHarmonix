@@ -65,7 +65,7 @@ GeoHarmonix resolves this by:
 
 ## Empirical Benchmark & Visual Results
 
-All five scientific benchmark charts below are deterministically rendered by `uv run python -m benchmark_cli.run_experiments` from **1,609,182 real NASA FIRMS detections across 134 cached CSV slices** (`data/processed/empirical_results.json` and `data/processed/burning_calendar.json`):
+All five scientific benchmark charts below are deterministically rendered by `uv run python -m benchmark_cli.run_experiments` from **2,750,620 real NASA FIRMS detections across 210 cached CSV slices** (`data/processed/empirical_results.json` and `data/processed/burning_calendar.json`):
 
 ### 1. Eliminating the Artificial `+1,311.2%` Multi-Sensor Step Jump & Building the 26-Year Calendar
 

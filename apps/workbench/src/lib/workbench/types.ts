@@ -1,3 +1,5 @@
+import type { RegionId } from '@/lib/calendar/types';
+
 export type AnnualSeries = {
   years: number[];
   raw: number[];
@@ -65,9 +67,9 @@ export type SfaiPeak = {
 };
 
 export type WorkbenchData = {
-  series: Record<'mekong' | 'amazon', AnnualSeries>;
-  epochs: Record<'mekong' | 'amazon', Epoch[]>;
-  sfai: Record<'mekong' | 'amazon', Record<number, SfaiPeak>>;
+  series: Record<RegionId, AnnualSeries>;
+  epochs: Record<RegionId, Epoch[]>;
+  sfai: Record<RegionId, Record<number, SfaiPeak>>;
   physics: MapPhysics;
   calibration: Calibration;
 };

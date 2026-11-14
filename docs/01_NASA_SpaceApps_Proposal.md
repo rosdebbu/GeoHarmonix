@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="figures/flare-chronos-logo.png" alt="Flare-Chronos Official Logo" width="240" />
+  <img src="figures/flare-chronos-logo.png" alt="GeoHarmonix Official Logo" width="240" />
 </p>
 
 # 01. Comprehensive Project Proposal — NASA Space Apps Challenge 2026
 
-# 🔥 FLARE-CHRONOS: A Physics-Guided MODIS–VIIRS Cross-Sensor Harmonization System and a 26-Year Intelligent Burning Activity Calendar (2000–2026+)
+# 🔥 GEOHARMONIX: A Physics-Guided MODIS–VIIRS Cross-Sensor Harmonization System and a 26-Year Intelligent Burning Activity Calendar (2000–2026+)
 
 **Challenge:** [Harmonization of MODIS and VIIRS Hot Spots](https://www.spaceappschallenge.org/2026/challenges/harmonization-of-modis-and-viirs-hot-spots/) — *2026 NASA Space Apps Challenge*  
 **Source Code & Monorepo Architecture:** [`packages/harmonization-core`](../packages/harmonization-core/src/flare_chronos_core/__init__.py) | [`packages/firms-ingestion`](../packages/firms-ingestion/src/firms_ingestion/firms_client.py) | [`apps/benchmark-cli`](../apps/benchmark-cli/src/benchmark_cli/run_experiments.py) | [`src/harmonization/firms_harmonizer.py`](../src/harmonization/firms_harmonizer.py)  
@@ -15,7 +15,7 @@
 ## 1. Executive Summary
 
 > **Three-Sentence Value Proposition:**  
-> **Flare-Chronos** is an open-source scientific platform and software stack that resolves the 26-year historical discontinuity between the **MODIS** satellite sensor generation (`Terra/Aqua`, $1\text{ km}$ nadir resolution, `2000–2026`), which is gradually retiring, and the successor **VIIRS** sensor generation (`Suomi-NPP/NOAA-20/NOAA-21`, $375\text{ m}$ nadir resolution, `2012–2026+`). By replacing raw point counting with **5 physical–statistical algorithms** (scan-swath elliptical area weighting $\Delta S(\theta)\times\Delta T(\theta)$ onto an equal-area **Uber H3** hexagonal grid, a two-stage $4\,\mu\text{m}$ radiative observation operator, solar zenith angle normalization $\text{SZA} < 85^\circ$, South Atlantic Anomaly proton-noise filtering, and multi-satellite fire episode clustering normalized by observation effort $\Omega(y, \phi)$), the system has been empirically validated on **$1.609.182$ real hotspots from NASA LANCE FIRMS**, reducing the Kolmogorov-Smirnov distribution error by **$69,4\%$** ($D_{\text{KS}}$ from $0.1153$ to $0.0353$ over $N=20.786$ co-incident grid-cell pairs). The core output of the system is the **26-Year Harmonized Burning Activity Calendar**, structured as a `26 Years × 73 Pentads` matrix together with the early-warning **$\text{SFAI Z-Score}$** index, which helps fire services, forest managers and climate scientists accurately distinguish recurring agricultural residue burning seasons from out-of-season wildfire crises without being misled by the artificial $+1.311,2\%$ step jump caused by the growing satellite count.
+> **GeoHarmonix** is an open-source scientific platform and software stack that resolves the 26-year historical discontinuity between the **MODIS** satellite sensor generation (`Terra/Aqua`, $1\text{ km}$ nadir resolution, `2000–2026`), which is gradually retiring, and the successor **VIIRS** sensor generation (`Suomi-NPP/NOAA-20/NOAA-21`, $375\text{ m}$ nadir resolution, `2012–2026+`). By replacing raw point counting with **5 physical–statistical algorithms** (scan-swath elliptical area weighting $\Delta S(\theta)\times\Delta T(\theta)$ onto an equal-area **Uber H3** hexagonal grid, a two-stage $4\,\mu\text{m}$ radiative observation operator, solar zenith angle normalization $\text{SZA} < 85^\circ$, South Atlantic Anomaly proton-noise filtering, and multi-satellite fire episode clustering normalized by observation effort $\Omega(y, \phi)$), the system has been empirically validated on **$2.750.620$ real hotspots from NASA LANCE FIRMS**, reducing the Kolmogorov-Smirnov distribution error by **$69,4\%$** ($D_{\text{KS}}$ from $0.1153$ to $0.0353$ over $N=20.786$ co-incident grid-cell pairs). The core output of the system is the **26-Year Harmonized Burning Activity Calendar**, structured as a `26 Years × 73 Pentads` matrix together with the early-warning **$\text{SFAI Z-Score}$** index, which helps fire services, forest managers and climate scientists accurately distinguish recurring agricultural residue burning seasons from out-of-season wildfire crises without being misled by the artificial $+1.311,2\%$ step jump caused by the growing satellite count.
 
 ---
 
@@ -39,11 +39,11 @@ When forest managers or researchers directly concatenate the **MODIS Collection 
 
 ## 3. Research & Multi-Option Trade-Off Analysis
 
-Before finalizing the **Flare-Chronos** architecture, we surveyed, modeled and quantitatively compared the feasible options for each engineering problem:
+Before finalizing the **GeoHarmonix** architecture, we surveyed, modeled and quantitatively compared the feasible options for each engineering problem:
 
 ### 3.1. Architectural Trade-Off Matrix
 
-| Core Problem | Option 1 (Baseline / Traditional) | Option 2 (Intermediate / Purely Statistical) | Option 3 — **The Flare-Chronos Solution (Combined Physics–Statistics)** | Rationale for Option 3 (with Quantitative Evidence) |
+| Core Problem | Option 1 (Baseline / Traditional) | Option 2 (Intermediate / Purely Statistical) | Option 3 — **The GeoHarmonix Solution (Combined Physics–Statistics)** | Rationale for Option 3 (with Quantitative Evidence) |
 | :--- | :--- | :--- | :--- | :--- |
 | **1. Spatial reference & footprint normalization** | **Centroid assignment to a $0.05^\circ$ latitude–longitude grid (CMG Point Binning)**: Assign $(lat, lon)$ to a $0.05^\circ \times 0.05^\circ$ square cell. | **Centroid assignment to the Uber H3 hexagonal grid (Centroid H3 Assignment)**: Assign only the centroid to 1 H3 cell. | **Reconstruct the oriented ellipse $\Delta S(\theta)\times\Delta T(\theta)$ + 13-point weighted allocation onto the dual Uber H3 grid, Res 7 ($5.16\text{ km}^2$) & Res 8 ($0.74\text{ km}^2$)** ([ADR-0001](adr/0001-dual-resolution-h3-fractional-allocation.md)). | Latitude–longitude square cells shrink in area by $\cos\phi$; centroid assignment ignores the fact that 1 MODIS scan-edge pixel ($9.69\text{ km}^2$) covers up to **13 H3 Res 8 cells**. The 13-point quadrature conserves total energy exactly ($\sum_h w_{p,h} = 1.0$). |
 | **2. Cross-sensor sensitivity & $\text{FRP}$ calibration** | **Global constant scaling**: $\text{FRP}_{\text{harm}} = k \cdot \text{FRP}_{\text{MODIS}}$. | **Black-box neural network (Black-Box MLP Regressor)**: Train an MLP without physical constraints. | **2-Stage Operator**: Step 1 compensates the distribution tail by scan angle $\text{FRP}_{\text{lim}}(\theta, \text{SZA})$; Step 2 fits **Power-Law + Empirical Quantile Mapping (EQM)** on co-incident Aqua–SNPP pairs ([ADR-0002](adr/0002-two-stage-physics-guided-frp-harmonization.md)). | The VIIRS/MODIS ratio varies strongly with scan angle $\theta$ (from $1.3\times$ at nadir to $>6\times$ at the scan edge). The 2-stage operator reduces the KS distance by $69,4\%$ ($D_{\text{KS}} = 0.0353$) and preserves 100% physical interpretability. |
@@ -52,9 +52,9 @@ Before finalizing the **Flare-Chronos** architecture, we surveyed, modeled and q
 
 ---
 
-## 4. Scientific Method & Empirical Results in Python on $1.609.182$ Real NASA FIRMS Hotspots
+## 4. Scientific Method & Empirical Results in Python on $2.750.620$ Real NASA FIRMS Hotspots
 
-Using a real API key connected to the **NASA LANCE FIRMS API** and NASA's open data archive, the [`fetch_real_firms.py`](../apps/benchmark-cli/src/benchmark_cli/fetch_real_firms.py) and [`run_experiments.py`](../apps/benchmark-cli/src/benchmark_cli/run_experiments.py) modules collected and processed **$1.609.182$ real hotspot records** across 134 time–sensor slices, spanning 26 continuous years (`2001–2026`) and 12 months of the seasonal cycle.
+Using a real API key connected to the **NASA LANCE FIRMS API** and NASA's open data archive, the [`fetch_real_firms.py`](../apps/benchmark-cli/src/benchmark_cli/fetch_real_firms.py) and [`run_experiments.py`](../apps/benchmark-cli/src/benchmark_cli/run_experiments.py) modules collected and processed **$2.750.620$ real hotspot records** across 210 time–sensor slices, spanning 26 continuous years (`2001–2026`) and 12 months of the seasonal cycle.
 
 ### 4.1. Empirical Validation of Problem 1: Scan-Swath Geometric Asymmetry ($74,23\times$)
 
@@ -74,7 +74,7 @@ The results of solving the spherical equations in [`geometry_h3.py`](../packages
 
 By pairing observations from the same day and the same Day/Night regime between the **Aqua (MODIS)** and **Suomi-NPP (VIIRS)** satellites (both overpassing at $\sim 13\text{:}30\text{ MLT}$ and $01\text{:}30\text{ MLT}$) over the same equal-area grid cell ($\sim 5\text{ km}$, equivalent to **Uber H3 Resolution 7**), the [`fit_coincident_aqua_snpp_model`](../packages/harmonization-core/src/flare_chronos_core/radiometric_calibrator.py) model obtained:
 - **Physical–statistical transfer function parameters**: $\alpha = 1.7397$, $\beta = 0.9221$, scan-angle tail correction coefficient $\kappa = 0.1000$.
-- **Convergence of the cumulative probability distribution (ECDF)**: The Kolmogorov-Smirnov distance $D_{\text{KS}}$ between the $\sum \text{FRP}$ distributions of MODIS and VIIRS falls from **$0.1153$** (before calibration) to **$0.0353$** (after **Flare-Chronos** calibration) — that is, **eliminating $69,4\%$ of the cross-sensor distribution bias**.
+- **Convergence of the cumulative probability distribution (ECDF)**: The Kolmogorov-Smirnov distance $D_{\text{KS}}$ between the $\sum \text{FRP}$ distributions of MODIS and VIIRS falls from **$0.1153$** (before calibration) to **$0.0353$** (after **GeoHarmonix** calibration) — that is, **eliminating $69,4\%$ of the cross-sensor distribution bias**.
 
 ![Figure 3 - Cross-Sensor FRP Calibration](figures/fig3_cross_sensor_frp_quantile_mapping.png)
 
@@ -95,7 +95,7 @@ The continental Southeast Asia region (including the Mekong Delta, the Central H
 > **Note on measured and interpolated years:** The 26-year calendar comprises **25 years with real slices (Measured Epoch, `2001–2025`)** — where counts are normalized directly from observed NASA FIRMS data — and **1 interpolated year (Interpolated Year, `2026`)**, with the year scale modeled from the observed MODIS counts and the region's empirical seasonal envelope. The interpolation is a **model, not an observation**; the table below presents representative benchmark periods (all 25 measured epochs are in Appendix A).
 
 
-| Year (Epoch) | Active Sensor Combination | Raw Hotspots by Source (`Raw Counts`) | Total Raw Hotspots (`Raw Sum`) | Independent Fire Episodes (`Fire Episodes`) | Deduplication Compression Factor | Observation Effort $\Omega(y, \phi)$ | `Flare-Chronos` Harmonized Episodes (`VIIRS-eq`) | Raw Index (`2005=100`) | Harmonized Index (`2005=100`) |
+| Year (Epoch) | Active Sensor Combination | Raw Hotspots by Source (`Raw Counts`) | Total Raw Hotspots (`Raw Sum`) | Independent Fire Episodes (`Fire Episodes`) | Deduplication Compression Factor | Observation Effort $\Omega(y, \phi)$ | `GeoHarmonix` Harmonized Episodes (`VIIRS-eq`) | Raw Index (`2005=100`) | Harmonized Index (`2005=100`) |
 | :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **2005** | `MODIS_SP` (Terra+Aqua) | MODIS: `3.914` | **3,914** | 2,415 | $1.62\times$ | $0.9145$ | **9,005.1** | `100,0` | **`100,0`** |
 | **2010** *(El Niño)* | `MODIS_SP` (Terra+Aqua) | MODIS: `8.726` | **8,726** | 4,990 | $1.75\times$ | $1.0221$ | **16,648.0** | `222,9` | **`184,9`** *(Drought peak)* |
@@ -107,7 +107,7 @@ The continental Southeast Asia region (including the Mekong Delta, the Central H
 
 > [!IMPORTANT]
 > **Groundbreaking finding from real data in the Mekong subregion & Vietnam:**  
-> In the 5-day period in mid-March 2024, the `MODIS_SP` reference sensor recorded `3.588` fires — **$8,3\%$ lower** than the same period in 2005 (`3.914` fires). Yet, due to the simultaneous participation of 3 VIIRS satellites (`Suomi-NPP`, `NOAA-20`, `NOAA-21`), the aggregated raw hotspot total soared to **$55.235$ hotspots (Raw index $= 1.411,2$, i.e. an artificial increase of $+1.311,2\%$ relative to 2005)!** After passing through **Flare-Chronos**, the harmonized burning activity index returns the true value of **$90,5$** ($9,5\%$ lower than 2005), while preserving intact the physical signal of two historic drought episodes, **El Niño 2010 (`184,9`)** and **El Niño 2016 (`133,0`)**.
+> In the 5-day period in mid-March 2024, the `MODIS_SP` reference sensor recorded `3.588` fires — **$8,3\%$ lower** than the same period in 2005 (`3.914` fires). Yet, due to the simultaneous participation of 3 VIIRS satellites (`Suomi-NPP`, `NOAA-20`, `NOAA-21`), the aggregated raw hotspot total soared to **$55.235$ hotspots (Raw index $= 1.411,2$, i.e. an artificial increase of $+1.311,2\%$ relative to 2005)!** After passing through **GeoHarmonix**, the harmonized burning activity index returns the true value of **$90,5$** ($9,5\%$ lower than 2005), while preserving intact the physical signal of two historic drought episodes, **El Niño 2010 (`184,9`)** and **El Niño 2016 (`133,0`)**.
 
 ---
 
@@ -120,7 +120,7 @@ The southern Amazon basin (Mato Grosso and Pará states, Brazil) represents the 
 > **Note on measured and interpolated years:** The 26-year calendar comprises **25 years with real slices (Measured Epoch, `2001–2025`)** — where counts are normalized directly from observed NASA FIRMS data — and **1 interpolated year (Interpolated Year, `2026`)**, with the year scale modeled from the observed MODIS counts and the region's empirical seasonal envelope. The interpolation is a **model, not an observation**; the table below presents representative benchmark periods (all 25 measured epochs are in Appendix A).
 
 
-| Year (Epoch) | Active Sensor Combination | Raw Hotspots by Source (`Raw Counts`) | Total Raw Hotspots (`Raw Sum`) | Independent Fire Episodes (`Fire Episodes`) | Deduplication Compression Factor | Filtered Nighttime SAA Noise Spikes | `Flare-Chronos` Harmonized Episodes (`VIIRS-eq`) | Raw Index (`2005=100`) | Harmonized Index (`2005=100`) |
+| Year (Epoch) | Active Sensor Combination | Raw Hotspots by Source (`Raw Counts`) | Total Raw Hotspots (`Raw Sum`) | Independent Fire Episodes (`Fire Episodes`) | Deduplication Compression Factor | Filtered Nighttime SAA Noise Spikes | `GeoHarmonix` Harmonized Episodes (`VIIRS-eq`) | Raw Index (`2005=100`) | Harmonized Index (`2005=100`) |
 | :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **2005** *(Major drought)* | `MODIS_SP` (Terra+Aqua) | MODIS: `13.804` | **13,804** | 6,955 | $1.99\times$ | $0.9810$ | **13,116.0** | `100,0` | **`100,0`** |
 | **2010** *(Super drought)* | `MODIS_SP` (Terra+Aqua) | MODIS: `16.304` | **16,304** | 7,635 | $2.13\times$ | $1.2589$ | **11,219.9** | `118,1` | **`85,5`** |
@@ -157,13 +157,13 @@ The southern Amazon basin (Mato Grosso and Pará states, Brazil) represents the 
 2. **30 m super-resolution hotspot calibration from Landsat 8/9/Next**:
    - Use the `LANDSAT_NRT` product ($30\text{ m}$) already available on NASA FIRMS (availability confirmed from `2022-06-20` to `2026-10-20`) as a ground-reference standard for extremely small straw fires ($< 0.1\text{ MW}$).
 3. **NISAR dual-band synthetic aperture radar satellite fusion (`GCOV` & `GUNW` Fusion)**:
-   - Integrate L-band ($24\text{ cm}$) and S-band ($10\text{ cm}$) radar data from the **NISAR** satellite (data release from July 2026) to penetrate thick smoke haze over forest fires and verify structurally degraded forest area (`Coherence Loss` & `HV Backscatter Drop`) immediately after **Flare-Chronos** detects a thermal anomaly.
+   - Integrate L-band ($24\text{ cm}$) and S-band ($10\text{ cm}$) radar data from the **NISAR** satellite (data release from July 2026) to penetrate thick smoke haze over forest fires and verify structurally degraded forest area (`Coherence Loss` & `HV Backscatter Drop`) immediately after **GeoHarmonix** detects a thermal anomaly.
 
 ---
 
 ## 7. Full Workspace Reproducibility Guide
 
-All source code, real NASA FIRMS data and test suites of **Flare-Chronos** can be reproduced immediately with the standard commands below:
+All source code, real NASA FIRMS data and test suites of **GeoHarmonix** can be reproduced immediately with the standard commands below:
 
 ```bash
 # 1. Run the unit test suite and physics invariants (182 offline tests across 22 test files)

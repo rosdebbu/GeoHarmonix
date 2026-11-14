@@ -1,4 +1,4 @@
-"""Unit & Mathematical Verification Test Suite for Flare-Chronos.
+"""Unit & Mathematical Verification Test Suite for GeoHarmonix.
 
 Tests all 5 core cross-sensor scientific harmonization equations:
 1. Spherical MODIS & 3-Zone VIIRS Bow-tie Footprint Reconstruction + H3 Fractional Allocation
@@ -43,7 +43,7 @@ from harmonization.firms_harmonizer import (
 
 
 class TestFlareChronosPhysics(unittest.TestCase):
-    """Verify exact physical and statistical properties of Flare-Chronos."""
+    """Verify exact physical and statistical properties of GeoHarmonix."""
 
     def test_modis_spherical_scan_geometry(self) -> None:
         """MODIS nadir is 1.0x1.0 km (1.0 km^2) and expands to ~4.83x2.01 km (~9.69 km^2) at 55 deg."""

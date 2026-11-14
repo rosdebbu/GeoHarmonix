@@ -122,7 +122,7 @@ class VerifiedPatternCache:
 
 
 class FlareChronosDualSystemHarness:
-    """Compiled LangGraph Dual-System Cognitive Harness for FLARE-CHRONOS."""
+    """Compiled LangGraph Dual-System Cognitive Harness for GEOHARMONIX."""
 
     def __init__(
         self,
