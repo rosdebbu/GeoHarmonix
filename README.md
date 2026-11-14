@@ -388,7 +388,7 @@ Branches are auto-deleted after merge.
 
 ## Acknowledgments & Credits
 
-Special thanks to **Anshumaan Das** for the initial foundational research, concept, and groundwork of the original project.
+Special thanks to **Anshumaan Das- https://github.com/Anshhh0306** for the initial foundational research, concept, and groundwork of the original project.
 
 ## License
 
