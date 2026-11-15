@@ -21,6 +21,8 @@ type AppHeaderProps = {
   onEvidence: () => void;
   onBriefing: () => void;
   onService: () => void;
+  present: boolean;
+  onPresent: () => void;
 };
 
 const buttonClass =
@@ -35,6 +37,8 @@ export function AppHeader({
   onEvidence,
   onBriefing,
   onService,
+  present,
+  onPresent,
 }: AppHeaderProps) {
   const t = useTranslations('Header');
   const review = useTranslations('Review');
@@ -130,7 +134,10 @@ export function AppHeader({
         />
       </label>
 
-      <span className="border-line text-body text-ink-muted hidden h-7 items-center gap-1.5 rounded-md border px-2.5 xl:inline-flex">
+      <span
+        data-hide-present="true"
+        className="border-line text-body text-ink-muted hidden h-7 items-center gap-1.5 rounded-md border px-2.5 xl:inline-flex"
+      >
         <span className="text-micro text-ink-subtle font-mono tracking-widest uppercase">
           {t('period')}
         </span>
@@ -159,6 +166,17 @@ export function AppHeader({
         >
           <Icon icon={ICON.evidence} size="sm" />
           <span className="hidden xl:inline">{t('evidence')}</span>
+        </button>
+        <button
+          type="button"
+          onClick={onPresent}
+          aria-pressed={present}
+          aria-label={t('present')}
+          title={t('present')}
+          className={`${buttonClass} ${present ? 'bg-seg' : ''}`}
+        >
+          <Icon icon={ICON.reset} size="sm" />
+          <span className="hidden xl:inline">{t('present')}</span>
         </button>
         <button
           type="button"

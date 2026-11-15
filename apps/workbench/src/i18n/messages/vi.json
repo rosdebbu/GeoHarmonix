@@ -46,7 +46,8 @@
     "serviceShortDown": "T3",
     "serviceShortNotConnected": "Kết nối",
     "about": "About",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "present": "Trình chiếu"
   },
   "Globe": {
     "subtitle": "Lịch hoạt động cháy đã chuẩn hóa {years} năm",
@@ -200,7 +201,76 @@
     "na": "không áp dụng",
     "islandHs": "Quần đảo Hoàng Sa",
     "islandTs": "Quần đảo Trường Sa",
-    "islands": "Đảo tham chiếu, không đo"
+    "islands": "Đảo tham chiếu, không đo",
+    "detail": {
+      "close": "Đóng chi tiết",
+      "title": "Chi tiết điểm cháy",
+      "day": "Ngày",
+      "night": "Đêm",
+      "headline": {
+        "keep": "Được tính là đám cháy thật",
+        "sza": "Quan sát ban đêm",
+        "static": "Nguồn nhiệt cố định",
+        "saa": "Có thể là báo động giả",
+        "dup": "Thấy hai lần, tính một lần"
+      },
+      "status": {
+        "keep": "Điểm này vượt qua mọi bước kiểm tra nên được tính là một đám cháy trong chuỗi dữ liệu đã hài hòa.",
+        "sza": "Mặt trời cách thiên đỉnh ít nhất 85°, nên quy tắc góc mặt trời coi đây là quan sát ban đêm. Bản đồ đánh dấu nó là bị loại khỏi các đám cháy được tính.",
+        "static": "NASA phân loại đây là nguồn nhiệt cố định, không phải cháy thảm thực vật (ví dụ núi lửa, nhà máy hoặc giàn khoan ngoài khơi), nên bị loại.",
+        "saa": "Có thể là báo động giả do bức xạ ở Dị thường Nam Đại Tây Dương ảnh hưởng đến cảm biến, nên bị loại.",
+        "dup": "Một lần bay qua khác của vệ tinh thấy cùng đám cháy trong vòng 60 phút, nên hai điểm được gộp thành một đợt cháy và không tính hai lần."
+      },
+      "location": "Vị trí",
+      "time": "Thời gian",
+      "power": "Công suất cháy",
+      "powerHint": "Năng lượng nhiệt đám cháy tỏa ra (FRP). Càng cao thì cháy càng mạnh.",
+      "level": {
+        "small": "nhỏ",
+        "moderate": "vừa",
+        "intense": "mạnh"
+      },
+      "area": "Diện tích mặt đất",
+      "areaHint": "Diện tích mà một điểm ảnh bao phủ trên mặt đất. Điểm ảnh càng lớn càng mờ.",
+      "angle": "Góc quan sát",
+      "angleHint": "Vệ tinh nhìn lệch bao xa so với phương thẳng đứng. Góc lớn thì điểm ảnh lớn.",
+      "sun": "Góc mặt trời",
+      "sunDay": "ngày",
+      "sunNight": "đêm",
+      "confidence": "Độ tin cậy",
+      "conf": {
+        "low": "thấp",
+        "nominal": "trung bình",
+        "high": "cao"
+      },
+      "loading": "Đang tải chi tiết…",
+      "unavailable": "Không có chi tiết cho điểm này.",
+      "hover": "Nhấp vào vùng trống của bản đồ hoặc nhấn Esc để đóng."
+    },
+    "search": {
+      "label": "Tìm quốc gia, bang hoặc tỉnh",
+      "placeholder": "Tìm bang hoặc quốc gia…",
+      "loading": "Đang tải địa điểm…",
+      "none": "Không có kết quả",
+      "hotspots": "Các bang nóng nhất · {year}",
+      "country": "Quốc gia",
+      "state": "Bang / tỉnh",
+      "clear": "Xóa tìm kiếm",
+      "year": "Năm",
+      "sampled": "Điểm mẫu",
+      "counted": "Đám cháy được tính",
+      "rank": "Xếp hạng trong nước",
+      "share": "Tỷ lệ của {country}",
+      "note": "Số liệu lấy từ mẫu bản đồ của cửa sổ đo năm này, không phải mọi điểm phát hiện.",
+      "empty": "Không có điểm mẫu nào ở đây trong cửa sổ đo năm này."
+    },
+    "inspector": {
+      "title": "Chi tiết",
+      "heading": "Xem chi tiết bản đồ",
+      "empty": "Nhấp vào một điểm để xem điều gì đã xảy ra ở đó, hoặc tìm một bang hoặc quốc gia ở trên."
+    },
+    "colourPower": "Công suất cháy",
+    "powerRange": "yếu → mạnh"
   },
   "Kpi": {
     "title": "Chỉ số chính",
@@ -362,8 +432,8 @@
       "connect": "Kết nối"
     },
     "down": {
-      "title": "Dịch vụ phân tích không khả dụng",
-      "body": "Báo cáo tạm dừng. Mọi biểu đồ vẫn chạy trên dữ liệu đã hiệu chuẩn. Hệ thống sẽ tự thử lại."
+      "title": "Tóm tắt đang tắt",
+      "body": "Dịch vụ phân tích chưa chạy. Bản đồ, biểu đồ và lịch vẫn hoạt động trên dữ liệu tính sẵn."
     }
   },
   "Evidence": {

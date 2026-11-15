@@ -2,17 +2,34 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { MAP_DATA, MAP_FLAGS, type MapHover } from '@/lib/workbench/map-data';
+import {
+  MAP_DATA,
+  MAP_FLAGS,
+  type MapDetail,
+  type MapHover,
+  type MapSelect,
+} from '@/lib/workbench/map-data';
 import { displayResolution } from '@/lib/workbench/h3';
 import { clampView, MAP_VIEW, zoomAt, type MapView } from '@/lib/workbench/map-view';
+import { POWER_GRADIENT } from '@/lib/workbench/map-power';
+import { frame, viewFor, type MapPlace } from '@/lib/workbench/map-search';
 import type { Epoch, MapFilters, MapLayers, MapPhysics } from '@/lib/workbench/types';
 import { formatEpochDate, formatEpochDays } from '@/lib/workbench/format';
 import type { RegionId } from '@/lib/calendar/types';
 import { MapGuide } from './map-guide';
 import { DEFAULT_LAYERS, MapControls, MapZoom } from './map-controls';
 import { MapFooter, MapScale } from './map-legend';
+import { MapDetailCard } from './map-detail-card';
+import { MapSearch } from './map-search';
 import { MapTooltip } from './map-tooltip';
 import { WorkbenchMap } from './workbench-map';
+
+/** Default framing: tight on the focus countries (kept as drawn when the region has labelled islands). */
+function fitView(region: RegionId): MapView {
+  const data = MAP_DATA.regions[region];
+  if (data.islands.length > 0 || !data.fit) return MAP_VIEW;
+  return frame(data.fit, MAP_DATA.width, MAP_DATA.height, 0.82, 4);
+}
 
 type MapPaneProps = {
   region: RegionId;
@@ -39,8 +56,11 @@ export function MapPane({
   const locale = useLocale();
   const [layers, setLayers] = useState<MapLayers>(DEFAULT_LAYERS);
   const [grid, setGrid] = useState(7);
-  const [view, setView] = useState<MapView>(MAP_VIEW);
+  const [view, setView] = useState<MapView>(() => fitView(region));
   const [hover, setHover] = useState<MapHover | null>(null);
+  const [selected, setSelected] = useState<MapSelect | null>(null);
+  const [details, setDetails] = useState<MapDetail[] | null>(null);
+  const [place, setPlace] = useState<MapPlace | null>(null);
   const clamped = useMemo(() => clampView(view, MAP_DATA.width, MAP_DATA.height), [view]);
   const mapArea = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -113,7 +133,38 @@ export function MapPane({
     [onYear],
   );
 
-  const handleReset = useCallback(() => setView(MAP_VIEW), []);
+  const handleReset = useCallback(() => setView(fitView(region)), [region]);
+  const closeDetail = useCallback(() => setSelected(null), []);
+
+  // Picking a place flies the map to it and outlines it; clearing it leaves the view where it is.
+  const handlePlace = useCallback((next: MapPlace | null) => {
+    setPlace(next);
+    if (next) setView(viewFor(next, MAP_DATA.width, MAP_DATA.height));
+  }, []);
+  const highlight =
+    place?.kind === 'state'
+      ? place.d
+      : (MAP_DATA.regions[region].countries.find((country) => country.id === place?.cid)?.d ?? '');
+
+  // A new region or epoch is a different set of dots: drop the pinned one.
+  useEffect(() => {
+    setSelected(null);
+    setDetails(null);
+  }, [region, year]);
+
+  // Click-to-inspect detail is a small per-epoch file, fetched the first time a dot is picked.
+  useEffect(() => {
+    let live = true;
+    fetch(`/map-detail/${region}-${year}.json`)
+      .then((response) => (response.ok ? (response.json() as Promise<MapDetail[]>) : null))
+      .then((rows) => {
+        if (live) setDetails(rows);
+      })
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, [region, year]);
 
   const handleOverlay = useCallback(() => toggleLayer('overlay'), [toggleLayer]);
 
@@ -174,7 +225,8 @@ export function MapPane({
         </div>
       </div>
 
-      <div ref={mapArea} className="relative min-h-0 flex-1">
+      <div className="max-wide:flex-col flex min-h-0 flex-1">
+      <div ref={mapArea} className="max-wide:min-h-96 relative min-h-0 flex-1">
         <WorkbenchMap
           region={region}
           year={year}
@@ -185,12 +237,24 @@ export function MapPane({
           label={t('aria', { region: regionLabel, year })}
           onView={setView}
           onHover={setHover}
+          selected={selected}
+          onSelect={setSelected}
+          highlight={highlight}
+          details={details}
         />
 
         <div className="absolute top-2 right-12 left-2 flex flex-wrap gap-1.5">
-          <span className="border-line bg-panel/90 text-micro text-ink-muted max-tablet:hidden rounded-md border px-2 py-1 font-mono">
-            {t('projection')}
-          </span>
+          {layers.power && details && (
+            <span className="border-line bg-panel/90 text-micro text-ink-muted inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono">
+              {t('colourPower')}
+              <span
+                aria-hidden="true"
+                className="h-1.5 w-14 rounded-full"
+                style={{ background: POWER_GRADIENT }}
+              />
+              {t('powerRange')}
+            </span>
+          )}
           <span className="border-line bg-panel/90 text-micro text-ink-muted rounded-md border px-2 py-1 font-mono">
             {t('sampled', { count: drawnCount })}
           </span>
@@ -224,7 +288,31 @@ export function MapPane({
           islands={region === 'mekong'}
         />
         <MapFooter />
-        <MapTooltip hover={hover} container={mapArea} />
+        <MapTooltip hover={selected ? null : hover} container={mapArea} />
+      </div>
+
+      <aside
+        aria-label={t('inspector.title')}
+        className="border-line bg-surface wide:w-72 wide:border-l max-wide:border-t flex shrink-0 flex-col gap-2 overflow-y-auto p-2.5"
+      >
+        <MapSearch region={region} year={year} place={place} onPlace={handlePlace} />
+        {selected ? (
+          <MapDetailCard
+            selected={selected}
+            detail={details?.[selected.point.i] ?? null}
+            loading={details === null}
+            year={year}
+            onClose={closeDetail}
+          />
+        ) : (
+          !place && (
+            <div className="border-line rounded-md border border-dashed p-3">
+              <span className="text-meta block font-semibold">{t('inspector.heading')}</span>
+              <p className="text-body text-ink-muted mt-1 leading-relaxed">{t('inspector.empty')}</p>
+            </div>
+          )
+        )}
+      </aside>
       </div>
     </section>
   );

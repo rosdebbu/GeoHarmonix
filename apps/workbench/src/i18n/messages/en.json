@@ -46,7 +46,8 @@
     "serviceShortDown": "T3",
     "serviceShortNotConnected": "Connect",
     "about": "About",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "present": "Present"
   },
   "Globe": {
     "subtitle": "{years}-year harmonized burning activity calendar",
@@ -136,7 +137,20 @@
     },
     "error": "The calendar could not be loaded.",
     "retry": "Try again",
-    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
     "provenance": "{observed} of {total} cells are observed windows ({pct}%). The rest are modelled from the region's seasonal envelope: dimmed, hatched, and never scored."
   },
   "Map": {
@@ -187,7 +201,76 @@
     "na": "n/a",
     "islandHs": "Hoàng Sa Archipelago",
     "islandTs": "Trường Sa Archipelago",
-    "islands": "Reference islands, not measured"
+    "islands": "Reference islands, not measured",
+    "detail": {
+      "close": "Close details",
+      "title": "Detection details",
+      "day": "Day",
+      "night": "Night",
+      "headline": {
+        "keep": "Counted as a real fire",
+        "sza": "Night-time reading",
+        "static": "Persistent heat source",
+        "saa": "Likely false alarm",
+        "dup": "Seen twice, counted once"
+      },
+      "status": {
+        "keep": "This detection passed every check, so it is counted as a fire in the harmonized record.",
+        "sza": "The sun was at least 85° from overhead, so the sun-angle rule treats this as a night-time reading. The map marks it as excluded from the counted fires.",
+        "static": "NASA classes this as a persistent heat source, not a vegetation fire (for example a volcano, factory or offshore platform), so it is excluded.",
+        "saa": "Probably a false alarm caused by radiation over the South Atlantic Anomaly affecting the sensor, so it is excluded.",
+        "dup": "Another satellite pass saw the same fire within 60 minutes, so the two are merged into one fire episode and not counted twice."
+      },
+      "location": "Location",
+      "time": "Time",
+      "power": "Fire power",
+      "powerHint": "Heat energy the fire gives off (FRP). Higher means a more intense fire.",
+      "level": {
+        "small": "small",
+        "moderate": "moderate",
+        "intense": "intense"
+      },
+      "area": "Ground area",
+      "areaHint": "Area one pixel covers on the ground. Bigger pixels are blurrier.",
+      "angle": "Viewing angle",
+      "angleHint": "How far from straight down the satellite looked. A larger angle means a bigger pixel.",
+      "sun": "Sun angle",
+      "sunDay": "day",
+      "sunNight": "night",
+      "confidence": "Confidence",
+      "conf": {
+        "low": "low",
+        "nominal": "nominal",
+        "high": "high"
+      },
+      "loading": "Loading details…",
+      "unavailable": "Details are not available for this point.",
+      "hover": "Click empty map to close, or press Esc."
+    },
+    "search": {
+      "label": "Search a country, state or province",
+      "placeholder": "Search state or country…",
+      "loading": "Loading places…",
+      "none": "No match",
+      "hotspots": "Hotspot states · {year}",
+      "country": "Country",
+      "state": "State / province",
+      "clear": "Clear search",
+      "year": "Year",
+      "sampled": "Sampled detections",
+      "counted": "Counted fires",
+      "rank": "Rank in country",
+      "share": "Share of {country}",
+      "note": "Counts come from the map's sample of this year's measured window, not every detection.",
+      "empty": "No sampled detection here in this year's measured window."
+    },
+    "inspector": {
+      "title": "Inspector",
+      "heading": "Inspect the map",
+      "empty": "Click a dot to see what happened there, or search a state or country above."
+    },
+    "colourPower": "Fire power",
+    "powerRange": "weak → strong"
   },
   "Kpi": {
     "title": "Key figures",
@@ -223,7 +306,20 @@
   "Clock": {
     "title": "Phenology clock",
     "subtitle": "HFD · 5-day pentads · {region}",
-    "months": ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
+    "months": [
+      "J",
+      "F",
+      "M",
+      "A",
+      "M",
+      "J",
+      "J",
+      "A",
+      "S",
+      "O",
+      "N",
+      "D"
+    ],
     "iqr": "IQR 2001–2025 (25 yrs)",
     "elnino": "El Niño 2016",
     "selected": "Selected {year}",
@@ -336,8 +432,8 @@
       "connect": "Connect"
     },
     "down": {
-      "title": "Analysis service unavailable",
-      "body": "Briefings are paused. All charts keep working on precomputed harmonized data."
+      "title": "Briefings are off",
+      "body": "The analysis service is not running. The map, charts and calendar keep working on precomputed data."
     }
   },
   "Evidence": {

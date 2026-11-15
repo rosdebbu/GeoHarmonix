@@ -42,6 +42,8 @@ export type MapLayers = {
   footprints: boolean;
   hex: boolean;
   overlay: boolean;
+  /** Colour the dots by fire power instead of by sensor. */
+  power: boolean;
 };
 
 export type Calibration = {

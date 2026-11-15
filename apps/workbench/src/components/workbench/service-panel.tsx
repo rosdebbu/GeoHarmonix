@@ -16,11 +16,11 @@ export function ServiceDown() {
   return (
     <div
       role="alert"
-      className="border-bad/45 bg-panel flex flex-col gap-3 rounded-lg border p-3.5"
+      className="border-line bg-panel flex flex-col gap-3 rounded-lg border p-3.5"
     >
       <div className="flex items-center gap-2.5">
-        <span className="border-bad text-bad inline-flex size-7 items-center justify-center rounded-md border-[1.5px]">
-          <Icon icon={ICON.xCircle} size="sm" />
+        <span className="border-line-strong text-ink-subtle inline-flex size-7 items-center justify-center rounded-md border">
+          <Icon icon={ICON.service} size="sm" />
         </span>
         <span className="text-subhead font-semibold">{t('title')}</span>
       </div>

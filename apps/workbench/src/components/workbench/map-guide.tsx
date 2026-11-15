@@ -43,7 +43,16 @@ const DIAMOND = 'M6,0.8L11.2,5L6,9.2L0.8,5Z';
 
 const MARK_0 = (
   <svg width={9} height={6}>
-    <ellipse cx={4.5} cy={3} rx={4} ry={2.4} fill="var(--amber)" fillOpacity={0.9} />
+    <ellipse
+      cx={4.5}
+      cy={3}
+      rx={4}
+      ry={2.4}
+      fill="var(--amber)"
+      fillOpacity={0.9}
+      stroke="var(--text)"
+      strokeWidth={0.8}
+    />
   </svg>
 );
 const MARK_1 = (

@@ -28,7 +28,13 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import nodePath from 'node:path';
-import { geoAzimuthalEqualArea, geoBounds, geoGraticule10, geoPath } from 'd3-geo';
+import {
+  geoAzimuthalEqualArea,
+  geoBounds,
+  geoContains,
+  geoGraticule10,
+  geoPath,
+} from 'd3-geo';
 import { feature, merge, mesh } from 'topojson-client';
 import { REGION_DEFS } from '../src/lib/workbench/regions';
 
@@ -39,6 +45,9 @@ const NE = nodePath.resolve(APP, '.cache/ne');
 const ATLAS = process.env.WORLD_ATLAS_PATH ?? nodePath.resolve(NE, 'atlas/countries-10m.json');
 const RIVERS = nodePath.resolve(NE, 'vector/ne_10m_rivers_lake_centerlines.geojson');
 const LAKES = nodePath.resolve(NE, 'vector/ne_10m_lakes.geojson');
+const ADMIN1 = nodePath.resolve(NE, 'vector/ne_10m_admin_1_states_provinces.geojson');
+const SEARCH_DIR = nodePath.resolve(APP, 'public/map-search');
+const DETAIL_DIR = nodePath.resolve(APP, 'public/map-detail');
 const GRID_DIR = nodePath.resolve(APP, '.cache/relief-grid');
 /** Relief is rendered at this multiple of the viewBox so it stays sharp when zoomed. */
 const RELIEF_SCALE = 2;
@@ -172,6 +181,7 @@ function buildBase(region) {
     pxPerKm,
     saaPath: projectPath({ type: 'Polygon', coordinates: [saaRing] }),
     coveragePath: projectPath(coverage),
+    fit: projectPath.bounds(coverage).flat().map((v) => Math.round(v * 10) / 10),
     landPath: projectPath(land),
     rivers: projectPath({ type: 'FeatureCollection', features: rivers.filter(nearby) }),
     lakes: projectPath({ type: 'FeatureCollection', features: lakes.filter(nearby) }),
@@ -232,6 +242,84 @@ function projectPoints(epoch, projection) {
   return { points, counts: epoch.counts };
 }
 
+
+// ISO numeric (the atlas id) -> ISO alpha-3 (the admin-1 file) for every focus country.
+const A3 = {
+  '356': 'IND', '050': 'BGD', '104': 'MMR', '704': 'VNM', '418': 'LAO', '116': 'KHM',
+  '764': 'THA', '360': 'IDN', '458': 'MYS', '702': 'SGP', '096': 'BRN', '608': 'PHL',
+  '626': 'TLS', '076': 'BRA', '604': 'PER', '068': 'BOL', '170': 'COL', '218': 'ECU',
+  '862': 'VEN', '328': 'GUY', '740': 'SUR',
+}; // fmt: skip
+let admin1 = null;
+try {
+  admin1 = JSON.parse(readFileSync(ADMIN1, 'utf8')).features;
+} catch {
+  console.warn('admin-1 file missing: search index skipped (see header for the download)');
+}
+
+/**
+ * Search index for one region: its focus countries and their states/provinces, each with the
+ * projected outline (states), the projected bounding box (to fly the map there) and, per year,
+ * [sampled, counted] detections from the map's own sample (same points the map draws).
+ */
+function writeSearch(region, config, projection, epochs) {
+  if (!admin1) return;
+  const path = geoPath(projection).digits(1);
+  const a3 = new Set(config.focus.map((id) => A3[id]).filter(Boolean));
+  const units = [
+    ...feature(world, world.objects.countries)
+      .features.filter((f) => config.focus.includes(String(f.id)))
+      .map((f) => ({ kind: 'country', parent: '', name: f.properties.name, cid: String(f.id), f })),
+    ...admin1
+      .filter((f) => a3.has(f.properties.adm0_a3))
+      .map((f) => ({ kind: 'state', parent: f.properties.admin, name: f.properties.name, cid: '', f })),
+  ]
+    .map((u) => ({ ...u, box: geoBounds(u.f), bounds: path.bounds(u.f), s: {} }))
+    .filter((u) => u.bounds.flat().every(Number.isFinite));
+
+  // Count per state only (testing against whole-country outlines is far slower), then sum
+  // the states up to their country.
+  const states = units.filter((u) => u.kind === 'state');
+  for (const [year, epoch] of Object.entries(epochs)) {
+    for (const [lon, lat, , flags] of epoch.points) {
+      for (const u of states) {
+        const [[w, south], [e, north]] = u.box;
+        if (lon < w || lon > e || lat < south || lat > north) continue;
+        if (!geoContains(u.f, [lon, lat])) continue;
+        const tally = (u.s[year] ??= [0, 0]);
+        tally[0] += 1;
+        if (flags === 0) tally[1] += 1;
+        break; // states do not overlap
+      }
+    }
+  }
+  for (const country of units.filter((u) => u.kind === 'country')) {
+    for (const state of states.filter((u) => u.f.properties.adm0_a3 === A3[country.cid])) {
+      for (const [year, [n, k]] of Object.entries(state.s)) {
+        const tally = (country.s[year] ??= [0, 0]);
+        tally[0] += n;
+        tally[1] += k;
+      }
+    }
+  }
+
+  const entries = units
+    .map((u) => ({
+      id: `${u.kind}-${u.cid || u.f.properties.adm1_code || u.name}`,
+      name: u.name,
+      kind: u.kind,
+      parent: u.parent,
+      cid: u.cid,
+      d: u.kind === 'state' ? path(u.f) : '',
+      b: u.bounds.flat().map((v) => Math.round(v * 10) / 10),
+      s: u.s,
+    }))
+    .filter((u) => u.kind === 'country' || u.d);
+  mkdirSync(SEARCH_DIR, { recursive: true });
+  writeFileSync(nodePath.resolve(SEARCH_DIR, `${region}.json`), JSON.stringify(entries));
+  console.warn(`${region}: search index ${entries.length} places`);
+}
+
 const output = {
   width: WIDTH,
   height: HEIGHT,
@@ -255,7 +343,16 @@ for (const [region, config] of Object.entries(REGION_DEFS)) {
     const projected = projectPoints(epoch, base.projection);
     epochs[year] = projected.points;
     counts[year] = projected.counts;
+    // Click-to-inspect detail, loaded on demand: [lon, lat, MW, "MM-DD HH:MM", sun angle, confidence]
+    // in the same order as the epoch's points, so point.i indexes it.
+    mkdirSync(DETAIL_DIR, { recursive: true });
+    writeFileSync(
+      nodePath.resolve(DETAIL_DIR, `${region}-${year}.json`),
+      JSON.stringify(epoch.points.map((p) => [p[0], p[1], p[9], p[10], p[11], p[12]])),
+    );
   }
+
+  writeSearch(region, config, base.projection, flagged.regions[region] ?? {});
 
   output.regions[region] = {
     bbox: base.bbox,
@@ -264,6 +361,7 @@ for (const [region, config] of Object.entries(REGION_DEFS)) {
     pxPerKm: base.pxPerKm,
     saaPath: base.saaPath,
     coveragePath: base.coveragePath,
+    fit: base.fit,
     landPath: base.landPath,
     rivers: base.rivers,
     lakes: base.lakes,

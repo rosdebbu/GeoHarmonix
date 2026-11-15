@@ -21,6 +21,14 @@ export type MapHover = {
   clientY: number;
 };
 
+export type MapStatus = 'keep' | 'sza' | 'saa' | 'static' | 'dup';
+
+/** A clicked dot. */
+export type MapSelect = { point: MapPoint; status: MapStatus };
+
+/** [lon, lat, fire power MW, "MM-DD HH:MM" UTC, sun angle, confidence]; indexed by `MapPoint.i`. */
+export type MapDetail = [number, number, number, string, number, string];
+
 export type MapCounts = {
   total: number;
   sza: number;
@@ -44,6 +52,8 @@ export type MapRegion = {
   pxPerKm: number;
   saaPath: string;
   coveragePath: string;
+  /** Projected bounding box [x0, y0, x1, y1] of the focus countries. */
+  fit: number[];
   /** Every drawn country merged: the area the shaded relief is clipped to. */
   landPath: string;
   rivers: string;

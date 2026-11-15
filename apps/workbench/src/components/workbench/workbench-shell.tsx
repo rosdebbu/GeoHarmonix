@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useIsDesktop, useIsTablet } from '@/lib/use-media';
@@ -63,7 +63,9 @@ export function WorkbenchShell({
   const isDesktop = useIsDesktop();
   const isTablet = useIsTablet();
   usePageBoot(WORKBENCH_BOOT);
-  const [briefState, setBriefState] = useState<RailState>('auto');
+  // Collapsed by default: the rail is for briefings, so the map and charts get the width.
+  const [briefState, setBriefState] = useState<RailState>('closed');
+  const [present, setPresent] = useState(false);
   const [filters, setFilters] = useState<MapFilters>({
     sza: true,
     saa: true,
@@ -100,6 +102,23 @@ export function WorkbenchShell({
     },
     [workbench.epochs, year, searchParams, tourOpen, router],
   );
+
+  // Presentation mode: everything scales up (all sizes are rem) and the rail steps aside.
+  useEffect(() => {
+    const root = document.documentElement;
+    if (present) root.dataset.present = 'true';
+    else delete root.dataset.present;
+    return () => {
+      delete root.dataset.present;
+    };
+  }, [present]);
+
+  const togglePresent = useCallback(() => {
+    setPresent((value) => {
+      if (!value) setBriefState('closed');
+      return !value;
+    });
+  }, []);
 
   const toggleBrief = useCallback(() => {
     if (briefState === 'open') {
@@ -151,6 +170,8 @@ export function WorkbenchShell({
         onEvidence={handleEvidence}
         onBriefing={toggleBrief}
         onService={handleService}
+        present={present}
+        onPresent={togglePresent}
       />
 
       <div className="flex min-h-0 flex-1">

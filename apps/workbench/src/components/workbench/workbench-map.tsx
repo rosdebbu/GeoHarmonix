@@ -1,7 +1,15 @@
 'use client';
 
-import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
-import { MAP_DATA, MAP_FLAGS, type MapHover, type MapPoint } from '@/lib/workbench/map-data';
+import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { powerColor, powerT } from '@/lib/workbench/map-power';
+import {
+  MAP_DATA,
+  MAP_FLAGS,
+  type MapDetail,
+  type MapHover,
+  type MapPoint,
+  type MapSelect,
+} from '@/lib/workbench/map-data';
 import { binDetections, displayResolution, hexEdge, hexOpacity, hexPath } from '@/lib/workbench/h3';
 import { markerScale, panView, zoomAt, type MapView } from '@/lib/workbench/map-view';
 import { screenToViewBox } from '@/lib/workbench/map-dom';
@@ -25,6 +33,12 @@ type WorkbenchMapProps = {
   label: string;
   onView: (view: MapView) => void;
   onHover: (hover: MapHover | null) => void;
+  selected: MapSelect | null;
+  onSelect: (selected: MapSelect | null) => void;
+  /** Projected outline of the searched place, drawn above the land. */
+  highlight: string;
+  /** Per-dot detail for this epoch (fire power drives colour and size); null while loading. */
+  details: MapDetail[] | null;
 };
 
 function statusOf(point: MapPoint, filters: MapFilters): 'keep' | 'sza' | 'saa' | 'static' | 'dup' {
@@ -46,6 +60,10 @@ export const WorkbenchMap = memo(function WorkbenchMap({
   label,
   onView,
   onHover,
+  selected,
+  onSelect,
+  highlight,
+  details,
 }: WorkbenchMapProps) {
   const data = MAP_DATA.regions[region];
   const points = useMemo(() => data.epochs[String(year)] ?? [], [data, year]);
@@ -61,15 +79,10 @@ export const WorkbenchMap = memo(function WorkbenchMap({
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const lastPointer = useRef<{ x: number; y: number } | null>(null);
   const pinch = useRef<{ distance: number } | null>(null);
+  const downAt = useRef<{ x: number; y: number } | null>(null);
   useEffect(() => {
     onViewRef.current = onView;
   }, [onView]);
-  useEffect(() => {
-    // An outside change (zoom buttons, reset, region switch) wins unless we are mid-gesture.
-    if (frame.current) return;
-    viewRef.current = view;
-    liveRef.current = view;
-  }, [view]);
   useEffect(() => () => cancelAnimationFrame(frame.current), []);
 
   const paint = useCallback((next: MapView) => {
@@ -107,6 +120,25 @@ export const WorkbenchMap = memo(function WorkbenchMap({
     frame.current = requestAnimationFrame(step);
   }, [paint, settle]);
 
+  // An outside change (zoom buttons, reset, a searched place) wins unless we are mid-gesture:
+  // ease from where the map is to the new view, or jump on first paint / reduced motion.
+  const mounted = useRef(false);
+  useLayoutEffect(() => {
+    if (frame.current) return;
+    const from = liveRef.current;
+    const far = Math.hypot(view.x - from.x, view.y - from.y) + Math.abs(view.k - from.k) * 100;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!mounted.current || reduce || far < 1) {
+      mounted.current = true;
+      viewRef.current = view;
+      liveRef.current = view;
+      return;
+    }
+    paint(from);
+    viewRef.current = view;
+    glide();
+  }, [view, paint, glide]);
+
   const { kept, excluded } = useMemo(() => {
     const visible: MapPoint[] = [];
     const removed: { point: MapPoint; status: ReturnType<typeof statusOf> }[] = [];
@@ -128,6 +160,17 @@ export const WorkbenchMap = memo(function WorkbenchMap({
   }, [layers.hex, view.k, grid, data.pxPerKm, kept]);
 
   const marker = markerScale(view.k);
+
+  // Colour by fire power when asked and loaded; otherwise by sensor. Stronger fires draw larger.
+  const megawatts = (point: MapPoint) => (layers.power && details ? details[point.i]?.[2] : undefined);
+  const tintOf = (point: MapPoint) => {
+    const mw = megawatts(point);
+    return mw === undefined ? (point.s === 'm' ? 'var(--amber)' : 'var(--raw)') : powerColor(mw);
+  };
+  const boostOf = (point: MapPoint) => {
+    const mw = megawatts(point);
+    return mw === undefined ? 1 : 1 + 0.7 * powerT(mw);
+  };
 
   const toViewBox = useCallback(
     (clientX: number, clientY: number) =>
@@ -166,6 +209,7 @@ export const WorkbenchMap = memo(function WorkbenchMap({
 
   const pointerDown = useCallback((event: React.PointerEvent<SVGSVGElement>) => {
     event.currentTarget.setPointerCapture(event.pointerId);
+    downAt.current = { x: event.clientX, y: event.clientY };
     pointers.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
     if (pointers.current.size === 1) {
       lastPointer.current = { x: event.clientX, y: event.clientY };
@@ -208,8 +252,42 @@ export const WorkbenchMap = memo(function WorkbenchMap({
     [toViewBox, width, height, follow],
   );
 
+  // A press that barely moved is a click: select the nearest drawn dot within reach.
+  const pick = useCallback(
+    (clientX: number, clientY: number) => {
+      const at = toViewBox(clientX, clientY);
+      const live = liveRef.current;
+      const gx = (at.x - live.x) / live.k;
+      const gy = (at.y - live.y) / live.k;
+      let best: MapSelect | null = null;
+      let reach = 14 / live.k;
+      const consider = (point: MapPoint, status: MapSelect['status']) => {
+        const distance = Math.hypot(point.x - gx, point.y - gy);
+        if (distance < reach) {
+          reach = distance;
+          best = { point, status };
+        }
+      };
+      if (layers.footprints && !layers.hex) {
+        for (const point of kept) consider(point, 'keep');
+        if (layers.overlay) for (const { point, status } of excluded) consider(point, status);
+      }
+      onSelect(best);
+    },
+    [toViewBox, layers.footprints, layers.hex, layers.overlay, kept, excluded, onSelect],
+  );
+
   const pointerUp = useCallback(
     (event: React.PointerEvent<SVGSVGElement>) => {
+      const down = downAt.current;
+      downAt.current = null;
+      if (
+        down &&
+        pointers.current.size === 1 &&
+        Math.hypot(event.clientX - down.x, event.clientY - down.y) < 5
+      ) {
+        pick(event.clientX, event.clientY);
+      }
       pointers.current.delete(event.pointerId);
       if (pointers.current.size === 0) release();
       if (pointers.current.size < 2) pinch.current = null;
@@ -220,7 +298,7 @@ export const WorkbenchMap = memo(function WorkbenchMap({
         lastPointer.current = null;
       }
     },
-    [release],
+    [release, pick],
   );
 
   const handlePointerLeave = useCallback(() => onHover(null), [onHover]);
@@ -273,9 +351,9 @@ export const WorkbenchMap = memo(function WorkbenchMap({
           strokeWidth={1}
           vectorEffect="non-scaling-stroke"
         />
-        {data.countries.map((country) => (
+        {data.countries.map((country, index) => (
           <path
-            key={country.id}
+            key={`${country.id}-${index}`}
             d={country.d}
             fill={country.focus ? 'var(--map-focus)' : 'var(--map-land)'}
           />
@@ -348,6 +426,18 @@ export const WorkbenchMap = memo(function WorkbenchMap({
           />
         )}
 
+        {highlight && (
+          <path
+            d={highlight}
+            fill="var(--focus)"
+            fillOpacity={0.08}
+            stroke="var(--focus)"
+            strokeWidth={2}
+            vectorEffect="non-scaling-stroke"
+            pointerEvents="none"
+          />
+        )}
+
         {h3 &&
           h3.bins.map((bin) => (
             <path
@@ -384,11 +474,15 @@ export const WorkbenchMap = memo(function WorkbenchMap({
               key={`kept-${point.i}`}
               cx={point.x}
               cy={point.y}
-              rx={Math.max((point.sc * data.pxPerKm) / 2, (1.7 * marker) / view.k)}
-              ry={Math.max((point.tr * data.pxPerKm) / 2, (1.25 * marker) / view.k)}
+              rx={Math.max((point.sc * data.pxPerKm) / 2, (1.7 * marker * boostOf(point)) / view.k)}
+              ry={Math.max((point.tr * data.pxPerKm) / 2, (1.25 * marker * boostOf(point)) / view.k)}
               transform={`rotate(${point.dn === 'N' ? -8 : 8} ${point.x} ${point.y})`}
-              fill={point.s === 'm' ? 'var(--amber)' : 'var(--raw)'}
-              fillOpacity={0.9}
+              fill={tintOf(point)}
+              fillOpacity={0.92}
+              stroke={point.s === 'm' ? 'var(--text)' : 'none'}
+              strokeWidth={0.9}
+              strokeOpacity={0.85}
+              vectorEffect="non-scaling-stroke"
               onPointerEnter={handlePointerEnter(point, 'keep')}
             />
           ))}
@@ -412,6 +506,19 @@ export const WorkbenchMap = memo(function WorkbenchMap({
               onPointerEnter={handlePointerEnter(point, status)}
             />
           ))}
+
+        {selected && (
+          <circle
+            cx={selected.point.x}
+            cy={selected.point.y}
+            r={(10 * marker) / view.k}
+            fill="none"
+            stroke="var(--focus)"
+            strokeWidth={2}
+            vectorEffect="non-scaling-stroke"
+            pointerEvents="none"
+          />
+        )}
       </g>
     </svg>
   );

@@ -74,7 +74,7 @@ export function BriefingRail({ region, state, onToggle }: BriefingRailProps) {
         <header className="border-line flex items-center gap-2 border-b px-3 py-2.5">
           <h2 className="text-body font-semibold">{t('title')}</h2>
           {service.connection === 'unavailable' ? (
-            <RailStatusChip tone="bad" label={t('service.down')} />
+            <RailStatusChip tone="neutral" label={t('service.down')} />
           ) : !connected ? (
             <RailStatusChip tone="neutral" label={t('service.notConnected')} />
           ) : run.phase === 'paused' ? (

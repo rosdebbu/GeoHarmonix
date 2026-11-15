@@ -7,13 +7,13 @@
 <h1 align="center">GeoHarmonix</h1>
 
 <p align="center">
-  <strong>Fire Long-term Archive Resolution &amp; Cross-sensor Harmonization for Operational Near-real-time Observation System</strong>
+  <strong>Geospatial Cross-Sensor Earth Observation Harmonization &amp; Cognitive AI Intelligence Platform</strong>
 </p>
 
-> A 26-year, cross-sensor (MODIS + VIIRS) harmonized Burning Activity Calendar & Dual-System Cognitive AI Harness built on NASA FIRMS data — turning 25+ years of heterogeneous satellite active-fire observations into a single, physics-calibrated, sensor-invariant record.
+> A 26-year, cross-sensor (MODIS + VIIRS) harmonized Burning Activity Calendar & Dual-System Cognitive AI Harness built on NASA FIRMS data — turning 25+ years of heterogeneous satellite active-fire observations into a single, physics-calibrated, sensor-invariant record. Powered by the FLARE-CHRONOS harmonization engine.
 
 <p align="center">
-  <a href="https://github.com/debbjitttt__/GeoHarmonix/actions/workflows/ci.yml"><img src="https://github.com/debbjitttt__/GeoHarmonix/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/Anshhh0306/GeoHarmonix/actions/workflows/ci.yml"><img src="https://github.com/Anshhh0306/GeoHarmonix/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.11%2B-blue" alt="Python" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License" /></a>
   <a href="exports/PROPOSAL.pdf"><img src="https://img.shields.io/badge/PDF-PROPOSAL-ea580c" alt="Proposal PDF" /></a>
@@ -85,9 +85,11 @@ All five scientific benchmark charts below are deterministically rendered by `uv
 
 ## Name & Acronym Meaning
 
-- **FLARE** — evokes the image of a flame: the fire signal the system detects, harmonizes, and tracks.
-- **CHRONOS** — emphasizes the core deliverable, the _Burning Activity Calendar_, spanning more than 25 years of active-fire history (2000–2026+).
-- The system connects and harmonizes data from the **NASA FIRMS** (Fire Information for Resource Management System) archive and near-real-time streams into one sensor-invariant, physics-calibrated record.
+- **GeoHarmonix** — **Geo**spatial **Harmoni**zation and Cognitive E**x**ploration: unifying 26 years of multi-sensor satellite Earth observations into a single, physics-calibrated, sensor-invariant fire intelligence platform.
+- **FLARE-CHRONOS Engine** — the underlying scientific foundation (*Fire Long-term Archive Resolution & Cross-sensor Harmonization for Operational Near-real-time Observation System*), powering the 26-year continuous *Burning Activity Calendar* (2000–2026+).
+  - **FLARE** — represents the active flame thermal radiation signal ($4\,\mu\text{m}$ MIR radiance / FRP) detected, filtered, and calibrated across sensor generations.
+  - **CHRONOS** — represents the continuous temporal baseline across 26 years, eliminating artificial step-jumps caused by sensor hand-offs and constellation expansions.
+- The system unifies data from the **NASA FIRMS** (Fire Information for Resource Management System) archive and near-real-time streams into an operational discrete global grid (Uber H3).
 
 See [`docs/00_Project_Name_and_Acronym.md`](docs/00_Project_Name_and_Acronym.md) and [`GLOSSARY.md`](GLOSSARY.md).
 
@@ -202,7 +204,7 @@ GeoHarmonix/
 ### Install
 
 ```bash
-git clone https://github.com/rosdebbu/GeoHarmonix.git
+git clone https://github.com/Anshhh0306/GeoHarmonix.git
 cd GeoHarmonix
 uv sync --group dev
 ```

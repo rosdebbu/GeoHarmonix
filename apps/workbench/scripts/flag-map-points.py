@@ -147,6 +147,9 @@ def read_rows(path: Path) -> list[dict]:
                     "platform": platform,
                     "daynight": daynight_raw or ("N" if sza >= SZA_NIGHT else "D"),
                     "file": path.name,
+                    "frp": frp,
+                    "sza": sza,
+                    "conf": confidence,
                     "index": index,
                 }
             )
@@ -263,6 +266,11 @@ def main() -> None:
                         round(row["angle"], 1),
                         row["platform"],
                         row["daynight"],
+                        # Detail fields (not drawn): fire power MW, UTC month-day time, sun angle, confidence.
+                        round(row["frp"], 1),
+                        row["when"].strftime("%m-%d %H:%M"),
+                        round(row["sza"], 1),
+                        row["conf"],
                     ]
                     for row in points
                 ],
