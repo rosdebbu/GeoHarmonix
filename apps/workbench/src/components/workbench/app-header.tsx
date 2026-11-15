@@ -25,6 +25,8 @@ type AppHeaderProps = {
   onPresent: () => void;
 };
 
+const METHODOLOGY_URL = 'https://github.com/rosdebbu/GeoHarmonix/blob/main/METHODOLOGY.md';
+
 const buttonClass =
   'inline-flex h-7 items-center gap-1.5 rounded-md border border-line-strong px-2 text-meta font-medium text-ink hover:bg-chip';
 
@@ -193,6 +195,10 @@ export function AppHeader({
           <Icon icon={ICON.globe} size="sm" />
           <span className="hidden xl:inline">{t('globe')}</span>
         </Link>
+        <a href={METHODOLOGY_URL} target="_blank" rel="noopener noreferrer" aria-label={t('methodology')} title={t('methodology')} className={buttonClass}>
+          <Icon icon={ICON.evidence} size="sm" />
+          <span className="hidden xl:inline">{t('methodology')}</span>
+        </a>
       </div>
 
       <div className="ml-auto flex items-center gap-2">
@@ -309,6 +315,16 @@ export function AppHeader({
               >
                 {t('globe')}
               </Link>
+              <a
+                href={METHODOLOGY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                role="menuitem"
+                onClick={closeMenu}
+                className="text-body text-ink hover:bg-chip rounded-sm px-2 py-1.5 text-left"
+              >
+                {t('methodology')}
+              </a>
             </div>
           )}
         </div>
