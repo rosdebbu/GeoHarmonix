@@ -39,6 +39,9 @@ export const AGE_TOKENS = [
 ] as const;
 const token = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
+// NASA's daily imagery stops at about this level; zooming further only stretches it into a blur.
+const MAX_ZOOM = 10;
+
 type View = { lon: number; lat: number; z: number };
 
 /** Uber H3 cell edge length in km (resolution 4-8), as lib/workbench/h3.ts. */
@@ -151,7 +154,7 @@ export function NasaMap({ region, bbox, points, from, to, onHover, onPick, selec
   const zoomTo = useCallback(
     (z2: number, at?: { x: number; y: number }) => {
       setView((v) => {
-        const z = Math.max(2, Math.min(12, z2));
+        const z = Math.max(2, Math.min(MAX_ZOOM, z2));
         const cursor = at ?? { x: size.w / 2, y: size.h / 2 };
         const lon = lonAt(worldX(v.lon, v.z) + (cursor.x - size.w / 2), v.z);
         const lat = latAt(worldY(v.lat, v.z) + (cursor.y - size.h / 2), v.z);
@@ -172,7 +175,7 @@ export function NasaMap({ region, bbox, points, from, to, onHover, onPick, selec
       event.preventDefault();
       const rect = el.getBoundingClientRect();
       setView((v) => {
-        const z = Math.max(2, Math.min(12, v.z - event.deltaY * 0.002));
+        const z = Math.max(2, Math.min(MAX_ZOOM, v.z - event.deltaY * 0.002));
         const cursor = { x: event.clientX - rect.left, y: event.clientY - rect.top };
         const lon = lonAt(worldX(v.lon, v.z) + (cursor.x - size.w / 2), v.z);
         const lat = latAt(worldY(v.lat, v.z) + (cursor.y - size.h / 2), v.z);
@@ -339,7 +342,7 @@ export function NasaMap({ region, bbox, points, from, to, onHover, onPick, selec
     let best: { index: number; d: number } | null = null;
     for (const h of shown.current) {
       const d = Math.hypot(h.x - mx, h.y - my);
-      if (d < 12 && (!best || d < best.d)) best = { index: h.index, d };
+      if (d < 12 && (!best || d <= best.d)) best = { index: h.index, d };
     }
     onPick(best ? best.index : null);
   };

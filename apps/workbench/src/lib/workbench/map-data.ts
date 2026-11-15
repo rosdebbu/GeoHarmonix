@@ -68,7 +68,6 @@ export type MapRegion = {
   countries: MapCountry[];
   borders: string;
   graticule: string;
-  epochs: Record<string, MapPoint[]>;
   counts: Record<string, MapCounts>;
 };
 
@@ -89,3 +88,17 @@ export const MAP_FLAGS = {
   static: 4,
   dup: 8,
 } as const;
+
+const epochCache = new Map<string, Promise<Record<string, MapPoint[]>>>();
+
+/** The plane map's dots per year, fetched on demand: they are ~10 MB and most visitors never open that map. */
+export function loadEpochs(region: string): Promise<Record<string, MapPoint[]>> {
+  let loaded = epochCache.get(region);
+  if (!loaded) {
+    loaded = fetch(`/map-epochs/${region}.json`)
+      .then((response) => (response.ok ? (response.json() as Promise<Record<string, MapPoint[]>>) : {}))
+      .catch(() => ({}));
+    epochCache.set(region, loaded);
+  }
+  return loaded;
+}

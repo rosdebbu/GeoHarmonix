@@ -39,6 +39,9 @@ export function RegionalIntelligence({
   const [placeId, setPlaceId] = useState('');
   const [countryName, setCountryName] = useState('');
   const [metric, setMetric] = useState<Metric>('activity');
+  const [pickMonth, setPickMonth] = useState<number | null>(null);
+  const [pickYear, setPickYear] = useState<number | null>(null);
+  const [pickRow, setPickRow] = useState<string | null>(null);
 
   useEffect(() => {
     let live = true;
@@ -82,7 +85,7 @@ export function RegionalIntelligence({
   const here = place ? statsFor(place, year) : [0, 0];
   const countryCount = country ? counted(country, year) : 0;
   const share = countryCount > 0 ? Math.round((here[1] / countryCount) * 100) : 0;
-  const readRow = series.find((row) => row.year === year);
+  const readRow = series.find((row) => row.year === (pickYear ?? year));
 
   // ---- Monthly analysis: the region's calendar, grouped into months ----------------------------
   const monthNames = useMemo(
@@ -110,6 +113,7 @@ export function RegionalIntelligence({
 
   const unitLabel = unit === 'density' ? t('unitDensity') : t('unitDetections');
   const panel = 'border-line bg-panel rounded-lg border p-3';
+  const readout = 'text-meta text-ink border-line bg-chip mt-1 min-h-8 rounded-md border px-2 py-1.5 font-mono';
   const pill = (on: boolean) => `text-meta h-6 rounded-md px-2.5 font-semibold ${on ? 'bg-amber text-canvas' : 'text-ink-muted hover:text-ink'}`;
 
   // ---- chart geometry ----------------------------------------------------------------------------
@@ -220,8 +224,9 @@ export function RegionalIntelligence({
                 const x = left + m * bw + bw * 0.12;
                 const y = monthY(value);
                 return (
-                  <g key={m}>
-                    <rect x={x} y={Math.min(y, monthZero)} width={bw * 0.76} height={Math.max(Math.abs(monthZero - y), 1)} rx={3} fill={metric === 'activity' ? 'var(--amber)' : value >= 0 ? 'var(--fire)' : 'var(--cyan)'} />
+                  <g key={m} className="cursor-pointer" onClick={() => setPickMonth(m)}>
+                    <rect x={left + m * bw} y={top} width={bw} height={plotH} fill="transparent" />
+                    <rect x={x} y={Math.min(y, monthZero)} width={bw * 0.76} height={Math.max(Math.abs(monthZero - y), 1)} rx={3} fill={metric === 'activity' ? 'var(--amber)' : value >= 0 ? 'var(--fire)' : 'var(--cyan)'} stroke={pickMonth === m ? 'var(--text)' : 'none'} strokeWidth={2} />
                     <text x={left + m * bw + bw / 2} y={value >= 0 ? y - 4 : y + 13} textAnchor="middle" fontSize={10} fill="var(--text)" fontFamily="var(--font-mono)">
                       {metric === 'activity' ? number(value, 1) : `${value > 0 ? '+' : ''}${number(value)}`}
                     </text>
@@ -233,6 +238,9 @@ export function RegionalIntelligence({
               })}
               <line x1={left} x2={W - 12} y1={monthZero} y2={monthZero} stroke="var(--text-subtle)" strokeWidth={1} />
             </svg>
+            <p className={readout} aria-live="polite">
+              {pickMonth === null ? t('pickHint') : metric === 'activity' ? `${monthNames[pickMonth]} · ${number(monthValues[pickMonth]!, 2)} ${unitLabel}` : `${monthNames[pickMonth]} · ${t('anomaly')} ${monthValues[pickMonth]! > 0 ? '+' : ''}${number(monthValues[pickMonth]!)}%`}
+            </p>
             <p className="text-meta text-ink-subtle mt-1 leading-snug">
               {unitLabel} · {metric === 'anomaly' ? t('monthlyAnomaly') : t('monthlyNote')}
             </p>
@@ -253,9 +261,10 @@ export function RegionalIntelligence({
                 ))}
                 <polyline points={series.map((r, i) => `${lineX(i)},${lineY(r.count)}`).join(' ')} fill="none" stroke="var(--cyan)" strokeWidth={2.5} strokeLinejoin="round" />
                 {series.map((row, i) => (
-                  <g key={row.year}>
-                    <circle cx={lineX(i)} cy={lineY(row.count)} r={row.year === year ? 5.5 : 3} fill={row.year === year ? 'var(--fire)' : 'var(--cyan)'} stroke={row.year === year ? 'var(--text)' : 'none'} strokeWidth={1.5} />
-                    {row.year === year && (
+                  <g key={row.year} className="cursor-pointer" onClick={() => setPickYear(row.year)}>
+                    <circle cx={lineX(i)} cy={lineY(row.count)} r={12} fill="transparent" />
+                    <circle cx={lineX(i)} cy={lineY(row.count)} r={row.year === (pickYear ?? year) ? 5.5 : 3} fill={row.year === (pickYear ?? year) ? 'var(--fire)' : 'var(--cyan)'} stroke={row.year === (pickYear ?? year) ? 'var(--text)' : 'none'} strokeWidth={1.5} />
+                    {row.year === (pickYear ?? year) && (
                       <text x={lineX(i) + (i > series.length / 2 ? -9 : 9)} y={lineY(row.count) - 8} textAnchor={i > series.length / 2 ? 'end' : 'start'} {...TICK} fill="var(--text)">
                         {number(row.count)}
                       </text>
@@ -297,11 +306,12 @@ export function RegionalIntelligence({
                 {top10.map((row, i) => {
                   const active = row.place.id === place.id;
                   return (
-                    <g key={row.place.id}>
+                    <g key={row.place.id} className="cursor-pointer" onClick={() => setPickRow(row.place.id)}>
+                      <rect x={0} y={i * rowH} width={W} height={rowH} fill="transparent" />
                       <text x={barsLeft - 8} y={i * rowH + 16} textAnchor="end" fontSize={11} fill={active ? 'var(--text)' : 'var(--text-muted)'} fontWeight={active ? 700 : 400}>
                         {row.place.name.length > 14 ? `${row.place.name.slice(0, 13)}…` : row.place.name}
                       </text>
-                      <rect x={barsLeft} y={i * rowH + 3} width={Math.max((row.count / barAxis.top) * barsW, 1.5)} height={rowH - 6} rx={3} fill={active ? 'var(--fire)' : 'var(--amber)'} />
+                      <rect x={barsLeft} y={i * rowH + 3} width={Math.max((row.count / barAxis.top) * barsW, 1.5)} height={rowH - 6} rx={3} fill={active ? 'var(--fire)' : 'var(--amber)'} stroke={pickRow === row.place.id ? 'var(--text)' : 'none'} strokeWidth={2} />
                       <text x={barsLeft + Math.max((row.count / barAxis.top) * barsW, 1.5) + 5} y={i * rowH + 15} fontSize={11} fill="var(--text)" fontFamily="var(--font-mono)">
                         {number(row.count)}
                       </text>
@@ -310,6 +320,12 @@ export function RegionalIntelligence({
                 })}
                 <line x1={barsLeft} x2={barsLeft} y1={0} y2={top10.length * rowH} stroke="var(--text-subtle)" strokeWidth={1} />
               </svg>
+              <p className={readout} aria-live="polite">
+                {(() => {
+                  const hit = top10.find((row) => row.place.id === pickRow);
+                  return hit ? `${hit.place.name} · ${t('tipCount', { count: number(hit.count) })}` : t('pickHint');
+                })()}
+              </p>
               <p className="text-meta text-ink-subtle mt-1">{t('topNote')}</p>
             </div>
           </div>

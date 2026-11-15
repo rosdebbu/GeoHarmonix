@@ -1,10 +1,11 @@
 'use client';
 
-import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { powerColor, powerT } from '@/lib/workbench/map-power';
 import {
   MAP_DATA,
   MAP_FLAGS,
+  loadEpochs,
   type MapDetail,
   type MapHover,
   type MapPoint,
@@ -70,7 +71,15 @@ export const WorkbenchMap = memo(function WorkbenchMap({
   details,
 }: WorkbenchMapProps) {
   const data = MAP_DATA.regions[region];
-  const points = useMemo(() => data.epochs[String(year)] ?? [], [data, year]);
+  const [epochs, setEpochs] = useState<Record<string, MapPoint[]>>({});
+  useEffect(() => {
+    let live = true;
+    void loadEpochs(region).then((loaded) => live && setEpochs(loaded));
+    return () => {
+      live = false;
+    };
+  }, [region]);
+  const points = useMemo(() => epochs[String(year)] ?? [], [epochs, year]);
   const { width, height, pad } = MAP_DATA;
   const svgRef = useRef<SVGSVGElement>(null);
   const groupRef = useRef<SVGGElement>(null);

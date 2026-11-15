@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import {
   MAP_DATA,
+  loadEpochs,
+  type MapPoint,
   MAP_FLAGS,
   type MapDetail,
   type MapHover,
@@ -96,7 +98,15 @@ export function MapPane({
   }, []);
 
   const data = MAP_DATA.regions[region];
-  const points = useMemo(() => data.epochs[String(year)] ?? [], [data, year]);
+  const [epochDots, setEpochDots] = useState<Record<string, MapPoint[]>>({});
+  useEffect(() => {
+    let live = true;
+    void loadEpochs(region).then((loaded) => live && setEpochDots(loaded));
+    return () => {
+      live = false;
+    };
+  }, [region]);
+  const points = useMemo(() => epochDots[String(year)] ?? [], [epochDots, year]);
   const date = formatEpochDate(epochs.find((epoch) => epoch.year === year)?.date ?? null, locale);
   const resolution = displayResolution(view.k, grid);
   const drawnCount = useMemo(

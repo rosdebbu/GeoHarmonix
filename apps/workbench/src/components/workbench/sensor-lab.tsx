@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { useLocale, useTranslations } from 'next-intl';
 import { axis } from '@/lib/workbench/chart';
@@ -15,6 +16,7 @@ const PLOT_W = W - LEFT - 12;
 const GRID = { stroke: 'var(--line-strong)', strokeDasharray: '3 3', strokeWidth: 1 } as const;
 const TICK = { fontSize: 11, fill: 'var(--text-subtle)', fontFamily: 'var(--font-mono)' } as const;
 const panel = 'border-line bg-panel rounded-lg border p-3';
+const readout = 'text-meta text-ink border-line bg-chip mt-1 min-h-8 rounded-md border px-2 py-1.5 font-mono';
 
 /** How the two sensor families differ, and what harmonization changes, from this project's own measurements. */
 export function SensorLab({
@@ -36,6 +38,9 @@ export function SensorLab({
   const locale = useLocale();
   const number = (n: number, digits = 0) => new Intl.NumberFormat(locale, { maximumFractionDigits: digits }).format(n);
 
+  const [pickYear, setPickYear] = useState<number | null>(null);
+  const [pickBar, setPickBar] = useState<string | null>(null);
+  const [pickHeld, setPickHeld] = useState<string | null>(null);
   const rows = lab.epochs;
   const row = rows.find((r) => r.year === year);
 
@@ -44,6 +49,8 @@ export function SensorLab({
   const lx = (i: number) => LEFT + (rows.length > 1 ? (i / (rows.length - 1)) * PLOT_W : PLOT_W / 2);
   const ly = (v: number) => TOP + PLOT_H - (v / yMax.top) * PLOT_H;
   const selected = rows.findIndex((r) => r.year === year);
+  const pickIndex = rows.findIndex((r) => r.year === pickYear);
+  const picked = pickIndex >= 0 ? rows[pickIndex]! : null;
   const viirsPoints = rows.flatMap((r, i) => (r.viirs > 0 ? [{ r, i }] : []));
 
   // B: agreement between sensors on coincident overpasses
@@ -128,6 +135,27 @@ export function SensorLab({
               </g>
             ))}
             <line x1={LEFT} x2={W - 12} y1={TOP + PLOT_H} y2={TOP + PLOT_H} stroke="var(--text-subtle)" strokeWidth={1} />
+            {pickIndex >= 0 && (
+              <>
+                <line x1={lx(pickIndex)} x2={lx(pickIndex)} y1={TOP} y2={TOP + PLOT_H} stroke="var(--text)" strokeWidth={1} strokeDasharray="3 3" />
+                <circle cx={lx(pickIndex)} cy={ly(rows[pickIndex]!.modis)} r={5} fill="var(--amber)" stroke="var(--text)" strokeWidth={1.5} />
+                {rows[pickIndex]!.viirs > 0 && <circle cx={lx(pickIndex)} cy={ly(rows[pickIndex]!.viirs)} r={5} fill="var(--cyan)" stroke="var(--text)" strokeWidth={1.5} />}
+              </>
+            )}
+            <rect
+              x={LEFT}
+              y={TOP}
+              width={PLOT_W}
+              height={PLOT_H}
+              fill="transparent"
+              className="cursor-pointer"
+              onClick={(event) => {
+                const box = event.currentTarget.ownerSVGElement!.getBoundingClientRect();
+                const x = ((event.clientX - box.left) / box.width) * W;
+                const i = Math.round(((x - LEFT) / PLOT_W) * (rows.length - 1));
+                setPickYear(rows[Math.min(Math.max(i, 0), rows.length - 1)]!.year);
+              }}
+            />
             {selected >= 0 && row && (
               <>
                 <text x={lx(selected) - 7} y={ly(row.modis) - 8} textAnchor="end" {...TICK} fill="var(--amber)">
@@ -145,6 +173,9 @@ export function SensorLab({
             <span className="text-amber">■ MODIS {row ? number(row.modis) : ''}</span>
             <span className="text-cyan">■ VIIRS {row && row.viirs > 0 ? number(row.viirs) : '—'}</span>
             <span className="text-ink-subtle">{row?.year}</span>
+          </p>
+          <p className={readout} aria-live="polite">
+            {picked ? t('divPick', { year: picked.year, modis: number(picked.modis), viirs: picked.viirs > 0 ? number(picked.viirs) : '—', ratio: picked.viirs > 0 && picked.modis > 0 ? `${number(picked.viirs / picked.modis, 1)}×` : '—' }) : t('pickHint')}
           </p>
           <p className="text-meta text-ink-subtle mt-1">{t('divNote')}</p>
         </div>
@@ -168,7 +199,7 @@ export function SensorLab({
                 const h = Math.max(value * PLOT_H, 1);
                 return (
                   <g key={`${g}-${b}`}>
-                    <rect x={x} y={TOP + PLOT_H - h} width={gw * 0.3} height={h} rx={3} fill={color} />
+                    <rect x={x} y={TOP + PLOT_H - h} width={gw * 0.3} height={h} rx={3} fill={color} className="cursor-pointer" stroke={pickBar === `${g}-${b}` ? 'var(--text)' : 'none'} strokeWidth={2} onClick={() => setPickBar(`${g}-${b}`)} />
                     <text x={x + gw * 0.15} y={TOP + PLOT_H - h - 4} textAnchor="middle" {...TICK} fill="var(--text)">
                       {number(value, 3)}
                     </text>
@@ -186,6 +217,9 @@ export function SensorLab({
             ))}
             <line x1={LEFT} x2={W - 12} y1={TOP + PLOT_H} y2={TOP + PLOT_H} stroke="var(--text-subtle)" strokeWidth={1} />
           </svg>
+          <p className={readout} aria-live="polite">
+            {pickBar ? `${groups[Number(pickBar[0])]!.bars[Number(pickBar[2])]![2]} · ${groups[Number(pickBar[0])]!.label}: ${number(groups[Number(pickBar[0])]!.bars[Number(pickBar[2])]![0], 4)}` : t('pickHint')}
+          </p>
           <p className="text-meta text-ink-subtle mt-1">{t('agreeNote', { before: number(calibration.rmseRaw, 1), after: number(calibration.rmseHarmonized, 1) })}</p>
         </div>
 
@@ -212,8 +246,8 @@ export function SensorLab({
                 const x = LEFT + i * hw + hw * 0.12;
                 return (
                   <g key={y}>
-                    <rect x={x} y={hy(before)} width={hw * 0.36} height={Math.max(TOP + PLOT_H - hy(before), 1)} rx={3} fill="var(--raw)" />
-                    <rect x={x + hw * 0.4} y={hy(after)} width={hw * 0.36} height={Math.max(TOP + PLOT_H - hy(after), 1)} rx={3} fill="var(--teal)" />
+                    <rect x={x} y={hy(before)} width={hw * 0.36} height={Math.max(TOP + PLOT_H - hy(before), 1)} rx={3} fill="var(--raw)" className="cursor-pointer" stroke={pickHeld === y ? 'var(--text)' : 'none'} strokeWidth={2} onClick={() => setPickHeld(y)} />
+                    <rect x={x + hw * 0.4} y={hy(after)} width={hw * 0.36} height={Math.max(TOP + PLOT_H - hy(after), 1)} rx={3} fill="var(--teal)" className="cursor-pointer" stroke={pickHeld === y ? 'var(--text)' : 'none'} strokeWidth={2} onClick={() => setPickHeld(y)} />
                     <text x={x + hw * 0.18} y={hy(before) - 4} textAnchor="middle" fontSize={10} fill="var(--text)" fontFamily="var(--font-mono)">
                       {number(before, 1)}
                     </text>
@@ -234,6 +268,11 @@ export function SensorLab({
             <span className="text-teal">■ {t('after')}</span>
             <span className="text-ok">╌ {t('agreement')}</span>
           </p>
+          {lab.omission && (
+            <p className={readout} aria-live="polite">
+              {pickHeld ? t('heldPick', { year: pickHeld, before: number(lab.omission.before[pickHeld] ?? 0, 2), after: number(lab.omission.after[pickHeld] ?? 0, 2) }) : t('pickHint')}
+            </p>
+          )}
           <p className="text-meta text-ink-subtle mt-1">{t('heldNote')}</p>
         </div>
       </div>
