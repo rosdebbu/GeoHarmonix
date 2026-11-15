@@ -138,7 +138,7 @@ export function AppHeader({
 
       <span
         data-hide-present="true"
-        className="border-line text-body text-ink-muted hidden h-7 items-center gap-1.5 rounded-md border px-2.5 xl:inline-flex"
+        className="border-line text-body text-ink-muted hidden h-7 items-center gap-1.5 whitespace-nowrap rounded-md border px-2.5 xl:inline-flex"
       >
         <span className="text-micro text-ink-subtle font-mono tracking-widest uppercase">
           {t('period')}
@@ -195,10 +195,6 @@ export function AppHeader({
           <Icon icon={ICON.globe} size="sm" />
           <span className="hidden xl:inline">{t('globe')}</span>
         </Link>
-        <a href={METHODOLOGY_URL} target="_blank" rel="noopener noreferrer" aria-label={t('methodology')} title={t('methodology')} className={buttonClass}>
-          <Icon icon={ICON.evidence} size="sm" />
-          <span className="hidden xl:inline">{t('methodology')}</span>
-        </a>
       </div>
 
       <div className="ml-auto flex items-center gap-2">
@@ -212,6 +208,10 @@ export function AppHeader({
         >
           <Icon icon={ICON.briefing} size="sm" />
         </button>
+        <a href={METHODOLOGY_URL} target="_blank" rel="noopener noreferrer" aria-label={t('methodology')} title={t('methodology')} className={buttonClass}>
+          <Icon icon={ICON.evidence} size="sm" />
+          <span className="hidden xl:inline">{t('methodology')}</span>
+        </a>
         <Link
           href="/review"
           title={review('review')}
@@ -230,7 +230,7 @@ export function AppHeader({
           onClick={onService}
           title={t('serviceStatus')}
           aria-label={`${t('serviceStatus')}: ${serviceLabel}`}
-          className={`tablet:inline-flex text-micro hidden h-7 items-center gap-1.5 rounded-md border px-2 font-mono ${serviceTone}`}
+          className={`tablet:inline-flex text-micro hidden h-7 items-center gap-1.5 whitespace-nowrap rounded-md border px-2 font-mono ${serviceTone}`}
         >
           <Icon icon={down ? ICON.xCircle : ICON.service} size="sm" />
           <span className="xl:hidden">

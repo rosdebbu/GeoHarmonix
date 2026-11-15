@@ -83,10 +83,12 @@ type Props = {
   defaultBase?: BaseId;
   /** Where the layer box and zoom buttons sit; 'right' leaves the left side to the host. */
   dock?: 'left' | 'right';
+  /** Fill the parent box instead of the live panel's fixed height. */
+  fill?: boolean;
   children?: ReactNode;
 };
 
-export function NasaMap({ region, bbox, points, from, to, onHover, onPick, selected = null, hex, target, ageLegend = true, imageryDate, defaultBase = 'noaa20', dock = 'left', children }: Props) {
+export function NasaMap({ region, bbox, points, from, to, onHover, onPick, selected = null, hex, target, ageLegend = true, imageryDate, defaultBase = 'noaa20', dock = 'left', fill = false, children }: Props) {
   const t = useTranslations('Map');
   const baseLabel = (id: BaseId) => (id === 'blue' ? t('blueMarble') : `${t('trueColour')} · ${SATELLITE_NAME[id]}`);
   const box = useRef<HTMLDivElement>(null);
@@ -355,7 +357,7 @@ export function NasaMap({ region, bbox, points, from, to, onHover, onPick, selec
   return (
     <div
       ref={box}
-      className="fc-live-view border-line bg-canvas relative w-full touch-none overflow-hidden rounded-md border select-none"
+      className={`${fill ? 'absolute inset-0' : 'fc-live-view relative w-full'} border-line bg-canvas touch-none overflow-hidden rounded-md border select-none`}
       style={{ cursor: drag.current ? 'grabbing' : 'grab' }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}

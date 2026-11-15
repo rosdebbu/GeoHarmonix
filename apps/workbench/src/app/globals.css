@@ -63,39 +63,40 @@
 
 :root {
   color-scheme: dark;
-  --bg: #070b14;
-  --surface: #0b111c;
-  --panel: #0c121e;
-  --raised: #121a29;
-  --seg: rgba(150, 170, 210, 0.16);
-  --line: rgba(150, 170, 210, 0.13);
-  --line-strong: rgba(150, 170, 210, 0.26);
-  --text: #eef2f8;
-  --text-muted: #b4bfd0;
-  --text-subtle: #8e9ab0;
-  --brand: #8fb0ff;
+  --bg: #151312;
+  --surface: #1b1816;
+  --panel: #211d1b;
+  --raised: #2b2623;
+  --seg: rgba(245, 178, 58, 0.18); /* the selected state is amber, the brand's one accent */
+  --line: rgba(235, 215, 195, 0.11);
+  --line-strong: rgba(235, 215, 195, 0.22);
+  --text: #f6f0ea;
+  --text-muted: #c8bdb4;
+  --text-subtle: #9f958d;
+  --brand: #ffb454;
   --fire: #ff8a3d;
-  --raw: #ff5a36;
+  --raw: #ff6a45;
   --amber: #f5b23a;
   --teal: #3cc9b0;
-  --cyan: #57e3ff;
+  --cyan: #62d9f2;
   --purple: #b195ea;
-  --grey: #8f99ab;
+  --grey: #968d86;
   --ok: #5fd394;
   --warn: #f5b23a;
   --bad: #ff7070;
-  --hatch: rgba(150, 170, 210, 0.3);
-  --focus: #eef2f8;
-  --scrim: rgba(3, 6, 12, 0.7);
-  --chip: rgba(150, 170, 210, 0.07);
+  --hatch: rgba(225, 205, 190, 0.3);
+  --focus: #f1ebe6;
+  --glow: rgba(245, 178, 58, 0.07);
+  --scrim: rgba(10, 6, 6, 0.7);
+  --chip: rgba(235, 215, 195, 0.06);
   --calendar-pitch: 10px;
-  /* Cool, desaturated base so the amber and red fire detections are the only warm marks. */
-  --map-ocean: #060b14;
-  --map-land: #1f2b3c;
-  --map-focus: #263549;
-  --map-border: rgba(170, 190, 230, 0.32);
-  --map-grat: rgba(170, 190, 230, 0.07);
-  --map-bbox: rgba(238, 242, 248, 0.6);
+  /* Warm, desaturated base so the amber and red fire detections are the only warm marks. */
+  --map-ocean: #110f0e;
+  --map-land: #2a2522;
+  --map-focus: #36302c;
+  --map-border: rgba(225, 205, 190, 0.32);
+  --map-grat: rgba(225, 205, 190, 0.07);
+  --map-bbox: rgba(241, 235, 230, 0.6);
   --map-river: rgba(110, 160, 225, 0.5);
   --map-relief-opacity: 0.85;
   --map-relief-blend: soft-light;
@@ -103,6 +104,7 @@
 }
 
 [data-theme='light'] {
+  --glow: transparent;
   color-scheme: light;
   --bg: #f2f4f8;
   --surface: #ffffff;
@@ -161,7 +163,7 @@
 
   body {
     min-height: 100dvh;
-    background: var(--bg);
+    background: radial-gradient(1100px 420px at 50% -8%, var(--glow), transparent 70%) no-repeat, var(--bg);
     color: var(--text);
     font-family: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;

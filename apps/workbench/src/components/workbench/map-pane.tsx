@@ -294,6 +294,7 @@ export function MapPane({
             imageryDate={epochs.find((epoch) => epoch.year === year)?.date}
             defaultBase="terra"
             dock="right"
+            fill
             hex={{ on: layers.hex, maxRes: grid }}
             target={flyTo}
             selected={satSelected >= 0 ? satSelected : null}

@@ -1,0 +1,3530 @@
+{
+  "scan_angle_physics": {
+    "modis_nadir_area_km2": 1,
+    "modis_edge_55deg_area_km2": 9.6875,
+    "modis_edge_scan_km": 4.8299,
+    "modis_edge_track_km": 2.0057,
+    "viirs_nadir_area_km2": 0.1305,
+    "viirs_edge_56deg_area_km2": 0.6154,
+    "viirs_edge_scan_km": 0.778,
+    "viirs_edge_track_km": 0.791,
+    "max_area_ratio_modis_edge_to_viirs_nadir": 74.23,
+    "empirical_modis_mean_area_km2": 2.17,
+    "empirical_modis_p95_area_km2": 5.27,
+    "empirical_viirs_mean_area_km2": 0.22,
+    "empirical_viirs_p95_area_km2": 0.42
+  },
+  "coincident_calibration": {
+    "n_pairs": 20786,
+    "raw_r2": 0.7839,
+    "harm_r2": 0.8048,
+    "raw_rmse": 141.087,
+    "harm_rmse": 134.077,
+    "ks_before": 0.1153,
+    "ks_after": 0.0353,
+    "alpha": 1.7397,
+    "beta": 0.9221,
+    "scan_tail_kappa": 0.1,
+    "mean_coincident_viirs_to_modis_count_ratio": 3.673,
+    "mean_coincident_viirs_to_modis_frp_ratio": 1.335,
+    "max_axis_mw": 646.9,
+    "holdout": {
+      "n_train": 11786,
+      "n_test": 9000,
+      "blend_parametric_weight": 0.8515,
+      "train_rmse_mw": 120.284,
+      "raw_rmse_mw": 155.886,
+      "harmonized_rmse_mw": 155.167,
+      "rmse_gain_ci95_mw": [
+        -5.991,
+        7.277
+      ],
+      "train_last_year": 2019
+    }
+  },
+  "mekong_empirical_epochs": [
+    {
+      "region": "mekong",
+      "date_window": "2001-03-15",
+      "year": 2001,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 238
+      },
+      "total_raw_detections": 238,
+      "deduplicated_fire_episodes": 179,
+      "deduplication_compression_ratio": 1.33,
+      "effective_observation_effort_omega": 0.2785,
+      "omega_before_cloud": 0.5244,
+      "cloud_clear_sky_fraction": 0.2444,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 2191.7,
+      "raw_total_frp_mw": 6968.5,
+      "harmonized_total_frp_mw": 38575.4,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "region": "mekong",
+      "date_window": "2002-03-15",
+      "year": 2002,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1552
+      },
+      "total_raw_detections": 1552,
+      "deduplicated_fire_episodes": 1054,
+      "deduplication_compression_ratio": 1.472,
+      "effective_observation_effort_omega": 1.029,
+      "omega_before_cloud": 0.7664,
+      "cloud_clear_sky_fraction": 0.6178,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 3492.8,
+      "raw_total_frp_mw": 40280.2,
+      "harmonized_total_frp_mw": 60339.4,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "region": "mekong",
+      "date_window": "2003-03-15",
+      "year": 2003,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3828
+      },
+      "total_raw_detections": 3828,
+      "deduplicated_fire_episodes": 2394,
+      "deduplication_compression_ratio": 1.599,
+      "effective_observation_effort_omega": 1.2363,
+      "omega_before_cloud": 1.0084,
+      "cloud_clear_sky_fraction": 0.5641,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 6603.2,
+      "raw_total_frp_mw": 173770.5,
+      "harmonized_total_frp_mw": 202250.4,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "region": "mekong",
+      "date_window": "2004-03-15",
+      "year": 2004,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 5893
+      },
+      "total_raw_detections": 5893,
+      "deduplicated_fire_episodes": 3614,
+      "deduplication_compression_ratio": 1.631,
+      "effective_observation_effort_omega": 1.1065,
+      "omega_before_cloud": 1.0084,
+      "cloud_clear_sky_fraction": 0.5049,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 11137.6,
+      "raw_total_frp_mw": 340411.9,
+      "harmonized_total_frp_mw": 422342.9,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "region": "mekong",
+      "date_window": "2005-03-15",
+      "year": 2005,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3914
+      },
+      "total_raw_detections": 3914,
+      "deduplicated_fire_episodes": 2415,
+      "deduplication_compression_ratio": 1.621,
+      "effective_observation_effort_omega": 0.9145,
+      "omega_before_cloud": 1.0084,
+      "cloud_clear_sky_fraction": 0.4173,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 9005.1,
+      "raw_total_frp_mw": 211332.8,
+      "harmonized_total_frp_mw": 326453.6,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "region": "mekong",
+      "date_window": "2006-03-15",
+      "year": 2006,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 5727
+      },
+      "total_raw_detections": 5727,
+      "deduplicated_fire_episodes": 3294,
+      "deduplication_compression_ratio": 1.739,
+      "effective_observation_effort_omega": 0.9741,
+      "omega_before_cloud": 1.0084,
+      "cloud_clear_sky_fraction": 0.4445,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 11531.2,
+      "raw_total_frp_mw": 361929.9,
+      "harmonized_total_frp_mw": 507742.6,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "region": "mekong",
+      "date_window": "2007-03-15",
+      "year": 2007,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 11515
+      },
+      "total_raw_detections": 11515,
+      "deduplicated_fire_episodes": 6748,
+      "deduplication_compression_ratio": 1.706,
+      "effective_observation_effort_omega": 0.9413,
+      "omega_before_cloud": 1.0084,
+      "cloud_clear_sky_fraction": 0.4295,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 24445.6,
+      "raw_total_frp_mw": 597395.8,
+      "harmonized_total_frp_mw": 870470.8,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "region": "mekong",
+      "date_window": "2008-03-15",
+      "year": 2008,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4986
+      },
+      "total_raw_detections": 4986,
+      "deduplicated_fire_episodes": 3148,
+      "deduplication_compression_ratio": 1.584,
+      "effective_observation_effort_omega": 1.2003,
+      "omega_before_cloud": 1.0084,
+      "cloud_clear_sky_fraction": 0.5477,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 8943.3,
+      "raw_total_frp_mw": 221619,
+      "harmonized_total_frp_mw": 261885.7,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "region": "mekong",
+      "date_window": "2009-03-15",
+      "year": 2009,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3731
+      },
+      "total_raw_detections": 3731,
+      "deduplicated_fire_episodes": 2203,
+      "deduplication_compression_ratio": 1.694,
+      "effective_observation_effort_omega": 0.5273,
+      "omega_before_cloud": 1.0084,
+      "cloud_clear_sky_fraction": 0.2406,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 14246.6,
+      "raw_total_frp_mw": 219481.2,
+      "harmonized_total_frp_mw": 569303.5,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "region": "mekong",
+      "date_window": "2010-03-15",
+      "year": 2010,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 8726
+      },
+      "total_raw_detections": 8726,
+      "deduplicated_fire_episodes": 4990,
+      "deduplication_compression_ratio": 1.749,
+      "effective_observation_effort_omega": 1.0221,
+      "omega_before_cloud": 1.0084,
+      "cloud_clear_sky_fraction": 0.4664,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 16648,
+      "raw_total_frp_mw": 454474.4,
+      "harmonized_total_frp_mw": 588390.4,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "region": "mekong",
+      "date_window": "2011-03-15",
+      "year": 2011,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1875
+      },
+      "total_raw_detections": 1875,
+      "deduplicated_fire_episodes": 1158,
+      "deduplication_compression_ratio": 1.619,
+      "effective_observation_effort_omega": 0.4278,
+      "omega_before_cloud": 1.0084,
+      "cloud_clear_sky_fraction": 0.1952,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 9230.4,
+      "raw_total_frp_mw": 83277.2,
+      "harmonized_total_frp_mw": 260538.5,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 0.786,
+      "region": "mekong",
+      "date_window": "2012-03-15",
+      "year": 2012,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 7389,
+        "VIIRS_SNPP_SP": 26439
+      },
+      "total_raw_detections": 33828,
+      "deduplicated_fire_episodes": 16845,
+      "deduplication_compression_ratio": 2.008,
+      "effective_observation_effort_omega": 1.4019,
+      "omega_before_cloud": 1.4925,
+      "cloud_clear_sky_fraction": 0.4322,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 12015.8,
+      "raw_total_frp_mw": 977529.6,
+      "harmonized_total_frp_mw": 607892.3,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 0.823,
+      "region": "mekong",
+      "date_window": "2013-03-15",
+      "year": 2013,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 6853,
+        "VIIRS_SNPP_SP": 26166
+      },
+      "total_raw_detections": 33019,
+      "deduplicated_fire_episodes": 16614,
+      "deduplication_compression_ratio": 1.987,
+      "effective_observation_effort_omega": 1.93,
+      "omega_before_cloud": 1.4925,
+      "cloud_clear_sky_fraction": 0.595,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 8608.3,
+      "raw_total_frp_mw": 686894.4,
+      "harmonized_total_frp_mw": 310542.6,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 1.008,
+      "region": "mekong",
+      "date_window": "2014-03-15",
+      "year": 2014,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 8179,
+        "VIIRS_SNPP_SP": 39055
+      },
+      "total_raw_detections": 47234,
+      "deduplicated_fire_episodes": 23921,
+      "deduplication_compression_ratio": 1.975,
+      "effective_observation_effort_omega": 1.8657,
+      "omega_before_cloud": 1.4925,
+      "cloud_clear_sky_fraction": 0.5752,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 12821.5,
+      "raw_total_frp_mw": 902263.4,
+      "harmonized_total_frp_mw": 435179.5,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 0.866,
+      "region": "mekong",
+      "date_window": "2015-03-15",
+      "year": 2015,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 9955,
+        "VIIRS_SNPP_SP": 39699
+      },
+      "total_raw_detections": 49654,
+      "deduplicated_fire_episodes": 24899,
+      "deduplication_compression_ratio": 1.994,
+      "effective_observation_effort_omega": 2.6747,
+      "omega_before_cloud": 1.4925,
+      "cloud_clear_sky_fraction": 0.8246,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 9309.1,
+      "raw_total_frp_mw": 1050139.4,
+      "harmonized_total_frp_mw": 371540.6,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 1.137,
+      "region": "mekong",
+      "date_window": "2016-03-15",
+      "year": 2016,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 6671,
+        "VIIRS_SNPP_SP": 37665
+      },
+      "total_raw_detections": 44336,
+      "deduplicated_fire_episodes": 23500,
+      "deduplication_compression_ratio": 1.887,
+      "effective_observation_effort_omega": 1.9621,
+      "omega_before_cloud": 1.4925,
+      "cloud_clear_sky_fraction": 0.6049,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 11977,
+      "raw_total_frp_mw": 656071.2,
+      "harmonized_total_frp_mw": 324178.5,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 1.088,
+      "region": "mekong",
+      "date_window": "2017-03-15",
+      "year": 2017,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2023,
+        "VIIRS_SNPP_SP": 10988
+      },
+      "total_raw_detections": 13011,
+      "deduplicated_fire_episodes": 7334,
+      "deduplication_compression_ratio": 1.774,
+      "effective_observation_effort_omega": 1.1006,
+      "omega_before_cloud": 1.4925,
+      "cloud_clear_sky_fraction": 0.3393,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 6663.6,
+      "raw_total_frp_mw": 192342.2,
+      "harmonized_total_frp_mw": 151450.5,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 1.299,
+      "region": "mekong",
+      "date_window": "2018-03-15",
+      "year": 2018,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2115,
+        "VIIRS_SNPP_SP": 12627
+      },
+      "total_raw_detections": 14742,
+      "deduplicated_fire_episodes": 9123,
+      "deduplication_compression_ratio": 1.616,
+      "effective_observation_effort_omega": 1.9079,
+      "omega_before_cloud": 1.4925,
+      "cloud_clear_sky_fraction": 0.5882,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 4781.7,
+      "raw_total_frp_mw": 187483.2,
+      "harmonized_total_frp_mw": 94777.6,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 1.001,
+      "region": "mekong",
+      "date_window": "2019-03-15",
+      "year": 2019,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 5216,
+        "VIIRS_SNPP_SP": 24653,
+        "VIIRS_NOAA20_SP": 24302
+      },
+      "total_raw_detections": 54171,
+      "deduplicated_fire_episodes": 24647,
+      "deduplication_compression_ratio": 2.198,
+      "effective_observation_effort_omega": 2.0765,
+      "omega_before_cloud": 1.795,
+      "cloud_clear_sky_fraction": 0.5323,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 9572.2,
+      "raw_total_frp_mw": 950819.3,
+      "harmonized_total_frp_mw": 263911.5,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 0.991,
+      "region": "mekong",
+      "date_window": "2020-03-15",
+      "year": 2020,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4969,
+        "VIIRS_SNPP_SP": 24029,
+        "VIIRS_NOAA20_SP": 21220
+      },
+      "total_raw_detections": 50218,
+      "deduplicated_fire_episodes": 22409,
+      "deduplication_compression_ratio": 2.241,
+      "effective_observation_effort_omega": 1.3849,
+      "omega_before_cloud": 1.795,
+      "cloud_clear_sky_fraction": 0.355,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 13049.2,
+      "raw_total_frp_mw": 887352.5,
+      "harmonized_total_frp_mw": 370414.8,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 0.888,
+      "region": "mekong",
+      "date_window": "2021-03-15",
+      "year": 2021,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 5898,
+        "VIIRS_SNPP_SP": 21997,
+        "VIIRS_NOAA20_SP": 23093
+      },
+      "total_raw_detections": 50988,
+      "deduplicated_fire_episodes": 23642,
+      "deduplication_compression_ratio": 2.157,
+      "effective_observation_effort_omega": 1.7364,
+      "omega_before_cloud": 1.795,
+      "cloud_clear_sky_fraction": 0.4451,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 10980.3,
+      "raw_total_frp_mw": 901153,
+      "harmonized_total_frp_mw": 302172.3,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 0.802,
+      "region": "mekong",
+      "date_window": "2022-03-15",
+      "year": 2022,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1764,
+        "VIIRS_SNPP_SP": 5196,
+        "VIIRS_NOAA20_SP": 6205
+      },
+      "total_raw_detections": 13165,
+      "deduplicated_fire_episodes": 7063,
+      "deduplication_compression_ratio": 1.864,
+      "effective_observation_effort_omega": 1.4095,
+      "omega_before_cloud": 1.795,
+      "cloud_clear_sky_fraction": 0.3613,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 4041.1,
+      "raw_total_frp_mw": 176742,
+      "harmonized_total_frp_mw": 79911.6,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 1.077,
+      "region": "mekong",
+      "date_window": "2023-03-15",
+      "year": 2023,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4257,
+        "VIIRS_SNPP_SP": 20712,
+        "VIIRS_NOAA20_SP": 19806
+      },
+      "total_raw_detections": 44775,
+      "deduplicated_fire_episodes": 22164,
+      "deduplication_compression_ratio": 2.02,
+      "effective_observation_effort_omega": 1.5596,
+      "omega_before_cloud": 1.795,
+      "cloud_clear_sky_fraction": 0.3998,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 11460.8,
+      "raw_total_frp_mw": 709285.6,
+      "harmonized_total_frp_mw": 273150,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 1.018,
+      "region": "mekong",
+      "date_window": "2024-03-15",
+      "year": 2024,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP",
+        "VIIRS_NOAA21_NRT"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3588,
+        "VIIRS_SNPP_SP": 17495,
+        "VIIRS_NOAA20_SP": 16965,
+        "VIIRS_NOAA21_NRT": 17187
+      },
+      "total_raw_detections": 55235,
+      "deduplicated_fire_episodes": 24902,
+      "deduplication_compression_ratio": 2.218,
+      "effective_observation_effort_omega": 2.0645,
+      "omega_before_cloud": 2.0975,
+      "cloud_clear_sky_fraction": 0.4529,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 8150,
+      "raw_total_frp_mw": 741256.2,
+      "harmonized_total_frp_mw": 162736,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    },
+    {
+      "sensor_invariance_ratio": 0.933,
+      "region": "mekong",
+      "date_window": "2025-03-15",
+      "year": 2025,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP",
+        "VIIRS_NOAA21_NRT"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2351,
+        "VIIRS_SNPP_SP": 10541,
+        "VIIRS_NOAA20_SP": 10372,
+        "VIIRS_NOAA21_NRT": 9907
+      },
+      "total_raw_detections": 33171,
+      "deduplicated_fire_episodes": 15457,
+      "deduplication_compression_ratio": 2.146,
+      "effective_observation_effort_omega": 1.482,
+      "omega_before_cloud": 2.0975,
+      "cloud_clear_sky_fraction": 0.3251,
+      "cloud_reference_clear_sky_fraction": 0.4601,
+      "harmonized_viirs_eq_episodes": 7047.2,
+      "raw_total_frp_mw": 369684.9,
+      "harmonized_total_frp_mw": 120273.5,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0
+    }
+  ],
+  "amazon_empirical_epochs": [
+    {
+      "region": "amazon",
+      "date_window": "2001-08-20",
+      "year": 2001,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3364
+      },
+      "total_raw_detections": 3364,
+      "deduplicated_fire_episodes": 1800,
+      "deduplication_compression_ratio": 1.869,
+      "effective_observation_effort_omega": 0.3878,
+      "omega_before_cloud": 0.5212,
+      "cloud_clear_sky_fraction": 0.4783,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 8586.9,
+      "raw_total_frp_mw": 164502.8,
+      "harmonized_total_frp_mw": 594662,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 138,
+      "saa_rejected_share_pct": 4.1
+    },
+    {
+      "region": "amazon",
+      "date_window": "2002-08-20",
+      "year": 2002,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 15280
+      },
+      "total_raw_detections": 15280,
+      "deduplicated_fire_episodes": 7573,
+      "deduplication_compression_ratio": 2.018,
+      "effective_observation_effort_omega": 0.7202,
+      "omega_before_cloud": 0.7617,
+      "cloud_clear_sky_fraction": 0.6079,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 19453,
+      "raw_total_frp_mw": 1348121,
+      "harmonized_total_frp_mw": 2438479.7,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 456,
+      "saa_rejected_share_pct": 2.98
+    },
+    {
+      "region": "amazon",
+      "date_window": "2003-08-20",
+      "year": 2003,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 8040
+      },
+      "total_raw_detections": 8040,
+      "deduplicated_fire_episodes": 4034,
+      "deduplication_compression_ratio": 1.993,
+      "effective_observation_effort_omega": 0.9869,
+      "omega_before_cloud": 1.0022,
+      "cloud_clear_sky_fraction": 0.6331,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 7562,
+      "raw_total_frp_mw": 539810,
+      "harmonized_total_frp_mw": 686428.4,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 228,
+      "saa_rejected_share_pct": 2.84
+    },
+    {
+      "region": "amazon",
+      "date_window": "2004-08-20",
+      "year": 2004,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 9116
+      },
+      "total_raw_detections": 9116,
+      "deduplicated_fire_episodes": 4513,
+      "deduplication_compression_ratio": 2.02,
+      "effective_observation_effort_omega": 0.9612,
+      "omega_before_cloud": 1.0022,
+      "cloud_clear_sky_fraction": 0.6166,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 8686.1,
+      "raw_total_frp_mw": 715784.7,
+      "harmonized_total_frp_mw": 949004.7,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 335,
+      "saa_rejected_share_pct": 3.67
+    },
+    {
+      "region": "amazon",
+      "date_window": "2005-08-20",
+      "year": 2005,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 13804
+      },
+      "total_raw_detections": 13804,
+      "deduplicated_fire_episodes": 6955,
+      "deduplication_compression_ratio": 1.985,
+      "effective_observation_effort_omega": 0.981,
+      "omega_before_cloud": 1.0022,
+      "cloud_clear_sky_fraction": 0.6293,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 13116,
+      "raw_total_frp_mw": 917080.2,
+      "harmonized_total_frp_mw": 1238154.9,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 518,
+      "saa_rejected_share_pct": 3.75
+    },
+    {
+      "region": "amazon",
+      "date_window": "2006-08-20",
+      "year": 2006,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 5932
+      },
+      "total_raw_detections": 5932,
+      "deduplicated_fire_episodes": 3084,
+      "deduplication_compression_ratio": 1.923,
+      "effective_observation_effort_omega": 0.8337,
+      "omega_before_cloud": 1.0022,
+      "cloud_clear_sky_fraction": 0.5348,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 6843.5,
+      "raw_total_frp_mw": 402616.2,
+      "harmonized_total_frp_mw": 644506.7,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 128,
+      "saa_rejected_share_pct": 2.16
+    },
+    {
+      "region": "amazon",
+      "date_window": "2007-08-20",
+      "year": 2007,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 13033
+      },
+      "total_raw_detections": 13033,
+      "deduplicated_fire_episodes": 6369,
+      "deduplication_compression_ratio": 2.046,
+      "effective_observation_effort_omega": 1.2602,
+      "omega_before_cloud": 1.0022,
+      "cloud_clear_sky_fraction": 0.8084,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 9349.8,
+      "raw_total_frp_mw": 1009314.8,
+      "harmonized_total_frp_mw": 1064852.8,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 447,
+      "saa_rejected_share_pct": 3.43
+    },
+    {
+      "region": "amazon",
+      "date_window": "2008-08-20",
+      "year": 2008,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 9049
+      },
+      "total_raw_detections": 9049,
+      "deduplicated_fire_episodes": 4541,
+      "deduplication_compression_ratio": 1.993,
+      "effective_observation_effort_omega": 1.0583,
+      "omega_before_cloud": 1.0022,
+      "cloud_clear_sky_fraction": 0.6789,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 7938.1,
+      "raw_total_frp_mw": 555112.4,
+      "harmonized_total_frp_mw": 717637.9,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 331,
+      "saa_rejected_share_pct": 3.66
+    },
+    {
+      "region": "amazon",
+      "date_window": "2009-08-20",
+      "year": 2009,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1907
+      },
+      "total_raw_detections": 1907,
+      "deduplicated_fire_episodes": 1065,
+      "deduplication_compression_ratio": 1.791,
+      "effective_observation_effort_omega": 0.6285,
+      "omega_before_cloud": 1.0022,
+      "cloud_clear_sky_fraction": 0.4032,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 3134.8,
+      "raw_total_frp_mw": 106575.2,
+      "harmonized_total_frp_mw": 234719.5,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 46,
+      "saa_rejected_share_pct": 2.41
+    },
+    {
+      "region": "amazon",
+      "date_window": "2010-08-20",
+      "year": 2010,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 16304
+      },
+      "total_raw_detections": 16304,
+      "deduplicated_fire_episodes": 7635,
+      "deduplication_compression_ratio": 2.135,
+      "effective_observation_effort_omega": 1.2589,
+      "omega_before_cloud": 1.0022,
+      "cloud_clear_sky_fraction": 0.8076,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 11219.9,
+      "raw_total_frp_mw": 1068761.8,
+      "harmonized_total_frp_mw": 1139199.4,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 626,
+      "saa_rejected_share_pct": 3.84
+    },
+    {
+      "region": "amazon",
+      "date_window": "2011-08-20",
+      "year": 2011,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1928
+      },
+      "total_raw_detections": 1928,
+      "deduplicated_fire_episodes": 1062,
+      "deduplication_compression_ratio": 1.815,
+      "effective_observation_effort_omega": 1.049,
+      "omega_before_cloud": 1.0022,
+      "cloud_clear_sky_fraction": 0.6729,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 1872.9,
+      "raw_total_frp_mw": 102500.5,
+      "harmonized_total_frp_mw": 135776.5,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 53,
+      "saa_rejected_share_pct": 2.75
+    },
+    {
+      "sensor_invariance_ratio": 0.984,
+      "region": "amazon",
+      "date_window": "2012-08-20",
+      "year": 2012,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 6677,
+        "VIIRS_SNPP_SP": 26807
+      },
+      "total_raw_detections": 33484,
+      "deduplicated_fire_episodes": 9351,
+      "deduplication_compression_ratio": 3.581,
+      "effective_observation_effort_omega": 1.7705,
+      "omega_before_cloud": 1.4833,
+      "cloud_clear_sky_fraction": 0.7674,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 5281.6,
+      "raw_total_frp_mw": 864588.6,
+      "harmonized_total_frp_mw": 402692.6,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 3848,
+      "saa_rejected_share_pct": 11.49
+    },
+    {
+      "sensor_invariance_ratio": 1.1,
+      "region": "amazon",
+      "date_window": "2013-08-20",
+      "year": 2013,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1669,
+        "VIIRS_SNPP_SP": 6825
+      },
+      "total_raw_detections": 8494,
+      "deduplicated_fire_episodes": 2678,
+      "deduplication_compression_ratio": 3.172,
+      "effective_observation_effort_omega": 1.0858,
+      "omega_before_cloud": 1.4833,
+      "cloud_clear_sky_fraction": 0.4706,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 2466.4,
+      "raw_total_frp_mw": 207238.8,
+      "harmonized_total_frp_mw": 168801,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 716,
+      "saa_rejected_share_pct": 8.43
+    },
+    {
+      "sensor_invariance_ratio": 1.003,
+      "region": "amazon",
+      "date_window": "2014-08-20",
+      "year": 2014,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 6805,
+        "VIIRS_SNPP_SP": 29793
+      },
+      "total_raw_detections": 36598,
+      "deduplicated_fire_episodes": 9791,
+      "deduplication_compression_ratio": 3.738,
+      "effective_observation_effort_omega": 1.6831,
+      "omega_before_cloud": 1.4833,
+      "cloud_clear_sky_fraction": 0.7295,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 5817.2,
+      "raw_total_frp_mw": 804847.6,
+      "harmonized_total_frp_mw": 410523.1,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 5158,
+      "saa_rejected_share_pct": 14.09
+    },
+    {
+      "sensor_invariance_ratio": 0.979,
+      "region": "amazon",
+      "date_window": "2015-08-20",
+      "year": 2015,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4672,
+        "VIIRS_SNPP_SP": 17613
+      },
+      "total_raw_detections": 22285,
+      "deduplicated_fire_episodes": 7010,
+      "deduplication_compression_ratio": 3.179,
+      "effective_observation_effort_omega": 1.492,
+      "omega_before_cloud": 1.4833,
+      "cloud_clear_sky_fraction": 0.6467,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 4698.4,
+      "raw_total_frp_mw": 510894,
+      "harmonized_total_frp_mw": 303214.3,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 2794,
+      "saa_rejected_share_pct": 12.54
+    },
+    {
+      "sensor_invariance_ratio": 1.002,
+      "region": "amazon",
+      "date_window": "2016-08-20",
+      "year": 2016,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4418,
+        "VIIRS_SNPP_SP": 17246
+      },
+      "total_raw_detections": 21664,
+      "deduplicated_fire_episodes": 6217,
+      "deduplication_compression_ratio": 3.485,
+      "effective_observation_effort_omega": 1.3128,
+      "omega_before_cloud": 1.4833,
+      "cloud_clear_sky_fraction": 0.569,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 4735.7,
+      "raw_total_frp_mw": 498232.4,
+      "harmonized_total_frp_mw": 354355.8,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 2054,
+      "saa_rejected_share_pct": 9.48
+    },
+    {
+      "sensor_invariance_ratio": 1.107,
+      "region": "amazon",
+      "date_window": "2017-08-20",
+      "year": 2017,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3034,
+        "VIIRS_SNPP_SP": 12367
+      },
+      "total_raw_detections": 15401,
+      "deduplicated_fire_episodes": 4974,
+      "deduplication_compression_ratio": 3.096,
+      "effective_observation_effort_omega": 1.2574,
+      "omega_before_cloud": 1.4833,
+      "cloud_clear_sky_fraction": 0.545,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 3955.8,
+      "raw_total_frp_mw": 349564.2,
+      "harmonized_total_frp_mw": 255284.2,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 1301,
+      "saa_rejected_share_pct": 8.45
+    },
+    {
+      "sensor_invariance_ratio": 0.845,
+      "region": "amazon",
+      "date_window": "2018-08-20",
+      "year": 2018,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1619,
+        "VIIRS_SNPP_SP": 5223,
+        "VIIRS_NOAA20_SP": 5264
+      },
+      "total_raw_detections": 12106,
+      "deduplicated_fire_episodes": 3121,
+      "deduplication_compression_ratio": 3.879,
+      "effective_observation_effort_omega": 1.6624,
+      "omega_before_cloud": 1.784,
+      "cloud_clear_sky_fraction": 0.5991,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 1514,
+      "raw_total_frp_mw": 213511.8,
+      "harmonized_total_frp_mw": 71820.4,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 1131,
+      "saa_rejected_share_pct": 9.34
+    },
+    {
+      "sensor_invariance_ratio": 0.811,
+      "region": "amazon",
+      "date_window": "2019-08-20",
+      "year": 2019,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4770,
+        "VIIRS_SNPP_SP": 16882,
+        "VIIRS_NOAA20_SP": 17099
+      },
+      "total_raw_detections": 38751,
+      "deduplicated_fire_episodes": 8764,
+      "deduplication_compression_ratio": 4.422,
+      "effective_observation_effort_omega": 1.6438,
+      "omega_before_cloud": 1.784,
+      "cloud_clear_sky_fraction": 0.5924,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 4299.6,
+      "raw_total_frp_mw": 673840.8,
+      "harmonized_total_frp_mw": 221968.2,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 5144,
+      "saa_rejected_share_pct": 13.27
+    },
+    {
+      "sensor_invariance_ratio": 1.346,
+      "region": "amazon",
+      "date_window": "2020-08-20",
+      "year": 2020,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3506,
+        "VIIRS_SNPP_SP": 22031,
+        "VIIRS_NOAA20_SP": 20575
+      },
+      "total_raw_detections": 46112,
+      "deduplicated_fire_episodes": 10446,
+      "deduplication_compression_ratio": 4.414,
+      "effective_observation_effort_omega": 2.135,
+      "omega_before_cloud": 1.784,
+      "cloud_clear_sky_fraction": 0.7694,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 3945.8,
+      "raw_total_frp_mw": 636756,
+      "harmonized_total_frp_mw": 167313.8,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 7418,
+      "saa_rejected_share_pct": 16.09
+    },
+    {
+      "sensor_invariance_ratio": 0.885,
+      "region": "amazon",
+      "date_window": "2021-08-20",
+      "year": 2021,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 7503,
+        "VIIRS_SNPP_SP": 31280,
+        "VIIRS_NOAA20_SP": 30667
+      },
+      "total_raw_detections": 69450,
+      "deduplicated_fire_episodes": 13537,
+      "deduplication_compression_ratio": 5.13,
+      "effective_observation_effort_omega": 2.122,
+      "omega_before_cloud": 1.784,
+      "cloud_clear_sky_fraction": 0.7647,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 5144.6,
+      "raw_total_frp_mw": 1361353.8,
+      "harmonized_total_frp_mw": 330727.5,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 9496,
+      "saa_rejected_share_pct": 13.67
+    },
+    {
+      "sensor_invariance_ratio": 0.901,
+      "region": "amazon",
+      "date_window": "2022-08-20",
+      "year": 2022,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 12743,
+        "VIIRS_SNPP_SP": 55619,
+        "VIIRS_NOAA20_SP": 51130
+      },
+      "total_raw_detections": 119492,
+      "deduplicated_fire_episodes": 23196,
+      "deduplication_compression_ratio": 5.151,
+      "effective_observation_effort_omega": 1.5376,
+      "omega_before_cloud": 1.784,
+      "cloud_clear_sky_fraction": 0.5541,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 12166,
+      "raw_total_frp_mw": 2288037.3,
+      "harmonized_total_frp_mw": 752175.5,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 13928,
+      "saa_rejected_share_pct": 11.66
+    },
+    {
+      "sensor_invariance_ratio": 0.988,
+      "region": "amazon",
+      "date_window": "2023-08-20",
+      "year": 2023,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4430,
+        "VIIRS_SNPP_SP": 20833,
+        "VIIRS_NOAA20_SP": 20455
+      },
+      "total_raw_detections": 45718,
+      "deduplicated_fire_episodes": 9686,
+      "deduplication_compression_ratio": 4.72,
+      "effective_observation_effort_omega": 1.857,
+      "omega_before_cloud": 1.784,
+      "cloud_clear_sky_fraction": 0.6692,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 4206.4,
+      "raw_total_frp_mw": 791502.8,
+      "harmonized_total_frp_mw": 233175.7,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 5831,
+      "saa_rejected_share_pct": 12.75
+    },
+    {
+      "sensor_invariance_ratio": 0.838,
+      "region": "amazon",
+      "date_window": "2024-08-20",
+      "year": 2024,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP",
+        "VIIRS_NOAA21_NRT"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 8151,
+        "VIIRS_SNPP_SP": 35647,
+        "VIIRS_NOAA20_SP": 35765,
+        "VIIRS_NOAA21_NRT": 32842
+      },
+      "total_raw_detections": 112405,
+      "deduplicated_fire_episodes": 19542,
+      "deduplication_compression_ratio": 5.752,
+      "effective_observation_effort_omega": 2.6716,
+      "omega_before_cloud": 2.0847,
+      "cloud_clear_sky_fraction": 0.8239,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 4942.4,
+      "raw_total_frp_mw": 1990752.4,
+      "harmonized_total_frp_mw": 305184.2,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 15434,
+      "saa_rejected_share_pct": 13.73
+    },
+    {
+      "sensor_invariance_ratio": 0.892,
+      "region": "amazon",
+      "date_window": "2025-08-20",
+      "year": 2025,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP",
+        "VIIRS_NOAA21_NRT"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1420,
+        "VIIRS_SNPP_SP": 6517,
+        "VIIRS_NOAA20_SP": 5859,
+        "VIIRS_NOAA21_NRT": 6233
+      },
+      "total_raw_detections": 20029,
+      "deduplicated_fire_episodes": 3780,
+      "deduplication_compression_ratio": 5.299,
+      "effective_observation_effort_omega": 2.2721,
+      "omega_before_cloud": 2.0847,
+      "cloud_clear_sky_fraction": 0.7007,
+      "cloud_reference_clear_sky_fraction": 0.6429,
+      "harmonized_viirs_eq_episodes": 1124.1,
+      "raw_total_frp_mw": 401081.2,
+      "harmonized_total_frp_mw": 77051.2,
+      "daynight_sza_reclassified_pct": 0,
+      "saa_rejected_count": 2262,
+      "saa_rejected_share_pct": 11.29
+    }
+  ],
+  "saa_and_sza_nrt_audit": {
+    "South_America_SNPP_7d": {
+      "total_rows": 57713,
+      "sza_reclassified_count": 0,
+      "sza_reclassified_pct": 0,
+      "saa_night_false_alarms_filtered": 2674,
+      "saa_night_false_alarm_pct": 4.633
+    },
+    "South_America_NOAA20_7d": {
+      "total_rows": 60052,
+      "sza_reclassified_count": 0,
+      "sza_reclassified_pct": 0,
+      "saa_night_false_alarms_filtered": 2130,
+      "saa_night_false_alarm_pct": 3.547
+    },
+    "SouthEast_Asia_SNPP_7d": {
+      "total_rows": 73555,
+      "sza_reclassified_count": 0,
+      "sza_reclassified_pct": 0,
+      "saa_night_false_alarms_filtered": 0,
+      "saa_night_false_alarm_pct": 0
+    }
+  },
+  "omission_factor_fit": {
+    "mekong": {
+      "k_prior": 3.65,
+      "k_fit": 3.4134,
+      "train_years": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "held_out_before": {
+        "2021": 0.83,
+        "2022": 0.749,
+        "2023": 1.006,
+        "2024": 0.951,
+        "2025": 0.872
+      },
+      "held_out_after": {
+        "2021": 0.887,
+        "2022": 0.801,
+        "2023": 1.076,
+        "2024": 1.017,
+        "2025": 0.932
+      }
+    },
+    "amazon": {
+      "k_prior": 2.55,
+      "k_fit": 1.8537,
+      "train_years": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "held_out_before": {
+        "2021": 0.642,
+        "2022": 0.654,
+        "2023": 0.717,
+        "2024": 0.608,
+        "2025": 0.647
+      },
+      "held_out_after": {
+        "2021": 0.883,
+        "2022": 0.899,
+        "2023": 0.986,
+        "2024": 0.836,
+        "2025": 0.89
+      }
+    },
+    "india": {
+      "k_prior": 1.0,
+      "k_fit": 3.9,
+      "train_years": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "held_out_before": {
+        "2021": 3.046,
+        "2022": 4.251,
+        "2023": 3.888,
+        "2024": 3.545,
+        "2025": 3.916
+      },
+      "held_out_after": {
+        "2021": 0.781,
+        "2022": 1.09,
+        "2023": 0.997,
+        "2024": 0.909,
+        "2025": 1.004
+      }
+    },
+    "maritime": {
+      "k_prior": 1.0,
+      "k_fit": 3.1138,
+      "train_years": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "held_out_before": {
+        "2021": 2.842,
+        "2022": 4.19,
+        "2023": 3.669,
+        "2024": 4.271,
+        "2025": 5.323
+      },
+      "held_out_after": {
+        "2021": 0.913,
+        "2022": 1.346,
+        "2023": 1.178,
+        "2024": 1.372,
+        "2025": 1.709
+      }
+    }
+  },
+  "regime_shift_series": {
+    "mekong": {
+      "years": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "raw_counts_by_year": {
+        "2001": 238,
+        "2002": 1552,
+        "2003": 3828,
+        "2004": 5893,
+        "2005": 3914,
+        "2006": 5727,
+        "2007": 11515,
+        "2008": 4986,
+        "2009": 3731,
+        "2010": 8726,
+        "2011": 1875,
+        "2012": 33828,
+        "2013": 33019,
+        "2014": 47234,
+        "2015": 49654,
+        "2016": 44336,
+        "2017": 13011,
+        "2018": 14742,
+        "2019": 54171,
+        "2020": 50218,
+        "2021": 50988,
+        "2022": 13165,
+        "2023": 44775,
+        "2024": 55235,
+        "2025": 33171,
+        "2026": 34652
+      },
+      "modis_reference_counts_by_year": {
+        "2001": 238,
+        "2002": 1552,
+        "2003": 3828,
+        "2004": 5893,
+        "2005": 3914,
+        "2006": 5727,
+        "2007": 11515,
+        "2008": 4986,
+        "2009": 3731,
+        "2010": 8726,
+        "2011": 1875,
+        "2012": 7389,
+        "2013": 6853,
+        "2014": 8179,
+        "2015": 9955,
+        "2016": 6671,
+        "2017": 2023,
+        "2018": 2115,
+        "2019": 5216,
+        "2020": 4969,
+        "2021": 5898,
+        "2022": 1764,
+        "2023": 4257,
+        "2024": 3588,
+        "2025": 2351,
+        "2026": 2016
+      },
+      "raw_index_2005_eq_100": [
+        6.1,
+        39.7,
+        97.8,
+        150.6,
+        100,
+        146.3,
+        294.2,
+        127.4,
+        95.3,
+        222.9,
+        47.9,
+        864.3,
+        843.6,
+        1206.8,
+        1268.6,
+        1132.8,
+        332.4,
+        376.6,
+        1384,
+        1283,
+        1302.7,
+        336.4,
+        1144,
+        1411.2,
+        847.5,
+        885.3
+      ],
+      "harmonized_index_2005_eq_100": [
+        24.3,
+        38.8,
+        73.3,
+        123.7,
+        100,
+        128.1,
+        271.5,
+        99.3,
+        158.2,
+        184.9,
+        102.5,
+        133.4,
+        95.6,
+        142.4,
+        103.4,
+        133,
+        74,
+        53.1,
+        106.3,
+        144.9,
+        121.9,
+        44.9,
+        127.3,
+        90.5,
+        78.3,
+        51.5
+      ],
+      "measured_years": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "interpolated_years": [
+        2026
+      ]
+    },
+    "amazon": {
+      "years": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "raw_counts_by_year": {
+        "2001": 3364,
+        "2002": 15280,
+        "2003": 8040,
+        "2004": 9116,
+        "2005": 13804,
+        "2006": 5932,
+        "2007": 13033,
+        "2008": 9049,
+        "2009": 1907,
+        "2010": 16304,
+        "2011": 1928,
+        "2012": 33484,
+        "2013": 8494,
+        "2014": 36598,
+        "2015": 22285,
+        "2016": 21664,
+        "2017": 15401,
+        "2018": 12106,
+        "2019": 38751,
+        "2020": 46112,
+        "2021": 69450,
+        "2022": 119492,
+        "2023": 45718,
+        "2024": 112405,
+        "2025": 20029,
+        "2026": 45389
+      },
+      "modis_reference_counts_by_year": {
+        "2001": 3364,
+        "2002": 15280,
+        "2003": 8040,
+        "2004": 9116,
+        "2005": 13804,
+        "2006": 5932,
+        "2007": 13033,
+        "2008": 9049,
+        "2009": 1907,
+        "2010": 16304,
+        "2011": 1928,
+        "2012": 6677,
+        "2013": 1669,
+        "2014": 6805,
+        "2015": 4672,
+        "2016": 4418,
+        "2017": 3034,
+        "2018": 1619,
+        "2019": 4770,
+        "2020": 3506,
+        "2021": 7503,
+        "2022": 12743,
+        "2023": 4430,
+        "2024": 8151,
+        "2025": 1420,
+        "2026": 3555
+      },
+      "raw_index_2005_eq_100": [
+        24.4,
+        110.7,
+        58.2,
+        66,
+        100,
+        43,
+        94.4,
+        65.6,
+        13.8,
+        118.1,
+        14,
+        242.6,
+        61.5,
+        265.1,
+        161.4,
+        156.9,
+        111.6,
+        87.7,
+        280.7,
+        334,
+        503.1,
+        865.6,
+        331.2,
+        814.3,
+        145.1,
+        328.8
+      ],
+      "harmonized_index_2005_eq_100": [
+        65.5,
+        148.3,
+        57.7,
+        66.2,
+        100,
+        52.2,
+        71.3,
+        60.5,
+        23.9,
+        85.5,
+        14.3,
+        40.3,
+        18.8,
+        44.4,
+        35.8,
+        36.1,
+        30.2,
+        11.5,
+        32.8,
+        30.1,
+        39.2,
+        92.8,
+        32.1,
+        37.7,
+        8.6,
+        25.8
+      ],
+      "measured_years": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "interpolated_years": [
+        2026
+      ]
+    },
+    "india": {
+      "years": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "raw_counts_by_year": {
+        "2001": 78,
+        "2002": 406,
+        "2003": 784,
+        "2004": 817,
+        "2005": 2295,
+        "2006": 1635,
+        "2007": 1882,
+        "2008": 3054,
+        "2009": 2649,
+        "2010": 3638,
+        "2011": 3365,
+        "2012": 26787,
+        "2013": 8463,
+        "2014": 28992,
+        "2015": 19236,
+        "2016": 40585,
+        "2017": 14700,
+        "2018": 58685,
+        "2019": 35471,
+        "2020": 68372,
+        "2021": 78547,
+        "2022": 36730,
+        "2023": 38042,
+        "2024": 31972,
+        "2025": 34482,
+        "2026": 45603
+      },
+      "modis_reference_counts_by_year": {
+        "2001": 78,
+        "2002": 406,
+        "2003": 784,
+        "2004": 817,
+        "2005": 2295,
+        "2006": 1635,
+        "2007": 1882,
+        "2008": 3054,
+        "2009": 2649,
+        "2010": 3638,
+        "2011": 3365,
+        "2012": 4854,
+        "2013": 712,
+        "2014": 4507,
+        "2015": 2832,
+        "2016": 5046,
+        "2017": 2034,
+        "2018": 4913,
+        "2019": 2658,
+        "2020": 5322,
+        "2021": 7907,
+        "2022": 2820,
+        "2023": 3357,
+        "2024": 2213,
+        "2025": 2296,
+        "2026": 4187
+      },
+      "raw_index_2005_eq_100": [
+        3.4,
+        17.7,
+        34.2,
+        35.6,
+        100.0,
+        71.2,
+        82.0,
+        133.1,
+        115.4,
+        158.5,
+        146.6,
+        1167.2,
+        368.8,
+        1263.3,
+        838.2,
+        1768.4,
+        640.5,
+        2557.1,
+        1545.6,
+        2979.2,
+        3422.5,
+        1600.4,
+        1657.6,
+        1393.1,
+        1502.5,
+        1987.1
+      ],
+      "harmonized_index_2005_eq_100": [
+        5.9,
+        27.8,
+        29.9,
+        35.2,
+        100.0,
+        94.0,
+        78.1,
+        97.7,
+        132.5,
+        165.4,
+        119.0,
+        156.5,
+        55.9,
+        220.1,
+        145.4,
+        207.2,
+        88.6,
+        189.6,
+        163.6,
+        168.6,
+        278.3,
+        141.8,
+        155.9,
+        88.9,
+        83.8,
+        182.4
+      ],
+      "measured_years": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "interpolated_years": [
+        2026
+      ]
+    },
+    "maritime": {
+      "years": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "raw_counts_by_year": {
+        "2001": 808,
+        "2002": 9360,
+        "2003": 1127,
+        "2004": 2947,
+        "2005": 2949,
+        "2006": 3582,
+        "2007": 2222,
+        "2008": 2206,
+        "2009": 3556,
+        "2010": 781,
+        "2011": 996,
+        "2012": 21199,
+        "2013": 5132,
+        "2014": 29779,
+        "2015": 48478,
+        "2016": 4595,
+        "2017": 7034,
+        "2018": 21217,
+        "2019": 89570,
+        "2020": 13733,
+        "2021": 10333,
+        "2022": 7590,
+        "2023": 17852,
+        "2024": 21340,
+        "2025": 6886,
+        "2026": 133225
+      },
+      "modis_reference_counts_by_year": {
+        "2001": 808,
+        "2002": 9360,
+        "2003": 1127,
+        "2004": 2947,
+        "2005": 2949,
+        "2006": 3582,
+        "2007": 2222,
+        "2008": 2206,
+        "2009": 3556,
+        "2010": 781,
+        "2011": 996,
+        "2012": 4032,
+        "2013": 723,
+        "2014": 4963,
+        "2015": 8292,
+        "2016": 777,
+        "2017": 1509,
+        "2018": 1797,
+        "2019": 8645,
+        "2020": 1181,
+        "2021": 1325,
+        "2022": 717,
+        "2023": 1612,
+        "2024": 1231,
+        "2025": 348,
+        "2026": 9433
+      },
+      "raw_index_2005_eq_100": [
+        27.4,
+        317.4,
+        38.2,
+        99.9,
+        100.0,
+        121.5,
+        75.3,
+        74.8,
+        120.6,
+        26.5,
+        33.8,
+        718.9,
+        174.0,
+        1009.8,
+        1643.9,
+        155.8,
+        238.5,
+        719.5,
+        3037.3,
+        465.7,
+        350.4,
+        257.4,
+        605.4,
+        723.6,
+        233.5,
+        4517.6
+      ],
+      "harmonized_index_2005_eq_100": [
+        41.3,
+        441.4,
+        62.8,
+        77.2,
+        100.0,
+        128.8,
+        147.9,
+        98.8,
+        90.6,
+        22.0,
+        67.7,
+        142.2,
+        73.2,
+        147.9,
+        149.9,
+        47.3,
+        46.9,
+        100.0,
+        196.4,
+        57.4,
+        43.6,
+        70.6,
+        56.0,
+        134.1,
+        26.6,
+        319.9
+      ],
+      "measured_years": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "interpolated_years": [
+        2026
+      ]
+    }
+  },
+  "india_empirical_epochs": [
+    {
+      "region": "india",
+      "date_window": "2001-11-05",
+      "year": 2001,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 78
+      },
+      "total_raw_detections": 78,
+      "deduplicated_fire_episodes": 41,
+      "deduplication_compression_ratio": 1.902,
+      "effective_observation_effort_omega": 0.4445,
+      "omega_before_cloud": 0.5272,
+      "cloud_clear_sky_fraction": 0.4847,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 359.7,
+      "raw_total_frp_mw": 1050.3,
+      "harmonized_total_frp_mw": 2087.8,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "india",
+      "date_window": "2002-11-05",
+      "year": 2002,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 406
+      },
+      "total_raw_detections": 406,
+      "deduplicated_fire_episodes": 251,
+      "deduplication_compression_ratio": 1.618,
+      "effective_observation_effort_omega": 0.5755,
+      "omega_before_cloud": 0.7705,
+      "cloud_clear_sky_fraction": 0.4294,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 1701.0,
+      "raw_total_frp_mw": 5358.6,
+      "harmonized_total_frp_mw": 12729.8,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "india",
+      "date_window": "2003-11-05",
+      "year": 2003,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 784
+      },
+      "total_raw_detections": 784,
+      "deduplicated_fire_episodes": 576,
+      "deduplication_compression_ratio": 1.361,
+      "effective_observation_effort_omega": 1.2244,
+      "omega_before_cloud": 1.0138,
+      "cloud_clear_sky_fraction": 0.6943,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 1834.7,
+      "raw_total_frp_mw": 9418.2,
+      "harmonized_total_frp_mw": 12296.4,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "india",
+      "date_window": "2004-11-05",
+      "year": 2004,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 817
+      },
+      "total_raw_detections": 817,
+      "deduplicated_fire_episodes": 561,
+      "deduplication_compression_ratio": 1.456,
+      "effective_observation_effort_omega": 1.0156,
+      "omega_before_cloud": 1.0138,
+      "cloud_clear_sky_fraction": 0.5759,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 2154.3,
+      "raw_total_frp_mw": 11390.2,
+      "harmonized_total_frp_mw": 16938.2,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "india",
+      "date_window": "2005-11-05",
+      "year": 2005,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2295
+      },
+      "total_raw_detections": 2295,
+      "deduplicated_fire_episodes": 1540,
+      "deduplication_compression_ratio": 1.49,
+      "effective_observation_effort_omega": 0.98,
+      "omega_before_cloud": 1.0138,
+      "cloud_clear_sky_fraction": 0.5557,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 6128.6,
+      "raw_total_frp_mw": 39690.1,
+      "harmonized_total_frp_mw": 63900.9,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "india",
+      "date_window": "2006-11-05",
+      "year": 2006,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1635
+      },
+      "total_raw_detections": 1635,
+      "deduplicated_fire_episodes": 1180,
+      "deduplication_compression_ratio": 1.386,
+      "effective_observation_effort_omega": 0.7991,
+      "omega_before_cloud": 1.0138,
+      "cloud_clear_sky_fraction": 0.4531,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 5759.0,
+      "raw_total_frp_mw": 20791.3,
+      "harmonized_total_frp_mw": 40760.2,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "india",
+      "date_window": "2007-11-05",
+      "year": 2007,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1882
+      },
+      "total_raw_detections": 1882,
+      "deduplicated_fire_episodes": 1251,
+      "deduplication_compression_ratio": 1.504,
+      "effective_observation_effort_omega": 1.0195,
+      "omega_before_cloud": 1.0138,
+      "cloud_clear_sky_fraction": 0.5781,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 4785.6,
+      "raw_total_frp_mw": 32048.3,
+      "harmonized_total_frp_mw": 51573.5,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "india",
+      "date_window": "2008-11-05",
+      "year": 2008,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3054
+      },
+      "total_raw_detections": 3054,
+      "deduplicated_fire_episodes": 2088,
+      "deduplication_compression_ratio": 1.463,
+      "effective_observation_effort_omega": 1.3595,
+      "omega_before_cloud": 1.0138,
+      "cloud_clear_sky_fraction": 0.7709,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 5989.8,
+      "raw_total_frp_mw": 49942.2,
+      "harmonized_total_frp_mw": 58171.2,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "india",
+      "date_window": "2009-11-05",
+      "year": 2009,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2649
+      },
+      "total_raw_detections": 2649,
+      "deduplicated_fire_episodes": 1933,
+      "deduplication_compression_ratio": 1.37,
+      "effective_observation_effort_omega": 0.9283,
+      "omega_before_cloud": 1.0138,
+      "cloud_clear_sky_fraction": 0.5264,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 8121.0,
+      "raw_total_frp_mw": 33086.6,
+      "harmonized_total_frp_mw": 56214.3,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "india",
+      "date_window": "2010-11-05",
+      "year": 2010,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3638
+      },
+      "total_raw_detections": 3638,
+      "deduplicated_fire_episodes": 2522,
+      "deduplication_compression_ratio": 1.443,
+      "effective_observation_effort_omega": 0.9703,
+      "omega_before_cloud": 1.0138,
+      "cloud_clear_sky_fraction": 0.5502,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 10136.9,
+      "raw_total_frp_mw": 64441.9,
+      "harmonized_total_frp_mw": 110255.4,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "india",
+      "date_window": "2011-11-05",
+      "year": 2011,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3365
+      },
+      "total_raw_detections": 3365,
+      "deduplicated_fire_episodes": 2294,
+      "deduplication_compression_ratio": 1.467,
+      "effective_observation_effort_omega": 1.2264,
+      "omega_before_cloud": 1.0138,
+      "cloud_clear_sky_fraction": 0.6954,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 7295.0,
+      "raw_total_frp_mw": 51593.0,
+      "harmonized_total_frp_mw": 65494.6,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.738,
+      "region": "india",
+      "date_window": "2012-11-05",
+      "year": 2012,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4854,
+        "VIIRS_SNPP_SP": 21933
+      },
+      "total_raw_detections": 26787,
+      "deduplicated_fire_episodes": 14323,
+      "deduplication_compression_ratio": 1.87,
+      "effective_observation_effort_omega": 1.4937,
+      "omega_before_cloud": 1.5004,
+      "cloud_clear_sky_fraction": 0.5723,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 9588.9,
+      "raw_total_frp_mw": 220421.9,
+      "harmonized_total_frp_mw": 139684.1,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.746,
+      "region": "india",
+      "date_window": "2013-11-05",
+      "year": 2013,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 712,
+        "VIIRS_SNPP_SP": 7751
+      },
+      "total_raw_detections": 8463,
+      "deduplicated_fire_episodes": 4959,
+      "deduplication_compression_ratio": 1.707,
+      "effective_observation_effort_omega": 1.4475,
+      "omega_before_cloud": 1.5004,
+      "cloud_clear_sky_fraction": 0.5546,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 3425.9,
+      "raw_total_frp_mw": 46810.4,
+      "harmonized_total_frp_mw": 29890.8,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.892,
+      "region": "india",
+      "date_window": "2014-11-05",
+      "year": 2014,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4507,
+        "VIIRS_SNPP_SP": 24485
+      },
+      "total_raw_detections": 28992,
+      "deduplicated_fire_episodes": 15762,
+      "deduplication_compression_ratio": 1.839,
+      "effective_observation_effort_omega": 1.1685,
+      "omega_before_cloud": 1.5004,
+      "cloud_clear_sky_fraction": 0.4477,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 13489.1,
+      "raw_total_frp_mw": 255110.8,
+      "harmonized_total_frp_mw": 221413.1,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.95,
+      "region": "india",
+      "date_window": "2015-11-05",
+      "year": 2015,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2832,
+        "VIIRS_SNPP_SP": 16404
+      },
+      "total_raw_detections": 19236,
+      "deduplicated_fire_episodes": 11174,
+      "deduplication_compression_ratio": 1.721,
+      "effective_observation_effort_omega": 1.2538,
+      "omega_before_cloud": 1.5004,
+      "cloud_clear_sky_fraction": 0.4804,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 8912.1,
+      "raw_total_frp_mw": 134388.8,
+      "harmonized_total_frp_mw": 106133.7,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.07,
+      "region": "india",
+      "date_window": "2016-11-05",
+      "year": 2016,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 5046,
+        "VIIRS_SNPP_SP": 35539
+      },
+      "total_raw_detections": 40585,
+      "deduplicated_fire_episodes": 21048,
+      "deduplication_compression_ratio": 1.928,
+      "effective_observation_effort_omega": 1.6579,
+      "omega_before_cloud": 1.5004,
+      "cloud_clear_sky_fraction": 0.6352,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 12695.6,
+      "raw_total_frp_mw": 341431.2,
+      "harmonized_total_frp_mw": 195037.3,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.99,
+      "region": "india",
+      "date_window": "2017-11-05",
+      "year": 2017,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2034,
+        "VIIRS_SNPP_SP": 12666
+      },
+      "total_raw_detections": 14700,
+      "deduplicated_fire_episodes": 8376,
+      "deduplication_compression_ratio": 1.755,
+      "effective_observation_effort_omega": 1.5433,
+      "omega_before_cloud": 1.5004,
+      "cloud_clear_sky_fraction": 0.5913,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 5427.3,
+      "raw_total_frp_mw": 79543.5,
+      "harmonized_total_frp_mw": 49120.8,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.0,
+      "region": "india",
+      "date_window": "2018-11-05",
+      "year": 2018,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4913,
+        "VIIRS_SNPP_SP": 26475,
+        "VIIRS_NOAA20_SP": 27297
+      },
+      "total_raw_detections": 58685,
+      "deduplicated_fire_episodes": 29128,
+      "deduplication_compression_ratio": 2.015,
+      "effective_observation_effort_omega": 2.0219,
+      "omega_before_cloud": 1.8046,
+      "cloud_clear_sky_fraction": 0.6441,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 11617.9,
+      "raw_total_frp_mw": 403869.2,
+      "harmonized_total_frp_mw": 124362.7,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.084,
+      "region": "india",
+      "date_window": "2019-11-05",
+      "year": 2019,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2658,
+        "VIIRS_SNPP_SP": 17122,
+        "VIIRS_NOAA20_SP": 15691
+      },
+      "total_raw_detections": 35471,
+      "deduplicated_fire_episodes": 17178,
+      "deduplication_compression_ratio": 2.065,
+      "effective_observation_effort_omega": 1.3819,
+      "omega_before_cloud": 1.8046,
+      "cloud_clear_sky_fraction": 0.4402,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 10024.8,
+      "raw_total_frp_mw": 269563.3,
+      "harmonized_total_frp_mw": 120334.2,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.0,
+      "region": "india",
+      "date_window": "2020-11-05",
+      "year": 2020,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 5322,
+        "VIIRS_SNPP_SP": 31123,
+        "VIIRS_NOAA20_SP": 31927
+      },
+      "total_raw_detections": 68372,
+      "deduplicated_fire_episodes": 31517,
+      "deduplication_compression_ratio": 2.169,
+      "effective_observation_effort_omega": 2.4605,
+      "omega_before_cloud": 1.8046,
+      "cloud_clear_sky_fraction": 0.7838,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 10330.0,
+      "raw_total_frp_mw": 508006.1,
+      "harmonized_total_frp_mw": 126626.5,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.781,
+      "region": "india",
+      "date_window": "2021-11-05",
+      "year": 2021,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 7907,
+        "VIIRS_SNPP_SP": 35661,
+        "VIIRS_NOAA20_SP": 34979
+      },
+      "total_raw_detections": 78547,
+      "deduplicated_fire_episodes": 35735,
+      "deduplication_compression_ratio": 2.198,
+      "effective_observation_effort_omega": 1.6895,
+      "omega_before_cloud": 1.8046,
+      "cloud_clear_sky_fraction": 0.5382,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 17057.4,
+      "raw_total_frp_mw": 652626.6,
+      "harmonized_total_frp_mw": 229270.5,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.09,
+      "region": "india",
+      "date_window": "2022-11-05",
+      "year": 2022,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2820,
+        "VIIRS_SNPP_SP": 16402,
+        "VIIRS_NOAA20_SP": 17508
+      },
+      "total_raw_detections": 36730,
+      "deduplicated_fire_episodes": 19048,
+      "deduplication_compression_ratio": 1.928,
+      "effective_observation_effort_omega": 1.767,
+      "omega_before_cloud": 1.8046,
+      "cloud_clear_sky_fraction": 0.5629,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 8693.4,
+      "raw_total_frp_mw": 237916.5,
+      "harmonized_total_frp_mw": 89026.4,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.997,
+      "region": "india",
+      "date_window": "2023-11-05",
+      "year": 2023,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3357,
+        "VIIRS_SNPP_SP": 17187,
+        "VIIRS_NOAA20_SP": 17498
+      },
+      "total_raw_detections": 38042,
+      "deduplicated_fire_episodes": 20170,
+      "deduplication_compression_ratio": 1.886,
+      "effective_observation_effort_omega": 1.7021,
+      "omega_before_cloud": 1.8046,
+      "cloud_clear_sky_fraction": 0.5422,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 9556.5,
+      "raw_total_frp_mw": 237200.4,
+      "harmonized_total_frp_mw": 91516.7,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.909,
+      "region": "india",
+      "date_window": "2024-11-05",
+      "year": 2024,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP",
+        "VIIRS_NOAA21_NRT"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2213,
+        "VIIRS_SNPP_SP": 7941,
+        "VIIRS_NOAA20_SP": 11009,
+        "VIIRS_NOAA21_NRT": 10809
+      },
+      "total_raw_detections": 31972,
+      "deduplicated_fire_episodes": 17453,
+      "deduplication_compression_ratio": 1.832,
+      "effective_observation_effort_omega": 2.1649,
+      "omega_before_cloud": 2.1087,
+      "cloud_clear_sky_fraction": 0.5902,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 5447.2,
+      "raw_total_frp_mw": 167881.4,
+      "harmonized_total_frp_mw": 44544.0,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.004,
+      "region": "india",
+      "date_window": "2025-11-05",
+      "year": 2025,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP",
+        "VIIRS_NOAA21_NRT"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2296,
+        "VIIRS_SNPP_SP": 10168,
+        "VIIRS_NOAA20_SP": 11113,
+        "VIIRS_NOAA21_NRT": 10905
+      },
+      "total_raw_detections": 34482,
+      "deduplicated_fire_episodes": 18805,
+      "deduplication_compression_ratio": 1.834,
+      "effective_observation_effort_omega": 2.4742,
+      "omega_before_cloud": 2.1087,
+      "cloud_clear_sky_fraction": 0.6745,
+      "cloud_reference_clear_sky_fraction": 0.5749,
+      "harmonized_viirs_eq_episodes": 5135.4,
+      "raw_total_frp_mw": 174173.2,
+      "harmonized_total_frp_mw": 42507.2,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    }
+  ],
+  "maritime_empirical_epochs": [
+    {
+      "region": "maritime",
+      "date_window": "2001-09-15",
+      "year": 2001,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 808
+      },
+      "total_raw_detections": 808,
+      "deduplicated_fire_episodes": 470,
+      "deduplication_compression_ratio": 1.719,
+      "effective_observation_effort_omega": 0.6987,
+      "omega_before_cloud": 0.5203,
+      "cloud_clear_sky_fraction": 0.308,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 2098.8,
+      "raw_total_frp_mw": 20155.3,
+      "harmonized_total_frp_mw": 41268.8,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "maritime",
+      "date_window": "2002-09-15",
+      "year": 2002,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 9360
+      },
+      "total_raw_detections": 9360,
+      "deduplicated_fire_episodes": 5544,
+      "deduplication_compression_ratio": 1.688,
+      "effective_observation_effort_omega": 0.7719,
+      "omega_before_cloud": 0.7605,
+      "cloud_clear_sky_fraction": 0.2328,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 22408.7,
+      "raw_total_frp_mw": 331286.8,
+      "harmonized_total_frp_mw": 618570.2,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "maritime",
+      "date_window": "2003-09-15",
+      "year": 2003,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1127
+      },
+      "total_raw_detections": 1127,
+      "deduplicated_fire_episodes": 674,
+      "deduplication_compression_ratio": 1.672,
+      "effective_observation_effort_omega": 0.6601,
+      "omega_before_cloud": 1.0006,
+      "cloud_clear_sky_fraction": 0.1513,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 3185.7,
+      "raw_total_frp_mw": 36329.0,
+      "harmonized_total_frp_mw": 76340.6,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "maritime",
+      "date_window": "2004-09-15",
+      "year": 2004,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2947
+      },
+      "total_raw_detections": 2947,
+      "deduplicated_fire_episodes": 1750,
+      "deduplication_compression_ratio": 1.684,
+      "effective_observation_effort_omega": 1.3935,
+      "omega_before_cloud": 1.0006,
+      "cloud_clear_sky_fraction": 0.3194,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 3918.2,
+      "raw_total_frp_mw": 100572.6,
+      "harmonized_total_frp_mw": 99083.2,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "maritime",
+      "date_window": "2005-09-15",
+      "year": 2005,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2949
+      },
+      "total_raw_detections": 2949,
+      "deduplicated_fire_episodes": 1735,
+      "deduplication_compression_ratio": 1.7,
+      "effective_observation_effort_omega": 1.0663,
+      "omega_before_cloud": 1.0006,
+      "cloud_clear_sky_fraction": 0.2444,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 5076.6,
+      "raw_total_frp_mw": 104557.5,
+      "harmonized_total_frp_mw": 137085.5,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "maritime",
+      "date_window": "2006-09-15",
+      "year": 2006,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3582
+      },
+      "total_raw_detections": 3582,
+      "deduplicated_fire_episodes": 2223,
+      "deduplication_compression_ratio": 1.611,
+      "effective_observation_effort_omega": 1.0606,
+      "omega_before_cloud": 1.0006,
+      "cloud_clear_sky_fraction": 0.2431,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 6539.5,
+      "raw_total_frp_mw": 133427.9,
+      "harmonized_total_frp_mw": 173429.7,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "maritime",
+      "date_window": "2007-09-15",
+      "year": 2007,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2222
+      },
+      "total_raw_detections": 2222,
+      "deduplicated_fire_episodes": 1400,
+      "deduplication_compression_ratio": 1.587,
+      "effective_observation_effort_omega": 0.5816,
+      "omega_before_cloud": 1.0006,
+      "cloud_clear_sky_fraction": 0.1333,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 7510.3,
+      "raw_total_frp_mw": 74702.1,
+      "harmonized_total_frp_mw": 191455.0,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "maritime",
+      "date_window": "2008-09-15",
+      "year": 2008,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 2206
+      },
+      "total_raw_detections": 2206,
+      "deduplicated_fire_episodes": 1364,
+      "deduplication_compression_ratio": 1.617,
+      "effective_observation_effort_omega": 0.8486,
+      "omega_before_cloud": 1.0006,
+      "cloud_clear_sky_fraction": 0.1945,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 5014.9,
+      "raw_total_frp_mw": 83667.2,
+      "harmonized_total_frp_mw": 146296.2,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "maritime",
+      "date_window": "2009-09-15",
+      "year": 2009,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 3556
+      },
+      "total_raw_detections": 3556,
+      "deduplicated_fire_episodes": 2064,
+      "deduplication_compression_ratio": 1.723,
+      "effective_observation_effort_omega": 1.3996,
+      "omega_before_cloud": 1.0006,
+      "cloud_clear_sky_fraction": 0.3208,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 4601.1,
+      "raw_total_frp_mw": 163901.3,
+      "harmonized_total_frp_mw": 163759.7,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "maritime",
+      "date_window": "2010-09-15",
+      "year": 2010,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 781
+      },
+      "total_raw_detections": 781,
+      "deduplicated_fire_episodes": 454,
+      "deduplication_compression_ratio": 1.72,
+      "effective_observation_effort_omega": 1.2709,
+      "omega_before_cloud": 1.0006,
+      "cloud_clear_sky_fraction": 0.2913,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 1114.5,
+      "raw_total_frp_mw": 23955.3,
+      "harmonized_total_frp_mw": 25576.5,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "region": "maritime",
+      "date_window": "2011-09-15",
+      "year": 2011,
+      "sources": [
+        "MODIS_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 996
+      },
+      "total_raw_detections": 996,
+      "deduplicated_fire_episodes": 621,
+      "deduplication_compression_ratio": 1.604,
+      "effective_observation_effort_omega": 0.5641,
+      "omega_before_cloud": 1.0006,
+      "cloud_clear_sky_fraction": 0.1293,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 3434.7,
+      "raw_total_frp_mw": 30830.5,
+      "harmonized_total_frp_mw": 74425.0,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.888,
+      "region": "maritime",
+      "date_window": "2012-09-15",
+      "year": 2012,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4032,
+        "VIIRS_SNPP_SP": 17167
+      },
+      "total_raw_detections": 21199,
+      "deduplicated_fire_episodes": 10346,
+      "deduplication_compression_ratio": 2.049,
+      "effective_observation_effort_omega": 1.4328,
+      "omega_before_cloud": 1.4809,
+      "cloud_clear_sky_fraction": 0.2219,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 7220.8,
+      "raw_total_frp_mw": 290774.7,
+      "harmonized_total_frp_mw": 196991.4,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.396,
+      "region": "maritime",
+      "date_window": "2013-09-15",
+      "year": 2013,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 723,
+        "VIIRS_SNPP_SP": 4409
+      },
+      "total_raw_detections": 5132,
+      "deduplicated_fire_episodes": 3003,
+      "deduplication_compression_ratio": 1.709,
+      "effective_observation_effort_omega": 0.8084,
+      "omega_before_cloud": 1.4809,
+      "cloud_clear_sky_fraction": 0.1252,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 3714.7,
+      "raw_total_frp_mw": 54605.4,
+      "harmonized_total_frp_mw": 64914.1,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.998,
+      "region": "maritime",
+      "date_window": "2014-09-15",
+      "year": 2014,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 4963,
+        "VIIRS_SNPP_SP": 24816
+      },
+      "total_raw_detections": 29779,
+      "deduplicated_fire_episodes": 13140,
+      "deduplication_compression_ratio": 2.266,
+      "effective_observation_effort_omega": 1.7505,
+      "omega_before_cloud": 1.4809,
+      "cloud_clear_sky_fraction": 0.2711,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 7506.4,
+      "raw_total_frp_mw": 403677.2,
+      "harmonized_total_frp_mw": 202272.0,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.99,
+      "region": "maritime",
+      "date_window": "2015-09-15",
+      "year": 2015,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 8292,
+        "VIIRS_SNPP_SP": 40186
+      },
+      "total_raw_detections": 48478,
+      "deduplicated_fire_episodes": 20052,
+      "deduplication_compression_ratio": 2.418,
+      "effective_observation_effort_omega": 2.6351,
+      "omega_before_cloud": 1.4809,
+      "cloud_clear_sky_fraction": 0.4081,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 7609.6,
+      "raw_total_frp_mw": 576162.1,
+      "harmonized_total_frp_mw": 196432.9,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.161,
+      "region": "maritime",
+      "date_window": "2016-09-15",
+      "year": 2016,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 777,
+        "VIIRS_SNPP_SP": 3818
+      },
+      "total_raw_detections": 4595,
+      "deduplicated_fire_episodes": 2617,
+      "deduplication_compression_ratio": 1.756,
+      "effective_observation_effort_omega": 1.0899,
+      "omega_before_cloud": 1.4809,
+      "cloud_clear_sky_fraction": 0.1688,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 2401.1,
+      "raw_total_frp_mw": 53116.4,
+      "harmonized_total_frp_mw": 49408.3,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.906,
+      "region": "maritime",
+      "date_window": "2017-09-15",
+      "year": 2017,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1509,
+        "VIIRS_SNPP_SP": 5525
+      },
+      "total_raw_detections": 7034,
+      "deduplicated_fire_episodes": 3956,
+      "deduplication_compression_ratio": 1.778,
+      "effective_observation_effort_omega": 1.6614,
+      "omega_before_cloud": 1.4809,
+      "cloud_clear_sky_fraction": 0.2573,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 2381.1,
+      "raw_total_frp_mw": 75706.1,
+      "harmonized_total_frp_mw": 45084.2,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.242,
+      "region": "maritime",
+      "date_window": "2018-09-15",
+      "year": 2018,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1797,
+        "VIIRS_SNPP_SP": 9411,
+        "VIIRS_NOAA20_SP": 10009
+      },
+      "total_raw_detections": 21217,
+      "deduplicated_fire_episodes": 9639,
+      "deduplication_compression_ratio": 2.201,
+      "effective_observation_effort_omega": 1.5306,
+      "omega_before_cloud": 1.7811,
+      "cloud_clear_sky_fraction": 0.1971,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 5078.7,
+      "raw_total_frp_mw": 222209.2,
+      "harmonized_total_frp_mw": 84646.0,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.809,
+      "region": "maritime",
+      "date_window": "2019-09-15",
+      "year": 2019,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 8645,
+        "VIIRS_SNPP_SP": 40341,
+        "VIIRS_NOAA20_SP": 40584
+      },
+      "total_raw_detections": 89570,
+      "deduplicated_fire_episodes": 25929,
+      "deduplication_compression_ratio": 3.454,
+      "effective_observation_effort_omega": 2.0975,
+      "omega_before_cloud": 1.7811,
+      "cloud_clear_sky_fraction": 0.2701,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 9969.2,
+      "raw_total_frp_mw": 1029476.7,
+      "harmonized_total_frp_mw": 283664.5,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.544,
+      "region": "maritime",
+      "date_window": "2020-09-15",
+      "year": 2020,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1181,
+        "VIIRS_SNPP_SP": 5451,
+        "VIIRS_NOAA20_SP": 7101
+      },
+      "total_raw_detections": 13733,
+      "deduplicated_fire_episodes": 7625,
+      "deduplication_compression_ratio": 1.801,
+      "effective_observation_effort_omega": 2.1107,
+      "omega_before_cloud": 1.7811,
+      "cloud_clear_sky_fraction": 0.2718,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 2913.3,
+      "raw_total_frp_mw": 145396.3,
+      "harmonized_total_frp_mw": 47042.4,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 0.911,
+      "region": "maritime",
+      "date_window": "2021-09-15",
+      "year": 2021,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1325,
+        "VIIRS_SNPP_SP": 4428,
+        "VIIRS_NOAA20_SP": 4580
+      },
+      "total_raw_detections": 10333,
+      "deduplicated_fire_episodes": 5494,
+      "deduplication_compression_ratio": 1.881,
+      "effective_observation_effort_omega": 2.002,
+      "omega_before_cloud": 1.7811,
+      "cloud_clear_sky_fraction": 0.2578,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 2213.1,
+      "raw_total_frp_mw": 95011.7,
+      "harmonized_total_frp_mw": 31718.0,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.343,
+      "region": "maritime",
+      "date_window": "2022-09-15",
+      "year": 2022,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 717,
+        "VIIRS_SNPP_SP": 3528,
+        "VIIRS_NOAA20_SP": 3345
+      },
+      "total_raw_detections": 7590,
+      "deduplicated_fire_episodes": 4134,
+      "deduplication_compression_ratio": 1.836,
+      "effective_observation_effort_omega": 0.9303,
+      "omega_before_cloud": 1.7811,
+      "cloud_clear_sky_fraction": 0.1198,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 3583.7,
+      "raw_total_frp_mw": 65054.7,
+      "harmonized_total_frp_mw": 43902.3,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.176,
+      "region": "maritime",
+      "date_window": "2023-09-15",
+      "year": 2023,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1612,
+        "VIIRS_SNPP_SP": 7950,
+        "VIIRS_NOAA20_SP": 8290
+      },
+      "total_raw_detections": 17852,
+      "deduplicated_fire_episodes": 7914,
+      "deduplication_compression_ratio": 2.256,
+      "effective_observation_effort_omega": 2.2451,
+      "omega_before_cloud": 1.7811,
+      "cloud_clear_sky_fraction": 0.2891,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 2842.8,
+      "raw_total_frp_mw": 170200.9,
+      "harmonized_total_frp_mw": 46631.2,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.369,
+      "region": "maritime",
+      "date_window": "2024-09-15",
+      "year": 2024,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP",
+        "VIIRS_NOAA21_NRT"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 1231,
+        "VIIRS_SNPP_SP": 6582,
+        "VIIRS_NOAA20_SP": 6882,
+        "VIIRS_NOAA21_NRT": 6645
+      },
+      "total_raw_detections": 21340,
+      "deduplicated_fire_episodes": 10529,
+      "deduplication_compression_ratio": 2.027,
+      "effective_observation_effort_omega": 1.0454,
+      "omega_before_cloud": 2.0813,
+      "cloud_clear_sky_fraction": 0.1152,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 6805.2,
+      "raw_total_frp_mw": 235136.0,
+      "harmonized_total_frp_mw": 105682.2,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    },
+    {
+      "sensor_invariance_ratio": 1.706,
+      "region": "maritime",
+      "date_window": "2025-09-15",
+      "year": 2025,
+      "sources": [
+        "MODIS_SP",
+        "VIIRS_SNPP_SP",
+        "VIIRS_NOAA20_SP",
+        "VIIRS_NOAA21_NRT"
+      ],
+      "raw_counts_by_source": {
+        "MODIS_SP": 348,
+        "VIIRS_SNPP_SP": 2254,
+        "VIIRS_NOAA20_SP": 2258,
+        "VIIRS_NOAA21_NRT": 2026
+      },
+      "total_raw_detections": 6886,
+      "deduplicated_fire_episodes": 3491,
+      "deduplication_compression_ratio": 1.973,
+      "effective_observation_effort_omega": 1.7451,
+      "omega_before_cloud": 2.0813,
+      "cloud_clear_sky_fraction": 0.1923,
+      "cloud_reference_clear_sky_fraction": 0.2294,
+      "harmonized_viirs_eq_episodes": 1351.7,
+      "raw_total_frp_mw": 50633.5,
+      "harmonized_total_frp_mw": 13821.5,
+      "daynight_sza_reclassified_pct": 0.0,
+      "saa_rejected_count": 0,
+      "saa_rejected_share_pct": 0.0
+    }
+  ]
+}

@@ -129,7 +129,7 @@ export function GlobeLanding({ period, yearStart, total, growth, regions }: Glob
         />
       </main>
 
-      <span className="text-meta text-ink-subtle pointer-events-none fixed bottom-4 left-14 z-10 hidden font-mono xl:block">
+      <span className="text-meta text-ink-subtle pointer-events-none fixed right-5 bottom-20 z-10 hidden font-mono xl:block">
         {t('drag')}
       </span>
 

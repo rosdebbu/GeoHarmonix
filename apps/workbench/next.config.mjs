@@ -4,6 +4,9 @@ import createNextIntlPlugin from 'next-intl/plugin';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  // The pages read these at request time from the app folder; Vercel only ships what is traced.
+  // shortcut: a copy of ../../data/processed, re-copy when the benchmark rewrites it.
+  outputFileTracingIncludes: { '/**': ['./data/processed/*.json'] },
   devIndicators: false,
   async headers() {
     return [
