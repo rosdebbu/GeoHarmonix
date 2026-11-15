@@ -30,7 +30,7 @@ export function LandingHeader({ years }: { years: number }) {
       </nav>
 
       <div className="pointer-events-auto ml-auto flex items-center gap-2">
-        <span className="border-line bg-panel/70 text-meta text-ink-muted tablet:inline-flex hidden h-8 items-center gap-1.5 rounded-md border px-2.5 backdrop-blur-sm">
+        <span className="border-line bg-panel/90 text-meta text-ink-muted tablet:inline-flex hidden h-8 items-center gap-1.5 rounded-md border px-2.5">
           <Icon icon={ICON.service} size="sm" className={connected ? 'text-ok' : 'text-amber'} />
           {connected ? header('connected') : header('notConnected')}
         </span>

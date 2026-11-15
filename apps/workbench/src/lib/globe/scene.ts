@@ -71,9 +71,8 @@ export class GlobeScene {
       antialias: true,
       alpha: true,
       powerPreference: 'high-performance',
-      preserveDrawingBuffer: true,
     });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
 
     this.camera = new THREE.PerspectiveCamera(30, 1, 0.01, 200);

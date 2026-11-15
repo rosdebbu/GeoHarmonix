@@ -136,16 +136,21 @@ export function createOrbits(): Orbits {
 
   let simMs = Date.now();
   let sinceRings = 99;
+  let ringTurn = 0;
 
   function update(delta: number) {
     simMs += delta * 1000 * SPEED;
     inertial.rotation.y = -gmst(simMs);
     inertial.updateMatrix();
+    // The orbit rings barely change: redraw one satellite's ring per step, not all five at once.
     sinceRings += delta;
-    const rebuild = sinceRings > 0.8;
-    if (rebuild) sinceRings = 0;
+    const rebuildOne = sinceRings > 1;
+    if (rebuildOne) {
+      sinceRings = 0;
+      ringTurn = (ringTurn + 1) % crafts.length;
+    }
 
-    for (const { craft, body, halo, label, ringGeometry, footGeometry, beamGeometry } of crafts) {
+    for (const [index, { craft, body, halo, label, ringGeometry, footGeometry, beamGeometry }] of crafts.entries()) {
       const el = elements[craft.id]!;
       const position = toScene(positionEci(el, simMs));
       body.position.copy(position);
@@ -172,7 +177,7 @@ export function createOrbits(): Orbits {
       beam.setXYZ(1, ground[0], ground[1], ground[2]);
       beam.needsUpdate = true;
 
-      if (rebuild) {
+      if (rebuildOne && index === ringTurn) {
         const period = ((Math.PI * 2) / el.n) * 1000;
         const ring = ringGeometry.getAttribute('position') as THREE.BufferAttribute;
         for (let k = 0; k <= RING_STEPS; k += 1) {

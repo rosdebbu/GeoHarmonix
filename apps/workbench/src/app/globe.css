@@ -73,9 +73,12 @@
     }
   }
 
+  /* Wide screens: the panel fills the space under the header, centred when it fits and
+     scrolling when it does not, so it never runs under the brand or the buttons. */
   @media (min-width: 1280px) {
     .fc-landing-panel {
-      transform: translateY(-46%);
+      justify-content: safe center;
+      padding-bottom: 0.25rem;
     }
   }
 

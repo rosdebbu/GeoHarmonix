@@ -133,7 +133,7 @@ export function GlobeLanding({ period, yearStart, total, growth, regions }: Glob
         {t('drag')}
       </span>
 
-      <div className="border-line bg-panel/80 text-label text-ink-muted pointer-events-none fixed right-5 bottom-10 z-10 hidden items-center gap-2 rounded-md border px-2 py-1 backdrop-blur-sm xl:flex">
+      <div className="border-line bg-panel/90 text-label text-ink-muted pointer-events-none fixed right-5 bottom-10 z-10 hidden items-center gap-2 rounded-md border px-2 py-1 xl:flex">
         <svg width={26} height={10} viewBox="0 0 26 10" aria-hidden="true">
           <line
             x1={1}

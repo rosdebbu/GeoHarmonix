@@ -45,8 +45,8 @@ export function RegionCard({
       onMouseLeave={handleLeave}
       onFocus={handleEnter}
       onBlur={handleLeave}
-      className={`grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-1 rounded-lg border px-3 py-2.5 text-left backdrop-blur-sm transition-colors ${
-        highlighted ? 'border-amber bg-raised' : 'border-line-strong bg-panel/60 hover:bg-raised'
+      className={`grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-1 rounded-lg border px-3 py-2.5 text-left transition-colors ${
+        highlighted ? 'border-amber bg-raised' : 'border-line-strong bg-panel/85 hover:bg-raised'
       }`}
     >
       <span className="text-subhead font-semibold">{region.name}</span>

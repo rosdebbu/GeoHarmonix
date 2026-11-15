@@ -41,7 +41,7 @@ export function LandingPanel({
     <section
       aria-label={t('choose')}
       data-collapsed={collapsed}
-      className="fc-landing-panel border-line bg-panel/90 absolute inset-x-3 bottom-3 z-20 flex flex-col gap-4 overflow-y-auto rounded-xl border p-4 backdrop-blur-md xl:inset-x-auto xl:top-1/2 xl:bottom-auto xl:left-14 xl:max-h-none xl:w-110 xl:gap-5 xl:overflow-visible xl:border-0 xl:bg-transparent xl:p-0 xl:backdrop-blur-none"
+      className="fc-landing-panel border-line bg-panel/90 absolute inset-x-3 bottom-3 z-20 flex flex-col gap-4 overflow-y-auto rounded-xl border p-4 backdrop-blur-md xl:inset-x-auto xl:top-22 xl:bottom-4 xl:left-14 xl:max-h-none xl:w-110 xl:gap-3 xl:overflow-y-auto xl:border-0 xl:bg-transparent xl:p-1 xl:backdrop-blur-none"
     >
       <button
         type="button"
@@ -99,7 +99,7 @@ export function LandingPanel({
         </div>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 xl:bg-canvas xl:sticky xl:bottom-0 xl:rounded-lg xl:pt-2">
         <button
           type="button"
           onClick={onTour}
