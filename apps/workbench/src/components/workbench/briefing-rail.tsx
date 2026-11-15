@@ -7,6 +7,8 @@ import { useService } from '@/components/service/service-provider';
 import { Icon, ICON } from '@/components/ui/icon';
 import { IDLE_RUN, reduceRun, type RunView } from '@/lib/service/run';
 import type { RegionId } from '@/lib/calendar/types';
+import { PanelBoundary } from '@/components/ui/panel-boundary';
+import { AssistantChat } from './assistant-chat';
 import { BriefingRun, type Preset } from './briefing-run';
 import { ConnectPanel, RailStatusChip, ServiceDown } from './service-panel';
 
@@ -14,8 +16,14 @@ export type RailState = 'auto' | 'open' | 'closed';
 
 type BriefingRailProps = {
   region: RegionId;
+  years: number[];
   state: RailState;
   onToggle: () => void;
+  onRegion: (region: RegionId) => void;
+  onYear: (year: number) => void;
+  onEvidence: () => void;
+  onTour: () => void;
+  onPresent: () => void;
 };
 
 const QUERIES: Record<Preset['useCase'], (region: string) => string> = {
@@ -24,7 +32,17 @@ const QUERIES: Record<Preset['useCase'], (region: string) => string> = {
   'UC-S1.4': (region) => `UC-S1.4 Generate flash NRT tactical ranger alert for ${region} in 2026.`,
 };
 
-export function BriefingRail({ region, state, onToggle }: BriefingRailProps) {
+export function BriefingRail({
+  region,
+  years,
+  state,
+  onToggle,
+  onRegion,
+  onYear,
+  onEvidence,
+  onTour,
+  onPresent,
+}: BriefingRailProps) {
   const t = useTranslations('Briefing');
   const review = useTranslations('Review');
   const service = useService();
@@ -103,6 +121,21 @@ export function BriefingRail({ region, state, onToggle }: BriefingRailProps) {
           ) : (
             <ConnectPanel />
           )}
+          <PanelBoundary name="The assistant">
+            <AssistantChat
+              region={region}
+              years={years}
+              onRegion={onRegion}
+              onYear={onYear}
+              onRun={(useCase) => {
+                if (connected) void start({ useCase } as Preset);
+                return connected;
+              }}
+              onEvidence={onEvidence}
+              onTour={onTour}
+              onPresent={onPresent}
+            />
+          </PanelBoundary>
         </div>
       </div>
 

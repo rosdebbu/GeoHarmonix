@@ -99,6 +99,18 @@ export function MapSearch({
   const countryCounted = country ? statsFor(country, year)[1] : 0;
   const share = countryCounted > 0 ? Math.round((counted / countryCounted) * 100) : 0;
 
+  const trend = useMemo(
+    () =>
+      Object.keys(place?.s ?? {})
+        .map(Number)
+        .sort((a, b) => a - b)
+        .map((y) => ({ year: y, count: place!.s[String(y)]![1] })),
+    [place],
+  );
+  const busiest = trend.reduce<(typeof trend)[number] | null>((best, row) => (!best || row.count > best.count ? row : best), null);
+  const before = trend.filter((row) => row.year < year).at(-1);
+  const change = before && before.count > 0 ? { prev: before.year, pct: Math.round(((counted - before.count) / before.count) * 100) } : null;
+
   return (
     <div className="flex flex-col gap-1.5">
       <div className="border-line bg-panel/95 relative rounded-md border">
@@ -215,6 +227,39 @@ export function MapSearch({
               </>
             )}
           </dl>
+          {trend.length > 1 && (
+            <div className="border-line mt-2 border-t pt-2">
+              <span className="text-micro text-ink-subtle block tracking-wide uppercase">{t('summaryTitle')}</span>
+              <p className="text-meta mt-1 leading-snug">{t('headline', { count: counted, name: place.name, year })}</p>
+              {change && (
+                <p className="text-micro text-ink-muted mt-0.5">
+                  {change.pct === 0 ? t('flat', { prev: change.prev }) : t(change.pct > 0 ? 'up' : 'down', { pct: Math.abs(change.pct), prev: change.prev })}
+                </p>
+              )}
+              {busiest && busiest.count > 0 && <p className="text-micro text-ink-muted mt-0.5">{t('busiest', { year: busiest.year, count: busiest.count })}</p>}
+              <svg role="img" aria-label={t('trendTitle')} viewBox={`0 0 ${trend.length * 8} 36`} className="mt-1.5 h-9 w-full">
+                {trend.map((row, index) => {
+                  const h = busiest && busiest.count > 0 ? Math.max(row.count > 0 ? 2 : 0.6, (row.count / busiest.count) * 34) : 0.6;
+                  return (
+                    <rect
+                      key={row.year}
+                      x={index * 8 + 1}
+                      y={35 - h}
+                      width={6}
+                      height={h}
+                      fill={row.year === year ? 'var(--amber)' : 'var(--line-strong)'}
+                    >
+                      <title>{`${row.year}: ${row.count}`}</title>
+                    </rect>
+                  );
+                })}
+              </svg>
+              <span className="text-micro text-ink-subtle flex justify-between font-mono">
+                <span>{trend[0]!.year}</span>
+                <span>{trend.at(-1)!.year}</span>
+              </span>
+            </div>
+          )}
           <p className="text-micro text-ink-subtle mt-2 leading-snug">
             {sampled === 0 ? t('empty') : t('note')}
           </p>

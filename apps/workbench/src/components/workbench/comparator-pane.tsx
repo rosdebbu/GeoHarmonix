@@ -151,7 +151,7 @@ export function ComparatorPane({
       className="border-line bg-panel flex h-105 flex-col overflow-hidden rounded-lg border"
     >
       <header className="border-line flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b px-3 py-2">
-        <h2 id="comparator-title" className="text-body font-semibold">
+        <h2 id="comparator-title" className="text-subhead font-semibold">
           {t('title')}
         </h2>
         <span className="text-label text-ink-subtle font-mono">{regionLabel}</span>

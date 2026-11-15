@@ -67,7 +67,7 @@ export function ClockPane({
       className="border-line bg-panel flex h-105 flex-col overflow-hidden rounded-lg border"
     >
       <header className="border-line border-b px-3 py-2">
-        <h2 id="clock-title" className="text-body font-semibold">
+        <h2 id="clock-title" className="text-subhead font-semibold">
           {t('title')}
         </h2>
         <p className="text-micro text-ink-subtle font-mono">

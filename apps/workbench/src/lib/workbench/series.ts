@@ -2,13 +2,14 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { cache } from 'react';
 import type { CalendarDataset, RegionId } from '@/lib/calendar/types';
-import type { AnnualSeries, Epoch, SfaiPeak, WorkbenchData } from './types';
+import type { AnnualSeries, Epoch, Omission, SensorLabData, SfaiPeak, WorkbenchData } from './types';
 
 type RawEpoch = {
   year: number;
   date_window: string;
   sources: string[];
   total_raw_detections: number;
+  raw_counts_by_source?: Record<string, number>;
   deduplicated_fire_episodes: number;
   harmonized_viirs_eq_episodes: number;
   saa_rejected_count: number;
@@ -54,6 +55,10 @@ type RawEmpirical = {
   maritime_empirical_epochs?: RawEpoch[];
   scan_angle_physics: RawPhysics;
   coincident_calibration: RawCalibration;
+  omission_factor_fit?: Record<
+    string,
+    { k_fit: number; train_years: number[]; held_out_before: Record<string, number>; held_out_after: Record<string, number> }
+  >;
 };
 
 const REGIONS: RegionId[] = ['mekong', 'amazon', 'india', 'maritime'];
@@ -141,6 +146,7 @@ export const loadWorkbench = cache(async (calendar: CalendarDataset): Promise<Wo
   const series = {} as Record<RegionId, AnnualSeries>;
   const epochs = {} as Record<RegionId, Epoch[]>;
   const sfai = {} as Record<RegionId, Record<number, SfaiPeak>>;
+  const lab = {} as Record<RegionId, SensorLabData>;
 
   for (const region of REGIONS) {
     const shift = empirical.regime_shift_series[region];
@@ -207,6 +213,28 @@ export const loadWorkbench = cache(async (calendar: CalendarDataset): Promise<Wo
     };
     epochs[region] = regionEpochs;
     sfai[region] = sfaiPeaks(calendar, region);
+    const family = (counts: Record<string, number>, prefix: string) =>
+      Object.entries(counts).reduce((sum, [name, value]) => (name.startsWith(prefix) ? sum + value : sum), 0);
+    const fit = empirical.omission_factor_fit?.[region];
+    const omission: Omission | null = fit
+      ? { kFit: fit.k_fit, trainYears: fit.train_years, before: fit.held_out_before, after: fit.held_out_after }
+      : null;
+    lab[region] = {
+      epochs: measured.flatMap((year) => {
+        const epoch = rawEpochs.find((item) => item.year === year);
+        if (!epoch?.raw_counts_by_source) return [];
+        return [
+          {
+            year,
+            modis: family(epoch.raw_counts_by_source, 'MODIS'),
+            viirs: family(epoch.raw_counts_by_source, 'VIIRS'),
+            saa: epoch.saa_rejected_count,
+            szaPct: epoch.daynight_sza_reclassified_pct,
+          },
+        ];
+      }),
+      omission,
+    };
   }
 
   const physics = empirical.scan_angle_physics;
@@ -215,6 +243,7 @@ export const loadWorkbench = cache(async (calendar: CalendarDataset): Promise<Wo
   if (!calibration) fail('coincident_calibration is missing');
 
   return {
+    lab,
     series,
     epochs,
     sfai,

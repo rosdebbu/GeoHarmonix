@@ -28,6 +28,10 @@ import { EvidenceDrawer } from './evidence-drawer';
 import { EvidenceQuickLook } from './evidence-quick-look';
 import { KpiStrip } from './kpi-strip';
 import { MapPane } from './map-pane';
+import { NasaFeedPanel } from './nasa-feed-panel';
+import { RegionalIntelligence } from './regional-intelligence';
+import { SensorLab } from './sensor-lab';
+import { PanelBoundary } from '@/components/ui/panel-boundary';
 import { tourFigures } from '@/lib/workbench/tour-figures';
 import { ConclusionStrip } from './conclusion-strip';
 import { TourOverlay } from './tour';
@@ -245,6 +249,15 @@ export function WorkbenchShell({
               />
             </div>
           </div>
+          <PanelBoundary name="Regional Fire Intelligence">
+            <RegionalIntelligence region={region} year={year} onYear={setYear} calendar={calendar} unit={dataset.unit} regionLabel={regionLabel} />
+          </PanelBoundary>
+          <PanelBoundary name="The Sensor Laboratory">
+            <SensorLab year={year} onYear={setYear} lab={workbench.lab[region]} calibration={workbench.calibration} physics={workbench.physics} regionLabel={regionLabel} />
+          </PanelBoundary>
+          <PanelBoundary name="The live NASA panel">
+            <NasaFeedPanel region={region} />
+          </PanelBoundary>
         </main>
 
         {briefState === 'open' && (
@@ -256,7 +269,17 @@ export function WorkbenchShell({
           />
         )}
 
-        <BriefingRail region={region} state={briefState} onToggle={toggleBrief} />
+        <BriefingRail
+          region={region}
+          years={epochs.map((item) => item.year)}
+          state={briefState}
+          onToggle={toggleBrief}
+          onRegion={changeRegion}
+          onYear={setYear}
+          onEvidence={handleEvidence}
+          onTour={handleTour}
+          onPresent={togglePresent}
+        />
       </div>
 
       <nav

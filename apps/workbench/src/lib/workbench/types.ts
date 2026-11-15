@@ -68,7 +68,29 @@ export type SfaiPeak = {
   pentad: number | null;
 };
 
+/** One measured epoch, split by sensor family. */
+export type LabEpoch = {
+  year: number;
+  modis: number;
+  viirs: number;
+  /** Detections rejected as South Atlantic Anomaly noise. */
+  saa: number;
+  /** Share of detections whose day/night class changed once the sun angle was applied, percent. */
+  szaPct: number;
+};
+
+/** The omission-factor fit: trained on some years, checked on later ones (1 = the views agree). */
+export type Omission = {
+  kFit: number;
+  trainYears: number[];
+  before: Record<string, number>;
+  after: Record<string, number>;
+};
+
+export type SensorLabData = { epochs: LabEpoch[]; omission: Omission | null };
+
 export type WorkbenchData = {
+  lab: Record<RegionId, SensorLabData>;
   series: Record<RegionId, AnnualSeries>;
   epochs: Record<RegionId, Epoch[]>;
   sfai: Record<RegionId, Record<number, SfaiPeak>>;

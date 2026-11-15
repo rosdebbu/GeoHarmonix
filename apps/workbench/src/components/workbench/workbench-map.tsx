@@ -23,6 +23,10 @@ const RELIEF_STYLE = {
   filter: 'var(--map-relief-filter)',
 };
 
+// shortcut: relief rasters exist only for these regions (the source raster is ~400 MB); add a
+// region here once scripts/build-map-relief.py has rendered public/map/relief-<region>.webp.
+const HAS_RELIEF = new Set<RegionId>(['mekong', 'amazon']);
+
 type WorkbenchMapProps = {
   region: RegionId;
   year: number;
@@ -41,7 +45,7 @@ type WorkbenchMapProps = {
   details: MapDetail[] | null;
 };
 
-function statusOf(point: MapPoint, filters: MapFilters): 'keep' | 'sza' | 'saa' | 'static' | 'dup' {
+export function statusOf(point: MapPoint, filters: MapFilters): 'keep' | 'sza' | 'saa' | 'static' | 'dup' {
   if (point.f & MAP_FLAGS.static && filters.static) return 'static';
   if (point.f & MAP_FLAGS.saa && filters.saa) return 'saa';
   if (point.f & MAP_FLAGS.sza && filters.sza) return 'sza';
@@ -159,6 +163,15 @@ export const WorkbenchMap = memo(function WorkbenchMap({
     return { resolution, bins, max, path: hexPath(edge) };
   }, [layers.hex, view.k, grid, data.pxPerKm, kept]);
 
+  // Weakest first, so the strong fires sit on top instead of being buried in a dense cluster.
+  const ordered = useMemo(
+    () =>
+      layers.power && details
+        ? [...kept].sort((a, b) => (details[a.i]?.[2] ?? 0) - (details[b.i]?.[2] ?? 0))
+        : kept,
+    [kept, details, layers.power],
+  );
+
   const marker = markerScale(view.k);
 
   // Colour by fire power when asked and loaded; otherwise by sensor. Stronger fires draw larger.
@@ -169,7 +182,7 @@ export const WorkbenchMap = memo(function WorkbenchMap({
   };
   const boostOf = (point: MapPoint) => {
     const mw = megawatts(point);
-    return mw === undefined ? 1 : 1 + 0.7 * powerT(mw);
+    return mw === undefined ? 1 : 1 + 0.5 * powerT(mw);
   };
 
   const toViewBox = useCallback(
@@ -342,7 +355,8 @@ export const WorkbenchMap = memo(function WorkbenchMap({
         </pattern>
       </defs>
 
-      <rect width={width} height={height} fill="var(--map-ocean)" />
+      {/* Far larger than the viewBox, so a wide pane never shows blank space beside the sea. */}
+      <rect x={-5000} y={-5000} width={10000} height={10000} fill="var(--map-ocean)" />
       <g ref={groupRef} transform={`translate(${view.x} ${view.y}) scale(${view.k})`}>
         <path
           d={data.graticule}
@@ -360,17 +374,19 @@ export const WorkbenchMap = memo(function WorkbenchMap({
         ))}
         {/* Natural Earth shaded relief, already in this projection; the blend and filter
             come from the theme so flat land is unchanged and only the hills shade it. */}
-        <image
-          href={`/map/relief-${region}.webp`}
-          x={-pad.x}
-          y={-pad.y}
-          width={width + 2 * pad.x}
-          height={height + 2 * pad.y}
-          preserveAspectRatio="none"
-          clipPath={`url(#fc-land-${region})`}
-          style={RELIEF_STYLE}
-          aria-hidden="true"
-        />
+        {HAS_RELIEF.has(region) && (
+          <image
+            href={`/map/relief-${region}.webp`}
+            x={-pad.x}
+            y={-pad.y}
+            width={width + 2 * pad.x}
+            height={height + 2 * pad.y}
+            preserveAspectRatio="none"
+            clipPath={`url(#fc-land-${region})`}
+            style={RELIEF_STYLE}
+            aria-hidden="true"
+          />
+        )}
         <path
           d={data.lakes}
           fill="var(--map-ocean)"
@@ -469,19 +485,20 @@ export const WorkbenchMap = memo(function WorkbenchMap({
 
         {layers.footprints &&
           !layers.hex &&
-          kept.map((point) => (
+          ordered.map((point) => (
             <ellipse
               key={`kept-${point.i}`}
               cx={point.x}
               cy={point.y}
-              rx={Math.max((point.sc * data.pxPerKm) / 2, (1.7 * marker * boostOf(point)) / view.k)}
-              ry={Math.max((point.tr * data.pxPerKm) / 2, (1.25 * marker * boostOf(point)) / view.k)}
+              rx={Math.max((point.sc * data.pxPerKm) / 2, (1.4 * marker * boostOf(point)) / view.k)}
+              ry={Math.max((point.tr * data.pxPerKm) / 2, (1.05 * marker * boostOf(point)) / view.k)}
               transform={`rotate(${point.dn === 'N' ? -8 : 8} ${point.x} ${point.y})`}
               fill={tintOf(point)}
-              fillOpacity={0.92}
-              stroke={point.s === 'm' ? 'var(--text)' : 'none'}
-              strokeWidth={0.9}
-              strokeOpacity={0.85}
+              fillOpacity={0.85}
+              // MODIS is ringed in white, VIIRS gets a thin dark edge so overlapping dots stay apart.
+              stroke={point.s === 'm' ? 'var(--text)' : 'var(--map-ocean)'}
+              strokeWidth={point.s === 'm' ? 0.9 : 0.4}
+              strokeOpacity={point.s === 'm' ? 0.85 : 0.6}
               vectorEffect="non-scaling-stroke"
               onPointerEnter={handlePointerEnter(point, 'keep')}
             />
@@ -495,14 +512,13 @@ export const WorkbenchMap = memo(function WorkbenchMap({
               key={`excluded-${point.i}-${status}`}
               cx={point.x}
               cy={point.y}
-              r={((status === 'static' ? 2.8 : 3.2) * marker) / view.k}
-              transform={`translate(0 0) scale(1)`}
+              r={((status === 'static' ? 2.4 : 2.7) * marker) / view.k}
               fill="none"
               stroke={status === 'static' ? 'var(--purple)' : 'var(--grey)'}
               strokeWidth={1}
               strokeDasharray={status === 'static' ? undefined : '2 1.5'}
               vectorEffect="non-scaling-stroke"
-              opacity={0.7}
+              opacity={0.55}
               onPointerEnter={handlePointerEnter(point, status)}
             />
           ))}

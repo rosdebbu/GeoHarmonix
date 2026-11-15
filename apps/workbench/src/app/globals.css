@@ -5,8 +5,8 @@
 @source "../";
 
 @theme inline {
-  --font-sans: var(--font-plex-sans);
-  --font-mono: var(--font-plex-mono);
+  --font-sans: var(--font-plex-sans), var(--font-devanagari);
+  --font-mono: var(--font-plex-mono), var(--font-devanagari);
 
   --breakpoint-tablet: 45rem;
   --breakpoint-wide: 62.5rem;
@@ -209,6 +209,29 @@
   @media (max-width: 719px) {
     .fc-map-pane {
       height: calc(100dvh - 11.375rem);
+    }
+  }
+
+  /* Below the wide breakpoint the inspector and its search stack with the map, so the pane
+     grows to hold them instead of clipping the search bar. */
+  @media (max-width: 999px) {
+    .fc-map-pane {
+      height: auto;
+    }
+  }
+
+  /* The live NASA views (map and globe) share one height; the flat plot is capped. */
+  .fc-live-view {
+    height: 32rem;
+  }
+
+  .fc-live-plot {
+    max-height: 34rem;
+  }
+
+  @media (max-width: 719px) {
+    .fc-live-view {
+      height: 26rem;
     }
   }
 

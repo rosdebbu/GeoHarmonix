@@ -87,7 +87,7 @@ export function MapDetailCard({
   return (
     <aside
       aria-label={t('title')}
-      className="border-line bg-panel flex flex-col overflow-hidden rounded-md border"
+      className="border-line bg-panel flex shrink-0 flex-col overflow-hidden rounded-md border"
     >
       <div className="border-line flex items-start justify-between gap-2 border-b px-3 py-2">
         <div className="min-w-0">
@@ -108,7 +108,7 @@ export function MapDetailCard({
         </button>
       </div>
 
-      <div className="overflow-y-auto px-3 py-2">
+      <div className="px-3 py-3">
         <div className="rounded-md border p-2" style={{ borderColor: TONE[status] }}>
           <span className="text-meta block font-semibold" style={{ color: TONE[status] }}>
             {t(`headline.${status}`)}
@@ -122,23 +122,28 @@ export function MapDetailCard({
         {!loading && !detail && <p className="text-micro text-ink-subtle mt-2">{t('unavailable')}</p>}
 
         {detail && (
-          <dl className="mt-2 space-y-2">
+          <dl className="divide-line mt-3 divide-y">
             {rows.map((row) => (
-              <div key={row.label}>
-                <div className="flex items-baseline justify-between gap-3">
-                  <dt className="text-micro text-ink-subtle">{row.label}</dt>
-                  <dd className="text-micro text-ink text-right font-mono">{row.value}</dd>
-                </div>
+              <div
+                key={row.label}
+                className="grid grid-cols-[minmax(0,auto)_minmax(0,1fr)] items-baseline gap-x-3 gap-y-0.5 py-2 first:pt-0"
+              >
+                <dt className="text-micro text-ink-muted font-medium">{row.label}</dt>
+                <dd className="text-micro text-ink text-right font-mono tabular-nums break-words">
+                  {row.value}
+                </dd>
                 {row.hint && (
-                  <p className="text-micro text-ink-subtle mt-0.5 leading-snug opacity-80">
-                    {row.hint}
-                  </p>
+                  <p className="text-micro text-ink-subtle col-span-2 leading-snug">{row.hint}</p>
                 )}
               </div>
             ))}
           </dl>
         )}
-        {detail && <p className="text-micro text-ink-subtle mt-2 leading-relaxed">{t('hover')}</p>}
+        {detail && (
+          <p className="text-micro text-ink-subtle border-line mt-1 border-t pt-2 leading-relaxed">
+            {t('hover')}
+          </p>
+        )}
       </div>
     </aside>
   );

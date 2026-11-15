@@ -12,6 +12,11 @@
  * scripts/build-map-relief.py from the grid this script writes, so it lands on exactly
  * the same Lambert projection as the points.
  *
+ * India's official boundary (all of Jammu & Kashmir and Ladakh): download
+ * natural-earth-vector's ne_10m_admin_0_countries_ind.geojson, convert it to a TopoJSON atlas
+ * with topojson-server (feature id = ISO_N3, properties.name = NAME) and point
+ * WORLD_ATLAS_PATH at the result. The default atlas draws the de facto lines instead.
+ *
  * Run from apps/workbench (download the inputs once into .cache/ne):
  *   ../../.venv/bin/python scripts/flag-map-points.py
  *   bun scripts/build-map-data.mjs

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google';
+import { IBM_Plex_Mono, IBM_Plex_Sans, Noto_Sans_Devanagari } from 'next/font/google';
 import { cookies } from 'next/headers';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages, getTranslations } from 'next-intl/server';
@@ -23,6 +23,14 @@ const mono = IBM_Plex_Mono({
   subsets: ['latin', 'vietnamese'],
   weight: ['400', '500', '600'],
   variable: '--font-plex-mono',
+  display: 'swap',
+});
+
+// Plex has no Devanagari; this fills in for Hindi text and is only used where Plex has no glyph.
+const devanagari = Noto_Sans_Devanagari({
+  subsets: ['devanagari'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-devanagari',
   display: 'swap',
 });
 
@@ -107,7 +115,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     <html lang={locale} data-theme={theme} suppressHydrationWarning>
-      <body className={`${sans.variable} ${mono.variable} bg-canvas text-ink`}>
+      <body className={`${sans.variable} ${mono.variable} ${devanagari.variable} bg-canvas text-ink`}>
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
